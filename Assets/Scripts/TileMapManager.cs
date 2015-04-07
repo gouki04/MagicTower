@@ -75,22 +75,19 @@ public class TileMapManager
 		return cur;
 	}
 
-	private int parseLayer(string[] content, int cur, GameObject[,] layer)
+	private int parseLayer(string[] content, int cur, TileMap.TileLayer layer)
 	{
 		++cur;
 
-		var width = layer.GetLength (1);
-		var height = layer.GetLength (0);
+		var width = layer.Width;
+		var height = layer.Height;
 
 		for (int r = 0; r < height; ++r, ++cur) {
 			for (int c = 0; c < width; ++c) {
 				var tile_char = content[cur][c];
 				var tile = TileFactory.Instance.CreateTile(tile_char);
 				if (tile != null) {
-					tile.transform.parent = mTileMapObj.transform;
-					tile.transform.localPosition = new Vector3(c, height - r - 1, 0);
-
-					layer[r,c] = tile;
+					layer[height - r - 1, c] = tile;
 				}
 			}
 		}
@@ -98,7 +95,7 @@ public class TileMapManager
 		return cur;
 	}
 
-	private int parseMonter(string[] content, int cur, GameObject[,] layer)
+	private int parseMonter(string[] content, int cur, TileMap.TileLayer layer)
 	{
 		++cur;
 
@@ -110,7 +107,7 @@ public class TileMapManager
 		return cur;
 	}
 
-	private int parseNpc(string[] content, int cur, GameObject[,] layer)
+	private int parseNpc(string[] content, int cur, TileMap.TileLayer layer)
 	{
 		++cur;
 		
@@ -122,7 +119,7 @@ public class TileMapManager
 		return cur;
 	}
 
-	private int parseItem(string[] content, int cur, GameObject[,] layer)
+	private int parseItem(string[] content, int cur, TileMap.TileLayer layer)
 	{
 		++cur;
 		
@@ -134,7 +131,7 @@ public class TileMapManager
 		return cur;
 	}
 
-	private int parsePortal(string[] content, int cur, GameObject[,] layer)
+	private int parsePortal(string[] content, int cur, TileMap.TileLayer layer)
 	{
 		++cur;
 		
@@ -157,7 +154,8 @@ public class TileMapManager
 		uint width, height;
 		cur_idx = parseMapSize (content, cur_idx, out width, out height);
 	
-		TileMap map = new TileMap (width, height);
+		var map = mTileMapObj.AddComponent<TileMap>();
+		map.Init (width, height);
 
 		// layer 0
 		cur_idx = parseLayer (content, cur_idx, map.LayerFloor);

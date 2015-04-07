@@ -10,8 +10,40 @@
 using System;
 using UnityEngine;
 
-public class TileMap
+public class TileMap : MonoBehaviour
 {
+	public class TileLayer
+	{
+		private Tile[,] mTiles;
+		private TileMap mParent;
+
+		public int Width
+		{
+			get { return mTiles.GetLength(1); }
+		}
+
+		public int Height
+		{
+			get { return mTiles.GetLength(0); }
+		}
+
+		public void Init(TileMap parent, uint width, uint height)
+		{
+			mParent = parent;
+			mTiles = new Tile[height, width];
+		}
+
+		public Tile this[int r, int c]
+		{
+			get { return mTiles[r, c]; }
+			set
+			{
+				value.transform.parent = mParent.transform;
+				value.transform.localPosition = new Vector3(c, r, 0);
+			}
+		}
+	}
+
 	private uint mWidth;
 	public uint Width
 	{
@@ -24,24 +56,27 @@ public class TileMap
 		get { return mHeight; }
 	}
 
-	private GameObject[,] mLayerFloor;
-	public GameObject[,] LayerFloor
+	private TileLayer mLayerFloor;
+	public TileLayer LayerFloor
 	{
 		get { return mLayerFloor; }
 	}
 
-	private GameObject[,] mLayerCollide;
-	public GameObject[,] LayerCollide
+	private TileLayer mLayerCollide;
+	public TileLayer LayerCollide
 	{
 		get { return mLayerCollide; }
 	}
 
-	public TileMap (uint width, uint height)
+	public void Init (uint width, uint height)
 	{
 		mWidth = width;
 		mHeight = height;
 
-		mLayerFloor = new GameObject[mHeight, mWidth];
-		mLayerCollide = new GameObject[mHeight, mWidth];
+		mLayerFloor = new TileLayer();
+		mLayerFloor.Init(this, width, height);
+
+		mLayerCollide = new TileLayer();
+		mLayerCollide.Init(this, width, height);
 	}
 }

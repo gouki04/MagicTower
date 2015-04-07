@@ -29,16 +29,20 @@ public class TileFactory
 	{
 	}
 
-	public GameObject CreateTile(char tile_type)
+	public Tile CreateTile(char tile_type)
 	{
 		if (tile_type == '1') {
-			return (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Floor") as GameObject);
+			var tileObj = (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Floor") as GameObject);
+			return tileObj.AddComponent<Tile>();
 		} else if (tile_type == '2') {
-			return (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Wall") as GameObject);
+			var tileObj = (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Wall") as GameObject);
+			return tileObj.AddComponent<Tile>();
 		} else if (tile_type == '3') {
-			return (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Water") as GameObject);
+			var tileObj = (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Water") as GameObject);
+			return tileObj.AddComponent<Tile>();
 		} else if (tile_type == '4') {
-			return (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Sky") as GameObject);
+			var tileObj = (GameObject)GameObject.Instantiate (Resources.Load ("Prefabs/Sky") as GameObject);
+			return tileObj.AddComponent<Tile>();
 		} else {
 			return null;
 		}
