@@ -3,20 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Csv
+public class Csv : Singleton<Csv>
 {
-	static private Csv mInstance;
-	static public Csv Instance
-	{
-		get 
-		{
-			if (mInstance == null)
-				mInstance = new Csv();
-
-			return mInstance;
-		}
-	}
-
 	public Csv()
 	{
 		mCSVs = new Dictionary<string, CsvTable> ();

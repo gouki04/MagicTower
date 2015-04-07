@@ -10,29 +10,53 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Tile map.
+/// </summary>
 public class TileMap : MonoBehaviour
 {
+
 	public class TileLayer
 	{
 		private Tile[,] mTiles;
 		private TileMap mParent;
 
+		/// <summary>
+		/// Gets the width.
+		/// </summary>
+		/// <value>The width.</value>
 		public int Width
 		{
 			get { return mTiles.GetLength(1); }
 		}
 
+		/// <summary>
+		/// Gets the height.
+		/// </summary>
+		/// <value>The height.</value>
 		public int Height
 		{
 			get { return mTiles.GetLength(0); }
 		}
 
+		/// <summary>
+		/// Init the specified parent, width and height.
+		/// </summary>
+		/// <param name="parent">Parent.</param>
+		/// <param name="width">Width.</param>
+		/// <param name="height">Height.</param>
 		public void Init(TileMap parent, uint width, uint height)
 		{
 			mParent = parent;
 			mTiles = new Tile[height, width];
 		}
 
+		/// <summary>
+		/// 获取或设置对应位置的tile
+		/// 注意在set时，会自动修改tile的坐标
+		/// </summary>
+		/// <param name="r">行坐标</param>
+		/// <param name="c">列坐标</param>
 		public Tile this[int r, int c]
 		{
 			get { return mTiles[r, c]; }
@@ -44,24 +68,36 @@ public class TileMap : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 地图宽度
+	/// </summary>
 	private uint mWidth;
 	public uint Width
 	{
 		get { return mWidth; }
 	}
 
+	/// <summary>
+	/// 地图高度
+	/// </summary>
 	private uint mHeight;
 	public uint Height
 	{
 		get { return mHeight; }
 	}
 
+	/// <summary>
+	/// 地板层
+	/// </summary>
 	private TileLayer mLayerFloor;
 	public TileLayer LayerFloor
 	{
 		get { return mLayerFloor; }
 	}
 
+	/// <summary>
+	/// 碰撞层
+	/// </summary>
 	private TileLayer mLayerCollide;
 	public TileLayer LayerCollide
 	{

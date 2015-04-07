@@ -10,25 +10,8 @@
 using System;
 using UnityEngine;
 
-public class TileFactory
+public class TileFactory : Singleton<TileFactory>
 {
-	static private TileFactory mInstance;
-
-	static public TileFactory Instance
-	{
-		get
-		{
-			if (mInstance == null)
-				mInstance = new TileFactory();
-
-			return mInstance;
-		}
-	}
-
-	public TileFactory ()
-	{
-	}
-
 	public Tile CreateTile(char tile_type)
 	{
 		if (tile_type == '1') {

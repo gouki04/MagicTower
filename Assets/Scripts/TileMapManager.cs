@@ -11,20 +11,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileMapManager
+public class TileMapManager : Singleton<TileMapManager>
 {
-	static private TileMapManager mInstance;
-	static public TileMapManager Instance
-	{
-		get
-		{
-			if (mInstance == null)
-				mInstance = new TileMapManager();
-
-			return mInstance;
-		}
-	}
-
 	private Dictionary<uint, TileMap> mMaps;
 
 	public TileMap GetMap(uint lv)
