@@ -10,27 +10,37 @@ public class TileMapComponent : MonoBehaviour
 
     private void AddTile(mt.Tile tile)
     {
-        GameObject prefab = null;
+        GameObject prefab = new GameObject();
+        SpriteRenderer spriteRenderer = prefab.AddComponent<SpriteRenderer>();
+        mt.SpriteSheetManager sheet = mt.SpriteSheetManager.Instance;
         switch (tile.Type)
         {
             case mt.Tile.EType.Floor:
                 {
-                    prefab = Resources.Load("Prefabs/Floor") as GameObject;
+                    spriteRenderer.sprite = sheet["floor_0"];
+                    spriteRenderer.sortingLayerName = "Floor";
+                    //prefab = Resources.Load("Prefabs/Floor") as GameObject;
                     break;
                 }
             case mt.Tile.EType.Wall:
                 {
-                    prefab = Resources.Load("Prefabs/Wall") as GameObject;
+                    spriteRenderer.sprite = sheet["wall_7"];
+                    spriteRenderer.sortingLayerName = "Collide";
+                    //prefab = Resources.Load("Prefabs/Wall") as GameObject;
                     break;
                 }
             case mt.Tile.EType.Water:
                 {
-                    prefab = Resources.Load("Prefabs/Water") as GameObject;
+                    spriteRenderer.sprite = sheet["water_0"];
+                    spriteRenderer.sortingLayerName = "Collide";
+                    //prefab = Resources.Load("Prefabs/Water") as GameObject;
                     break;
                 }
             case mt.Tile.EType.Sky:
                 {
-                    prefab = Resources.Load("Prefabs/Sky") as GameObject;
+                    spriteRenderer.sprite = sheet["wall_13"];
+                    spriteRenderer.sortingLayerName = "Collide";
+                    //prefab = Resources.Load("Prefabs/Sky") as GameObject;
                     break;
                 }
         }

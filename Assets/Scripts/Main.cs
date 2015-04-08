@@ -13,6 +13,10 @@ public class Main : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        mt.SpriteSheetManager.Instance.Load("3");
+        mt.SpriteSheetManager.Instance.Load("monster");
+        mt.SpriteSheetManager.Instance.Load("wall");
+
 		mt.TileMapManager.Instance.TileMapObj = TileMap;
         mt.TileMapManager.Instance.PlayerObj = Player;
         mt.TileMapManager.Instance.EnterMap(0, 0, 0);
