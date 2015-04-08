@@ -39,22 +39,29 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Component\TileComponent.cs" />
+     <Compile Include="Assets\Scripts\Component\TileMapComponent.cs" />
      <Compile Include="Assets\Scripts\Csv.cs" />
+     <Compile Include="Assets\Scripts\Data\Tile.cs" />
+     <Compile Include="Assets\Scripts\Data\TileFactory.cs" />
+     <Compile Include="Assets\Scripts\Data\TileLayer.cs" />
+     <Compile Include="Assets\Scripts\Data\TileMap.cs" />
+     <Compile Include="Assets\Scripts\Data\TileMapManager.cs" />
+     <Compile Include="Assets\Scripts\Data\TilePosition.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Monster.cs" />
-     <Compile Include="Assets\Scripts\TileFactory.cs" />
-     <Compile Include="Assets\Scripts\TileMap.cs" />
-     <Compile Include="Assets\Scripts\TileMapManager.cs" />
+     <Compile Include="Assets\Scripts\Singleton.cs" />
+     <Compile Include="Assets\Scripts\SpriteSheet.cs" />
      <None Include="Assets\Resources\level0.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
