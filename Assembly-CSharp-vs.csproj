@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Monster.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\SpriteSheet.cs" />
+     <Compile Include="Assets\Scripts\SpriteSheetManager.cs" />
      <None Include="Assets\Resources\level0.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
