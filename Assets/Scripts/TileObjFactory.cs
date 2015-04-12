@@ -24,7 +24,7 @@ public class TileObjFactory : Singleton<TileObjFactory>
 		tile_component.DataTile = tile_data;
 		
 		// set the position
-		obj.transform.localPosition = new Vector3 (tileData.Position.Col, tileData.Position.Row, 0);
+        obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
 		
 		return obj;
 	}
@@ -50,25 +50,28 @@ public class TileObjFactory : Singleton<TileObjFactory>
 	}
 
 	public GameObject CreateTile(mt.Tile tile_data)
-	{
-		switch(tile_data.Type) {
-			case mt.Tile.EType.Floor:
-			{
-				return CreateFloor(tile_data);
-			}
-			case mt.Tile.EType.Wall:
-			{
-				return CreateWall(tile_data);
-			}
-			case mt.Tile.EType.Water:
-			{
-				return CreateWater(tile_data);
-			}
-			case mt.Tile.EType.Sky:
-			{
-				return CreateSky(tile_data);
-			}
-		}
+    {
+        switch (tile_data.Type)
+        {
+            case mt.Tile.EType.Floor:
+                {
+                    return CreateFloor(tile_data);
+                }
+            case mt.Tile.EType.Wall:
+                {
+                    return CreateWall(tile_data);
+                }
+            case mt.Tile.EType.Water:
+                {
+                    return CreateWater(tile_data);
+                }
+            case mt.Tile.EType.Sky:
+                {
+                    return CreateSky(tile_data);
+                }
+            default:
+                return null;
+        }
 	}
 }
 

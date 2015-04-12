@@ -17,9 +17,12 @@ public class Main : MonoBehaviour
         mt.SpriteSheetManager.Instance.Load("monster");
         mt.SpriteSheetManager.Instance.Load("wall");
 
-		mt.TileMapManager.Instance.TileMapObj = TileMap;
-        mt.TileMapManager.Instance.PlayerObj = Player;
-        mt.TileMapManager.Instance.EnterMap(0, 0, 0);
+        //mt.TileMapManager.Instance.TileMapObj = TileMap;
+        //mt.TileMapManager.Instance.PlayerObj = Player;
+        //mt.TileMapManager.Instance.EnterMap(0, 0, 0);
+
+        mt.Game.Instance.Init(TileMap, Player);
+        mt.Game.Instance.EnterMap(0, 0, 0);
 	}
 
 	private void AddMonster(int r, int c, uint id)

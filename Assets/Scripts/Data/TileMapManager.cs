@@ -20,10 +20,10 @@ namespace mt
 		public TileMap GetMap(uint lv)
 		{
 			TileMap map = null;
-			if (mMaps.TryGetValue (lv, out map))
-				return map;
-	
-			return null;
+            if (mMaps.TryGetValue(lv, out map))
+                return map;
+            else
+                return LoadMap(lv);
 		}
 	
 		public bool HasLoaded(uint lv)
@@ -38,20 +38,6 @@ namespace mt
 		public TileMapManager ()
 		{
 			mMaps = new Dictionary<uint, TileMap> ();
-		}
-	
-		private GameObject mTileMapObj;
-		public GameObject TileMapObj
-		{
-			get { return mTileMapObj; }
-			set { mTileMapObj = value; }
-		}
-	
-		private GameObject mPlayerObj;
-		public GameObject PlayerObj
-		{
-			get { return mPlayerObj; }
-			set { mPlayerObj = value; }
 		}
 	
 		private int parseMapSize(string[] content, int cur, out uint width, out uint height)
@@ -165,28 +151,6 @@ namespace mt
 			// portal
 			cur_idx = parsePortal (content, cur_idx, map.LayerCollide);
 	
-			return map;
-		}
-	
-		public TileMap EnterMap(uint lv, uint x, uint y)
-		{
-			var map = GetMap (lv);
-			if (map == null)
-				map = LoadMap (lv);
-
-            var component = mTileMapObj.GetComponent<TileMapComponent>();
-            if (component == null)
-            {
-                component = mTileMapObj.AddComponent<TileMapComponent>();
-
-                component.DataTileMap = map;
-            }
-            else
-            {
-                component.DataTileMap = map;
-            }
-	
-			// TODO place actor to x, y
 			return map;
 		}
 	}

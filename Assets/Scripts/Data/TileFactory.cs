@@ -14,6 +14,11 @@ namespace mt
 {
     public class TileFactory : Singleton<TileFactory>
     {
+        public TileFactory()
+        {
+            
+        }
+
         public Tile CreateTile(char tile_type)
         {
             if (tile_type == '1')
