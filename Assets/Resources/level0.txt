@@ -25,11 +25,13 @@ layer_1:
 33333033333
 33333033333
 monster:
-0
+2
+9,5,1
+8,5,2
 npc:
 0
 item:
 0
 portal:
 1
-5,10,up,level1,5,1
+10,5,up,level1,5,1

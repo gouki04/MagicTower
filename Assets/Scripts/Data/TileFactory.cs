@@ -19,6 +19,11 @@ namespace mt
             
         }
 
+        public Tile CreateMonster(uint id)
+        {
+            return new Tile_Monster(id);
+        }
+
         public Tile CreateTile(char tile_type)
         {
             if (tile_type == '1')

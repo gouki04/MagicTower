@@ -77,7 +77,13 @@ namespace mt
 	
 			int count = Convert.ToInt32 (content [cur++]);
 			for (int i = 0; i < count; ++i, ++cur) {
-				// TODO add monster
+                var monster_info = content[cur].Split(new char[] { ',' });
+                var row = Convert.ToUInt32(monster_info[0]);
+                var col = Convert.ToUInt32(monster_info[1]);
+                var monster_id = Convert.ToUInt32(monster_info[2]);
+
+                var monster_tile = TileFactory.Instance.CreateMonster(monster_id);
+                layer[row, col] = monster_tile;
 			}
 	
 			return cur;

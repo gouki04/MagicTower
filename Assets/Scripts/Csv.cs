@@ -96,7 +96,7 @@ public class Csv : Singleton<Csv>
 	{
 		CsvTable csv = null;
 		if (!mCSVs.TryGetValue (name, out csv)) {
-			csv = Open(name);
+			csv = Open("config/" + name);
 			mCSVs[name] = csv;
 		}
 
