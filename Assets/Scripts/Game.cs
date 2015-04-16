@@ -8,14 +8,14 @@ namespace mt
 {
     public class Game : Singleton<Game>
     {
-        private GameObject mTileMap;
-        public GameObject TileMapObj
+        private TileMapComponent mTileMap;
+        public TileMapComponent TileMapObj
         {
             get { return mTileMap; }
         }
 
-        private GameObject mPlayer;
-        public GameObject PlayerObj
+        private TileComponent mPlayer;
+        public TileComponent PlayerObj
         {
             get { return mPlayer; }
         }
@@ -25,10 +25,14 @@ namespace mt
 
         }
 
-        public void Init(GameObject tile_map_obj, GameObject player_obj)
+        public void Init(GameObject tile_map_obj, GameObject player_obj_)
         {
-            mTileMap = tile_map_obj;
-            mPlayer = player_obj;
+            mTileMap = tile_map_obj.AddComponent<TileMapComponent>();
+
+            var player_obj = TileObjFactory.Instance.CreatePlayer(TileFactory.Instance.CreatePlayer());
+            mPlayer = player_obj.GetComponent<TileComponent>();
+
+            //mPlayer = player_obj;
         }
 
         public GameObject EnterMap(uint map_id, uint row, uint col)
@@ -41,12 +45,13 @@ namespace mt
             }
 
             // build the tile map obj
-            TileMapBuilder.Instance.BuildTileMap(mTileMap, map);
+            TileMapBuilder.Instance.BuildTileMap(mTileMap.gameObject, map);
 
             // setup the player
-            // TODO
+            var tile_player = mPlayer.GetTileData<Tile_Player>();
+            mTileMap.TileMapData.LayerCollide[row, col] = tile_player;
 
-            return mTileMap;
+            return mTileMap.gameObject;
         }
     }
 }

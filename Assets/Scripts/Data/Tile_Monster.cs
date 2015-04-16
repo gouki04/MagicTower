@@ -27,11 +27,11 @@ namespace mt
             mId = id;
         }
 
-        private Csv.CsvTable.CsvLine CsvData
+        private CSVLine CsvData
         {
             get
             {
-                return Csv.Instance["monster"][mId];
+                return CSVManager.Instance["monster"][mId];
             }
         }
     }

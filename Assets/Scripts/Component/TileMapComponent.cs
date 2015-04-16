@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TileMapComponent : MonoBehaviour
 {
-    public mt.TileMap DataTileMap;
+    public mt.TileMap TileMapData;
 
     void Start()
     {

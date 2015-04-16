@@ -41,12 +41,7 @@ namespace mt
 
             // set the tile map data
             var tile_map_component = tile_map_obj.GetComponent<TileMapComponent>();
-            if (tile_map_component == null)
-            {
-                tile_map_component = tile_map_obj.AddComponent<TileMapComponent>();
-            }
-
-            tile_map_component.DataTileMap = tile_map_data;
+            tile_map_component.TileMapData = tile_map_data;
 
             // build floor layer
             _buildTileMapLayer(tile_map_obj, tile_map_data.LayerFloor);

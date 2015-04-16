@@ -19,6 +19,11 @@ namespace mt
             
         }
 
+        public Tile CreatePlayer()
+        {
+            return new Tile_Player();
+        }
+
         public Tile CreateMonster(uint id)
         {
             return new Tile_Monster(id);

@@ -17,7 +17,7 @@ public class Main : MonoBehaviour
         mt.SpriteSheetManager.Instance.Load("monster");
         mt.SpriteSheetManager.Instance.Load("wall");
 
-		Debug.Log(Csv.Instance["monster"][2]["name"]);
+		Debug.Log(mt.CSVManager.Instance["monster"][2]["name"]);
 
         //mt.TileMapManager.Instance.TileMapObj = TileMap;
         //mt.TileMapManager.Instance.PlayerObj = Player;

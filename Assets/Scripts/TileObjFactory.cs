@@ -31,7 +31,7 @@ public class TileObjFactory : Singleton<TileObjFactory>
 		
 		// set the tile data
 		var tile_component = obj.AddComponent<TileComponent> ();
-		tile_component.DataTile = tile_data;
+		tile_component.TileData = tile_data;
 		
 		// set the position
         obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
@@ -115,6 +115,19 @@ public class TileObjFactory : Singleton<TileObjFactory>
         return obj;
     }
 
+    public GameObject CreatePlayer(mt.Tile tile_data)
+    {
+        var tile_player = tile_data as mt.Tile_Player;
+
+        var obj = _createBasicTile(tile_data, tile_player.SpriteName, "Collide");
+
+        // add collider
+        var collider_component = obj.AddComponent<BoxCollider2D>();
+        collider_component.isTrigger = true;
+
+        return obj;
+    }
+
     /// <summary>
     /// 工厂方法
     /// 根据tile data创建对应的tile obj
@@ -144,6 +157,10 @@ public class TileObjFactory : Singleton<TileObjFactory>
             case mt.Tile.EType.Monster:
                 {
                     return CreateMonster(tile_data);
+                }
+            case mt.Tile.EType.Player:
+                {
+                    return CreatePlayer(tile_data);
                 }
             default:
                 return null;

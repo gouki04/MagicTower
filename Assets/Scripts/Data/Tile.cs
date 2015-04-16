@@ -21,10 +21,25 @@ namespace mt
             Player = 11,
         }
 
+        public enum EDirection
+        {
+            Up = 0,
+            Down = 1,
+            Left = 2,
+            Right = 3,
+        }
+
         private EType mType;
         public EType Type
         {
             get { return mType; }
+        }
+
+        private TileMap mParent = null;
+        public TileMap Parent
+        {
+            get { return mParent; }
+            set { mParent = value; }
         }
 
         public Tile(EType type)
@@ -37,6 +52,18 @@ namespace mt
         {
             get { return mPosition; }
             set { mPosition = value; }
+        }
+
+        public virtual bool TryMoveToward(EDirection direction)
+        {
+            Logger.LogWarn("I can't move....");
+
+            return false;
+        }
+
+        public virtual void MoveTo(TilePosition position)
+        {
+            
         }
     }
 }

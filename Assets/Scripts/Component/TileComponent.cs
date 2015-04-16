@@ -6,7 +6,17 @@ using UnityEngine;
 
 public class TileComponent : MonoBehaviour
 {
-    public mt.Tile DataTile;
+    public mt.Tile TileData;
+
+    public T GetTileData<T>() where T : mt.Tile
+    {
+        return TileData as T;
+    }
+
+    public mt.Tile GetTileData()
+    {
+        return TileData;
+    }
 
     void Start()
     {
