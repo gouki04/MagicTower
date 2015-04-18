@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// yield指令
+/// </summary>
 public interface ISafeYieldInstruction
 {
     bool IsComplete(float delta_time);
 }
 
+/// <summary>
+/// 安全的协程
+/// </summary>
 public class SafeCoroutine : ISafeYieldInstruction
 {
 	public enum EState
@@ -13,8 +19,9 @@ public class SafeCoroutine : ISafeYieldInstruction
 		NotInit = 0,
 		Stopped = 1,
 		Running = 2,
-		SelfPause = 3,
-		ParentPause = 4,
+		Paused = 3,
+		SelfPause = 4,
+		ParentPause = 5,
 	}
 
     private IEnumerator mIterator;
@@ -46,12 +53,12 @@ public class SafeCoroutine : ISafeYieldInstruction
 
 	public bool IsPause
 	{
-		get { return mState == EState.SelfPause || mState == EState.ParentPause; }
+		get { return mState == EState.Paused || IsParentPaused; }
 	}
 
-	public bool CanPause
+	public bool IsSelfPaused
 	{
-		get { return mState == EState.Running || mState == EState.ParentPause; }
+		get { return mState == EState.Paused; }
 	}
 
 	protected bool IsParentPaused
@@ -90,16 +97,7 @@ public class SafeCoroutine : ISafeYieldInstruction
 	{
 		if (mState == EState.Running)
 		{
-			mState = EState.SelfPause;
-
-			if (mChildCoroutine != null)
-			{
-				mChildCoroutine.pauseByParent();
-			}
-		}
-		else if (mState == EState.ParentPause)
-		{
-			mState = EState.SelfPause;
+			mState = EState.Paused;
 		}
 		else
 		{
@@ -112,56 +110,15 @@ public class SafeCoroutine : ISafeYieldInstruction
 		Debug.LogWarning("Coroutine." + function_name + " error! state = " + System.Enum.GetName(typeof(EState), mState));
 	}
 
-	protected void resumeFromParent()
-	{
-		if (mState == EState.ParentPause)
-		{
-			mState = EState.Running;
-
-			if (mChildCoroutine != null)
-				mChildCoroutine.resumeFromParent();
-		}
-		else if (mState == EState.SelfPause)
-		{
-			// 不用处理，维持在selfPause
-		}
-		else
-		{
-			logStateError("resumeFromParent");
-		}
-	}
-
 	public void Resume()
 	{
-		if (mState == EState.SelfPause)
+		if (mState == EState.Paused)
 		{
-			mState = IsParentPaused ? EState.ParentPause : EState.Running;
-
-			if (mState == EState.Running && mChildCoroutine != null)
-				mChildCoroutine.resumeFromParent();
+			mState = EState.Running;
 		}
 		else
 		{
 			logStateError("Resume");
-		}
-	}
-
-	protected void pauseByParent()
-	{
-		if (mState == EState.Running)
-		{
-			mState = EState.ParentPause;
-
-			if (mChildCoroutine != null)
-				mChildCoroutine.pauseByParent();
-		}
-		else if (mState == EState.SelfPause)
-		{
-			// 不用处理，维持在selfPause
-		}
-		else
-		{
-			logStateError("pauseByParent");
 		}
 	}
 
@@ -181,7 +138,7 @@ public class SafeCoroutine : ISafeYieldInstruction
         if (mIterator == null)
             return finish();
 
-		if (IsPause == true)
+		if (IsPause || IsParentPaused)
 			return false;
 
         if (mIterator.Current == null)
