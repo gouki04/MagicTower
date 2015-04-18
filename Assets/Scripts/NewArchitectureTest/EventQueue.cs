@@ -8,19 +8,135 @@ namespace NAT
 {
     public class Tile
     {
-        public bool ValidateMove(Tile target)
+        public virtual bool ValidateMove(Tile target)
         {
             return true;
         }
 
-        public IEnumerator BeginTrigger(Tile target)
+        public virtual IEnumerator BeginTrigger(Tile target)
         {
             return null;
         }
 
-        public IEnumerator MoveTo(uint row, uint col)
+        public virtual IEnumerator MoveTo(uint row, uint col)
         {
             return null;
+        }
+
+        private bool mIsMoving = false;
+        public bool IsMoving
+        {
+            get { return mIsMoving; }
+            set { mIsMoving = value; }
+        }
+    }
+
+    public class Tile_Player
+    {
+        public uint Attack
+        {
+            get {}
+        }
+
+        public uint Defend
+        {
+            get {}
+        }
+
+        public uint Hp
+        {
+            get {}
+        }
+    }
+
+    public class Tile_Monster
+    {
+        public uint Attack
+        {
+            get {}
+        }
+
+        public uint Defend
+        {
+            get {}
+        }
+
+        public uint Hp
+        {
+            get {}
+        }
+
+        public override bool ValidateMove(Tile target)
+        {
+            if (target is Tile_Player)
+            {
+                var player = target as Tile_Player;
+
+                // valide the atk,def,hp
+                return true;
+            }
+            return false;
+        }
+
+        public override IEnumerator BeginTrigger(Tile target)
+        {
+            yield return Battle.Instance.BeginBattle(target as Tile_Player, this);
+        }
+    }
+
+    public class Battle : Singleton<Battle>
+    {
+        public interface BattleDisplay
+        {
+            IEnumerator InitBattle(Tile_Player player, Tile_Monster monster);
+            IEnumerator BattleBegin();
+            IEnumerator BattleAttack(Tile atk, Tile def, Damage dam);
+            IEnumerator BattleEnd(Tile winner);
+        }
+
+        private Tile_Player mPlayer;
+        private Tile_Monster mMonster;
+
+        private BattleDisplay mDisplay;
+        public BattleDisplay Display
+        {
+            set { mDisplay = value; }
+        }
+
+        protected IEnumerator battleInit()
+        {
+            yield return mDisplay.InitBattle(mPlayer, mMonster);
+        }
+
+        public IEnumerator BeginBattle(Tile_Player player, Tile_Monster monster)
+        {
+            mPlayer = player;
+            mMonster = monster;
+
+            yield return battleInit();
+            
+            Tile attaker = mPlayer;
+            Tile defender = mMonster;
+            Tile winner = null;
+            while (true)
+            {
+                Damage dam = attaker.Attack(defender);
+                yield return mDisplay.BattleAttack(attaker, defender, dam);
+
+                if (defender.IsDead || attaker.IsDead)
+                {
+                    winner = defender.IsDead ? attaker : defender;
+                    break;
+                }
+                else
+                {
+                    var tmp = attaker;
+                    attaker = defender;
+                    defender = tmp;
+                }
+            }
+
+            yield return mDisplay.BattleEnd(winner);
         }
     }
 
@@ -33,14 +149,27 @@ namespace NAT
 
         public IEnumerator MoveTile(Tile tile, uint row, uint col)
         {
+            if (tile.IsMoving)
+                return null;
+
             var dst_tile = GetTile(row, col);
             if (tile == dst_tile)
                 return null;
 
+            tile.IsMoving = true;
             if (dst_tile.ValidateMove(tile))
             {
+                var routine = new SafeCoroutine(dst_tile.BeginTrigger(tile));
+                yield return routine;
 
+                var result = (bool)routine.Result;
+                if (result == true)
+                {
+                    routine = new SafeCoroutine(tile.MoveTo(row, col));
+                    yield return routine;
+                }
             }
+            tile.IsMoving = false;
 
             return null;
         }
