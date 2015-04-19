@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\NewArchitectureTest\CoroutineComponent.cs" />
     <Compile Include="Assets\Scripts\NewArchitectureTest\EventQueue.cs" />
     <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\Coroutine.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\CoroutineComponent.cs" />
     <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\CoroutineController.cs" />
     <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\Test.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
