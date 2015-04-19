@@ -60,6 +60,12 @@
     <Compile Include="Assets\Scripts\Data\TilePosition.cs" />
     <Compile Include="Assets\Scripts\Data\Tile_Monster.cs" />
     <Compile Include="Assets\Scripts\Data\Tile_Player.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\Coroutine.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\CoroutineComponent.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\EventQueue.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\Coroutine.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\CoroutineController.cs" />
+    <Compile Include="Assets\Scripts\NewArchitectureTest\SafeCoroutine\Test.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Monster.cs" />

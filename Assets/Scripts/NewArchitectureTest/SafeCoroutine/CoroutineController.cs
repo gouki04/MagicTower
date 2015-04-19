@@ -1,20 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
-public class CoroutineController : MonoBehaviour 
+public class CoroutineController : Singleton<CoroutineController> 
 {
     List<SafeCoroutine> mCoroutines = new List<SafeCoroutine>();
 	List<SafeCoroutine> mSalvageCoroutines = new List<SafeCoroutine>();
 
 	private bool mIsUpdating = false;
 
-    public void LateUpdate()
+    public void Update(float delta_time)
     {
 		mIsUpdating = true;
         for (int i = mCoroutines.Count - 1; i >= 0; --i)
         {
-            if (mCoroutines[i].IsComplete(Time.deltaTime))
+            if (mCoroutines[i].IsComplete(delta_time))
                 mCoroutines.RemoveAt(i);
         }
 		mIsUpdating = false;
