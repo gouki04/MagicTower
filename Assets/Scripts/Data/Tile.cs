@@ -54,17 +54,27 @@ namespace mt
             set { mPosition = value; }
         }
 
-        public virtual bool TryMoveToward(EDirection direction)
-        {
-            Logger.LogWarn("I can't move....");
-
-            return false;
-        }
-
-        public virtual void MoveTo(TilePosition position)
-        {
-            
-        }
+		public virtual bool ValidateMove(Tile target)
+		{
+			return true;
+		}
+		
+		public virtual IEnumerator BeginTrigger(Tile target)
+		{
+			return null;
+		}
+		
+		public virtual IEnumerator MoveTo(uint row, uint col)
+		{
+			return null;
+		}
+		
+		private bool mIsMoving = false;
+		public bool IsMoving
+		{
+			get { return mIsMoving; }
+			set { mIsMoving = value; }
+		}
     }
 }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace mt
 {
-    public class Tile_Player : Tile
+	public class Tile_Player : Tile_Actor
     {
         public Tile_Player()
             : base(EType.Player)
