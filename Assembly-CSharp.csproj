@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Data\Tile_Monster.cs" />
     <Compile Include="Assets\Scripts\Data\Tile_Player.cs" />
     <Compile Include="Assets\Scripts\NewArchitectureTest\EventQueue.cs" />
+    <Compile Include="Assets\Scripts\Utils\Logger.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Monster.cs" />
@@ -88,7 +89,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Assets\Scripts\Coroutine\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

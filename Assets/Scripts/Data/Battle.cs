@@ -7,7 +7,7 @@ namespace mt
 	{
 		public interface BattleDisplay
 		{
-			IEnumerator InitBattle(Tile_Player player, Tile_Monster monster);
+            IEnumerator InitBattle(Tile_Actor player, Tile_Actor monster);
 			IEnumerator BattleBegin();
 			IEnumerator BattleAttack(Tile atk, Tile def, Damage dam);
 			IEnumerator BattleEnd(Tile winner);

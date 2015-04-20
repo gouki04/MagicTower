@@ -198,16 +198,15 @@ namespace SafeCoroutine
                 if (!mIterator.MoveNext())
                     return finish();
             }
-            else if ((mIterator.Current as Coroutine) != null)
+            else if (mIterator.Current is Coroutine)
             {
                 // 当前执行的是子协程
                 // 子协程不需要在这里更新，它会在CoroutineController里更新
-                var child = mIterator.Current as Coroutine;
                 if (mChildCoroutine == null)
                 {
                     // 第一次执行，设置父子关系
-                    mChildCoroutine = child;
-                    child.mParentCoroutine = this;
+                    mChildCoroutine = mIterator.Current as Coroutine;
+                    mChildCoroutine.mParentCoroutine = this;
                 }
                 else if (mChildCoroutine.IsFinish)
                 {
@@ -217,7 +216,7 @@ namespace SafeCoroutine
                         return finish();
                 }
             }
-            else if ((mIterator.Current as IYieldInstruction) != null)
+            else if (mIterator.Current is IYieldInstruction)
             {
                 // 当前执行的是普通的yield指令
                 var yieldBase = mIterator.Current as IYieldInstruction;

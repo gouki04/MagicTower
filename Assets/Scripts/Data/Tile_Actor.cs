@@ -3,7 +3,8 @@ namespace mt
 {
 	public class Tile_Actor : Tile
 	{
-		public Tile_Actor ()
+		public Tile_Actor (EType type)
+            : base(type)
 		{
 		}
 

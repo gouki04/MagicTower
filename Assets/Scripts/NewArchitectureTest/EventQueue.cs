@@ -150,28 +150,28 @@ namespace NAT
         public IEnumerator MoveTile(Tile tile, uint row, uint col)
         {
             if (tile.IsMoving)
-                return null;
+                yield return null;
 
             var dst_tile = GetTile(row, col);
             if (tile == dst_tile)
-                return null;
+                yield return null;
 
             tile.IsMoving = true;
             if (dst_tile.ValidateMove(tile))
             {
-                var routine = new SafeCoroutine(dst_tile.BeginTrigger(tile));
+                var routine = SafeCoroutine.CoroutineManager.StartCoroutine(dst_tile.BeginTrigger(tile));
                 yield return routine;
 
                 var result = (bool)routine.Result;
                 if (result == true)
                 {
-                    routine = new SafeCoroutine(tile.MoveTo(row, col));
+                    routine = SafeCoroutine.CoroutineManager.StartCoroutine(tile.MoveTo(row, col));
                     yield return routine;
                 }
             }
             tile.IsMoving = false;
 
-            return null;
+            yield return null;
         }
     }
 
