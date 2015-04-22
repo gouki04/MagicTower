@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace mt
+namespace MagicTower
 {
     public class SpriteSheet : Dictionary<string, Sprite>
     {

@@ -1,186 +1,53 @@
-﻿using System;
+﻿using SafeCoroutine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NAT
+namespace MagicTower
 {
-    public class Tile
+    public class NullGameDisplay : Display.GameDisplay
     {
-        public virtual bool ValidateMove(Tile target)
+
+    }
+
+    public class NullTileMapDisplay : Display.TileMapDisplay
+    {
+        public IEnumerator BeginEnter()
         {
-            return true;
+            yield return null;
         }
 
-        public virtual IEnumerator BeginTrigger(Tile target)
+        public IEnumerator EndEnter()
         {
-            return null;
-        }
-
-        public virtual IEnumerator MoveTo(uint row, uint col)
-        {
-            return null;
-        }
-
-        private bool mIsMoving = false;
-        public bool IsMoving
-        {
-            get { return mIsMoving; }
-            set { mIsMoving = value; }
+            yield return null;
         }
     }
 
-    public class Tile_Player
+    public class NullTileDisplay : Display.TileDisplay
     {
-        public uint Attack
+        public IEnumerator Enter()
         {
-            get {}
-        }
-
-        public uint Defend
-        {
-            get {}
-        }
-
-        public uint Hp
-        {
-            get {}
+            yield return null;
         }
     }
 
-    public class Tile_Monster
+    public class NullDisplayFacotry : Display.DisplayFactory
     {
-        public uint Attack
+        public Display.GameDisplay GetGameDisplay(Logic.Game game)
         {
-            get {}
+            return new NullGameDisplay();
         }
 
-        public uint Defend
+        public Display.TileMapDisplay GetTileMapDisplay(Logic.TileMap tile_map)
         {
-            get {}
+            return new NullTileMapDisplay();
         }
 
-        public uint Hp
+        public Display.TileDisplay GetTileDisplay(Logic.Tile tile)
         {
-            get {}
-        }
-
-        public override bool ValidateMove(Tile target)
-        {
-            if (target is Tile_Player)
-            {
-                var player = target as Tile_Player;
-
-                // valide the atk,def,hp
-                return true;
-            }
-            return false;
-        }
-
-        public override IEnumerator BeginTrigger(Tile target)
-        {
-            yield return Battle.Instance.BeginBattle(target as Tile_Player, this);
-        }
-    }
-
-    public class Battle : Singleton<Battle>
-    {
-        public interface BattleDisplay
-        {
-            IEnumerator InitBattle(Tile_Player player, Tile_Monster monster);
-            IEnumerator BattleBegin();
-            IEnumerator BattleAttack(Tile atk, Tile def, Damage dam);
-            IEnumerator BattleEnd(Tile winner);
-        }
-
-        private Tile_Player mPlayer;
-        private Tile_Monster mMonster;
-
-        private BattleDisplay mDisplay;
-        public BattleDisplay Display
-        {
-            set { mDisplay = value; }
-        }
-
-        protected IEnumerator battleInit()
-        {
-            yield return mDisplay.InitBattle(mPlayer, mMonster);
-        }
-
-        public IEnumerator BeginBattle(Tile_Player player, Tile_Monster monster)
-        {
-            mPlayer = player;
-            mMonster = monster;
-
-            yield return battleInit();
-            
-            Tile attaker = mPlayer;
-            Tile defender = mMonster;
-            Tile winner = null;
-            while (true)
-            {
-                Damage dam = attaker.Attack(defender);
-                yield return mDisplay.BattleAttack(attaker, defender, dam);
-
-                if (defender.IsDead || attaker.IsDead)
-                {
-                    winner = defender.IsDead ? attaker : defender;
-                    break;
-                }
-                else
-                {
-                    var tmp = attaker;
-                    attaker = defender;
-                    defender = tmp;
-                }
-            }
-
-            yield return mDisplay.BattleEnd(winner);
-        }
-    }
-
-    public class TileMap
-    {
-        public Tile GetTile(uint row, uint col)
-        {
-            return null;
-        }
-
-        public IEnumerator MoveTile(Tile tile, uint row, uint col)
-        {
-            if (tile.IsMoving)
-                return null;
-
-            var dst_tile = GetTile(row, col);
-            if (tile == dst_tile)
-                return null;
-
-            tile.IsMoving = true;
-            if (dst_tile.ValidateMove(tile))
-            {
-                var routine = new SafeCoroutine(dst_tile.BeginTrigger(tile));
-                yield return routine;
-
-                var result = (bool)routine.Result;
-                if (result == true)
-                {
-                    routine = new SafeCoroutine(tile.MoveTo(row, col));
-                    yield return routine;
-                }
-            }
-            tile.IsMoving = false;
-
-            return null;
-        }
-    }
-
-    public class Game : Singleton<Game>
-    {
-        private TileMap mTileMap;
-        public TileMap TileMap
-        {
-            get { return mTileMap; }
+            return new NullTileDisplay();
         }
     }
 
@@ -189,6 +56,7 @@ namespace NAT
         TILE_MOVE = 1,
         ENTER_LEVEL = 2,
         CHANGE_LEVEL = 3,
+        ENTER_GAME = 4,
     }
 
     public class EventData
@@ -225,20 +93,25 @@ namespace NAT
         {
             while (true)
             {
-                var evt = mEventQ.Dequeue();
-                if (evt == null)
+                if (mEventQ.Count <= 0)
                 {
                     break;
                 }
 
+                var evt = mEventQ.Dequeue();
                 switch (evt.Type)
                 {
                     case EEventType.TILE_MOVE:
                         {
-                            var tile = evt.Params[0] as Tile;
-                            var row = (uint)evt.Params[1];
-                            var col = (uint)evt.Params[2];
-                            Coroutine.Start(Game.Instance.TileMap.MoveTile(tile, row, col));
+                            //var tile = evt.Params[0] as Tile;
+                            //var row = (uint)evt.Params[1];
+                            //var col = (uint)evt.Params[2];
+                            //Coroutine.Start(Game.Instance.TileMap.MoveTile(tile, row, col));
+                            break;
+                        }
+                    case EEventType.ENTER_GAME:
+                        {
+                            CoroutineManager.StartCoroutine(Logic.Game.Instance.Init(new NullDisplayFacotry()));
                             break;
                         }
                 }

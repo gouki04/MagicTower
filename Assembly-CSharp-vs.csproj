@@ -39,34 +39,43 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Component\TileComponent.cs" />
-     <Compile Include="Assets\Scripts\Component\TileMapComponent.cs" />
-     <Compile Include="Assets\Scripts\Csv.cs" />
-     <Compile Include="Assets\Scripts\Data\Tile.cs" />
-     <Compile Include="Assets\Scripts\Data\TileFactory.cs" />
-     <Compile Include="Assets\Scripts\Data\TileLayer.cs" />
-     <Compile Include="Assets\Scripts\Data\TileMap.cs" />
-     <Compile Include="Assets\Scripts\Data\TileMapManager.cs" />
-     <Compile Include="Assets\Scripts\Data\TilePosition.cs" />
-     <Compile Include="Assets\Scripts\Data\Tile_Monster.cs" />
-     <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\CSV\CSVLine.cs" />
+     <Compile Include="Assets\Scripts\CSV\CSVManager.cs" />
+     <Compile Include="Assets\Scripts\CSV\CSVTable.cs" />
+     <Compile Include="Assets\Scripts\Component\UserMovementControlComponent.cs" />
+     <Compile Include="Assets\Scripts\Coroutine\Coroutine.cs" />
+     <Compile Include="Assets\Scripts\Coroutine\CoroutineManager.cs" />
+     <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
+     <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
+     <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
+     <Compile Include="Assets\Scripts\Display\DisplayFactory.cs" />
+     <Compile Include="Assets\Scripts\Display\GameDisplay.cs" />
+     <Compile Include="Assets\Scripts\Display\TileDisplay.cs" />
+     <Compile Include="Assets\Scripts\Display\TileMapDisplay.cs" />
+     <Compile Include="Assets\Scripts\EventQueue.cs" />
+     <Compile Include="Assets\Scripts\Logic\Game.cs" />
+     <Compile Include="Assets\Scripts\Logic\PlayerData.cs" />
+     <Compile Include="Assets\Scripts\Logic\Tile.cs" />
+     <Compile Include="Assets\Scripts\Logic\TileFactory.cs" />
+     <Compile Include="Assets\Scripts\Logic\TileLayer.cs" />
+     <Compile Include="Assets\Scripts\Logic\TileMap.cs" />
+     <Compile Include="Assets\Scripts\Logic\TileMapManager.cs" />
+     <Compile Include="Assets\Scripts\Logic\TilePosition.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Monster.cs" />
-     <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\SpriteSheet.cs" />
      <Compile Include="Assets\Scripts\SpriteSheetManager.cs" />
-     <Compile Include="Assets\Scripts\TileMapBuilder.cs" />
-     <Compile Include="Assets\Scripts\TileObjFactory.cs" />
+     <Compile Include="Assets\Scripts\Utils\Logger.cs" />
+     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
      <None Include="Assets\Resources\level0.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

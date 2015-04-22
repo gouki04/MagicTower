@@ -53,6 +53,11 @@ namespace SafeCoroutine
             get { return mResult; }
         }
 
+        public bool HasResult
+        {
+            get { return mResult != null; }
+        }
+
         /// <summary>
         /// 是否在运行状态（父亲被暂停也返回true）
         /// </summary>
