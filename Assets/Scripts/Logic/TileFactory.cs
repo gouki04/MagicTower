@@ -11,10 +11,9 @@ namespace MagicTower.Logic
             
         }
 
-        public Tile CreatePlayer()
+        public Tile_Player CreatePlayer()
         {
-            //return new Tile_Player();
-            return null;
+            return new Tile_Player();
         }
 
         public Tile CreateMonster(uint id)

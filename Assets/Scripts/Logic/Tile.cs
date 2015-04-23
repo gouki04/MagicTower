@@ -70,6 +70,16 @@ namespace MagicTower
                 yield return null;
             }
 
+            public virtual IEnumerator MoveTo(TilePosition destination)
+            {
+                mParent.LayerCollide[Position] = null;
+
+                Position = destination;
+                mParent.LayerCollide[Position] = this;
+
+                yield return null;
+            }
+
             public virtual IEnumerator Enter()
             {
                 if (mDisplay == null)

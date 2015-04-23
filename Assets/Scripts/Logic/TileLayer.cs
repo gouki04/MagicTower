@@ -50,11 +50,37 @@ namespace MagicTower
             /// <param name="c">列坐标</param>
             public Tile this[uint r, uint c]
             {
-                get { return mTiles[r, c]; }
+                get 
+                { 
+                    try
+                    {
+                        return mTiles[r, c];
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
                 set
                 {
                     mTiles[r, c] = value;
                 }
+            }
+
+            public Tile this[TilePosition pos]
+            {
+                get 
+                { 
+                    try 
+                    {
+                        return mTiles[(uint)pos.Row, (uint)pos.Col]; 
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                }
+                set { mTiles[(uint)pos.Row, (uint)pos.Col] = value; }
             }
 
             public IEnumerator GetEnumerator()

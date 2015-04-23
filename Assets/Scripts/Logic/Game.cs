@@ -22,6 +22,7 @@ namespace MagicTower
             }
 
             private TileMap mCurTileMap;
+            private Tile_Player mPlayer;
 
             public Game()
             {
@@ -39,14 +40,45 @@ namespace MagicTower
                 yield return _loadGameData();
 
                 // enter the map
-                yield return _enterTileMap(PlayerData.Instance.CurTileMapLevel);
+                yield return _enterTileMap(PlayerData.Instance.LastTileMapLevel);
 
                 yield return null;
+            }
+
+            public IEnumerator MoveTileTo(Tile tile, TilePosition destination)
+            {
+                do
+                {
+                    if (tile == null || tile.IsMoving)
+                        break;
+
+                    var dst_tile = mCurTileMap.LayerCollide[destination];
+                    if (dst_tile == null)
+                        break;
+
+                    if (tile == dst_tile)
+                        break;
+
+                    tile.IsMoving = true;
+                    if (!dst_tile.ValidateMove(tile))
+                        break;
+
+                    yield return dst_tile.BeginTrigger(tile);
+
+                    if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
+                        break;
+
+                    yield return tile.MoveTo(destination);
+                } while (false);
             }
 
             private IEnumerator _loadGameData()
             {
                 PlayerData.Instance.LoadDataFromFile();
+
+                mPlayer = TileFactory.Instance.CreatePlayer();
+                mPlayer.Position = PlayerData.Instance.LastPlayerPosition;
+
                 yield return null;
             }
 
@@ -61,6 +93,7 @@ namespace MagicTower
                 }
 
                 mCurTileMap = SafeCoroutine.Coroutine.GlobalResult as TileMap;
+                mCurTileMap.LayerCollide[mPlayer.Position] = mPlayer;
 
                 yield return mCurTileMap.Enter();
             }

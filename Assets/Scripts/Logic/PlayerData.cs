@@ -10,9 +10,15 @@ namespace MagicTower.Logic
     {
         public readonly string DATA_TILE_NAME = "save.dat";
 
-        public uint CurTileMapLevel
+        public uint LastTileMapLevel
         {
             get { return 0; }
+        }
+
+        public TilePosition LastPlayerPosition
+        {
+            get;
+            set;
         }
 
         public bool IsTileExist(uint lv, uint row, uint col)

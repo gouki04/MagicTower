@@ -58,6 +58,7 @@ namespace MagicTower
         ENTER_LEVEL = 2,
         CHANGE_LEVEL = 3,
         ENTER_GAME = 4,
+        TILE_MOVE_RELATIVETY = 5,
     }
 
     public class EventData
@@ -74,6 +75,14 @@ namespace MagicTower
         }
     }
 
+    enum EDirection
+    {
+        UP = 0,
+        DOWN = 1,
+        LEFT = 2,
+        RIGHT = 3,
+    }
+
     public class EventQueue : Singleton<EventQueue>
     {
         private Queue<EventData> mEventQ;
@@ -84,8 +93,41 @@ namespace MagicTower
             mEventQ = new Queue<EventData>();
         }
 
+        private void translateEvent(EEventType type, object[] args, out EEventType out_type, out object[] out_args)
+        {
+            switch (type)
+            {
+                case EEventType.TILE_MOVE_RELATIVETY:
+                    {
+                        var tile = args[0] as Logic.Tile;
+                        var direction = (EDirection)args[1];
+                        
+                        out_type = EEventType.TILE_MOVE;
+                        
+                        out_args = new object[2];
+                        out_args[0] = tile;
+
+                        if (direction == EDirection.UP)
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row + 1, tile.Position.Col);
+                        else if (direction == EDirection.DOWN)
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row - 1, tile.Position.Col);
+                        else if (direction == EDirection.LEFT)
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col - 1);
+                        else if (direction == EDirection.RIGHT)
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col + 1);
+
+                        break;
+                    }
+            }
+
+            out_type = type;
+            out_args = args;
+        }
+
         public void AddEvent(EEventType type, params object[] args)
         {
+            translateEvent(type, args, out type, out args);
+
             var data = new EventData(mIdGenerator++, type, args);
             mEventQ.Enqueue(data);
         }
@@ -104,10 +146,10 @@ namespace MagicTower
                 {
                     case EEventType.TILE_MOVE:
                         {
-                            //var tile = evt.Params[0] as Tile;
-                            //var row = (uint)evt.Params[1];
-                            //var col = (uint)evt.Params[2];
-                            //Coroutine.Start(Game.Instance.TileMap.MoveTile(tile, row, col));
+                            var tile = evt.Params[0] as Logic.Tile;
+                            var row = (uint)evt.Params[1];
+                            var col = (uint)evt.Params[2];
+                            CoroutineManager.StartCoroutine(Logic.Game.Instance.MoveTileTo(tile, new Logic.TilePosition(row, col)));
                             break;
                         }
                     case EEventType.ENTER_GAME:
