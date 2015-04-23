@@ -77,7 +77,7 @@ namespace MagicTower
                     mDisplay = Game.Instance.DisplayFactory.GetTileDisplay(this);
                 }
 
-                yield return CoroutineManager.StartCoroutine(mDisplay.Enter());
+                yield return mDisplay.Enter();
             }
 
             private bool mIsMoving = false;

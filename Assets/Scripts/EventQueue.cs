@@ -1,9 +1,7 @@
 ﻿using SafeCoroutine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Utils;
 
 namespace MagicTower
 {
@@ -16,11 +14,13 @@ namespace MagicTower
     {
         public IEnumerator BeginEnter()
         {
+            Logger.LogDebug("NullTileMapDisplay.BeginEnter");
             yield return null;
         }
 
         public IEnumerator EndEnter()
         {
+            Logger.LogDebug("NullTileMapDisplay.EndEnter");
             yield return null;
         }
     }
@@ -29,6 +29,7 @@ namespace MagicTower
     {
         public IEnumerator Enter()
         {
+            Logger.LogDebug("NullTileDisplay.Enter");
             yield return null;
         }
     }

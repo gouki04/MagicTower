@@ -1,4 +1,24 @@
-﻿using System.Collections;
+﻿/// <summary>
+/// 协程
+/// 
+/// 特性：
+/// 1.可扩展：
+///     通过继承IYieldInstruction可以派生出自己的等待指令
+/// 2.支持返回值：
+///     返回值指的是协程内最后一个yield return返回的值
+///     通过Coroutine.GlobalResult获取返回值。
+/// 3.可暂停/恢复：
+///     通过Coroutine.Pause和Coroutine.Resume可暂停和恢复协程
+///     通过Coroutine.Stop终止协程执行
+/// 4.支持嵌套：
+///     在协程内可以开启另一个协程，这样2者形成父子关系，子协程受父协程影响，暂停父协程会同时暂停子协程。
+///     通过Coroutine.IsPaused判断自己是否在运行中
+///     通过Coroutine.IsSelfPaused判断自己是否被暂停（父亲被暂停不算）
+///     通过Coroutine.IsParentPaused判断父亲是否被暂停
+/// 5.不依赖MonoBehaviour：
+///     通过SafeCoroutine.CoroutineManager.StartCoroutine()开启协程
+/// </summary>
+using System.Collections;
 
 namespace SafeCoroutine
 {
@@ -56,6 +76,12 @@ namespace SafeCoroutine
         public bool HasResult
         {
             get { return mResult != null; }
+        }
+
+        public static object GlobalResult
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -231,13 +257,76 @@ namespace SafeCoroutine
                 if (result && !mIterator.MoveNext())
                     return finish();
             }
+            else if (mIterator.Current is IEnumerator)
+            {
+                bool result = update(mIterator.Current as IEnumerator, delta_time);
+                if (result && !mIterator.MoveNext())
+                    return finish();
+            }
             else
             {
                 if (!mIterator.MoveNext())
                 {
                     // 已经没有下一步了，设置完成状态
-                    mResult = mIterator.Current;
+                    GlobalResult = mIterator.Current;
                     return finish();
+                }
+            }
+
+            return false;
+        }
+
+        private bool update(IEnumerator iterator, float delta_time)
+        {
+            if (iterator == null)
+                return true;
+
+            if (iterator.Current == null)
+            {
+                if (!iterator.MoveNext())
+                    return true;
+            }
+            else if (iterator.Current is Coroutine)
+            {
+                // 当前执行的是子协程
+                // 子协程不需要在这里更新，它会在CoroutineController里更新
+                if (mChildCoroutine == null)
+                {
+                    // 第一次执行，设置父子关系
+                    mChildCoroutine = iterator.Current as Coroutine;
+                    mChildCoroutine.mParentCoroutine = this;
+                }
+                else if (mChildCoroutine.IsFinish)
+                {
+                    // 如果已经完成了，执行下一步
+                    mChildCoroutine = null;
+                    if (!iterator.MoveNext())
+                        return true;
+                }
+            }
+            else if (iterator.Current is IYieldInstruction)
+            {
+                // 当前执行的是普通的yield指令
+                var yieldBase = iterator.Current as IYieldInstruction;
+
+                // 更新指令
+                bool result = yieldBase.IsComplete(delta_time);
+                if (result && !iterator.MoveNext())
+                    return true;
+            }
+            else if (iterator.Current is IEnumerator)
+            {
+                bool result = update(iterator.Current as IEnumerator, delta_time);
+                if (result && !iterator.MoveNext())
+                    return true;
+            }
+            else
+            {
+                if (!iterator.MoveNext())
+                {
+                    // 已经没有下一步了，设置完成状态
+                    GlobalResult = iterator.Current;
+                    return true;
                 }
             }
 

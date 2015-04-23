@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using SafeCoroutine;
+using Utils;
 
 namespace MagicTower
 {
@@ -35,10 +36,10 @@ namespace MagicTower
                 mDisplay = mDisplayFactory.GetGameDisplay(this);
 
                 // load the save data
-                yield return CoroutineManager.StartCoroutine(_loadGameData());
+                yield return _loadGameData();
 
                 // enter the map
-                yield return CoroutineManager.StartCoroutine(_enterTileMap(PlayerData.Instance.CurTileMapLevel));
+                yield return _enterTileMap(PlayerData.Instance.CurTileMapLevel);
 
                 yield return null;
             }
@@ -51,19 +52,17 @@ namespace MagicTower
 
             private IEnumerator _enterTileMap(uint lv)
             {
-                var load_map_routine = CoroutineManager.StartCoroutine(TileMapManager.Instance.LoadMap(lv));
-                yield return load_map_routine;
+                yield return TileMapManager.Instance.LoadMap(lv);
 
-                if (load_map_routine.HasResult == false)
+                if (SafeCoroutine.Coroutine.GlobalResult == null)
                 {
                     Logger.LogFatal("Load Tile Map ({0}) Failed!", lv);
                     yield return null;
                 }
-                
-                mCurTileMap = load_map_routine.Result as TileMap;
 
-                var tile_map_enter_routine = CoroutineManager.StartCoroutine(mCurTileMap.Enter());
-                yield return tile_map_enter_routine;
+                mCurTileMap = SafeCoroutine.Coroutine.GlobalResult as TileMap;
+
+                yield return mCurTileMap.Enter();
             }
         } 
     }

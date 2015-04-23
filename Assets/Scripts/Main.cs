@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.IO;
-using System;
 using MagicTower;
+using Utils;
+using System.Collections;
 
 public class Main : MonoBehaviour 
 {
@@ -18,14 +15,8 @@ public class Main : MonoBehaviour
         SpriteSheetManager.Instance.Load("monster");
         SpriteSheetManager.Instance.Load("wall");
 
-		Debug.Log(mt.CSVManager.Instance["monster"][2]["name"]);
+		Logger.LogInfo(CSVManager.Instance["monster"][2]["name"]);
 
-        //mt.TileMapManager.Instance.TileMapObj = TileMap;
-        //mt.TileMapManager.Instance.PlayerObj = Player;
-        //mt.TileMapManager.Instance.EnterMap(0, 0, 0);
-
-        //mt.Game.Instance.Init(TileMap, Player);
-        //mt.Game.Instance.EnterMap(0, 0, 0);
         EventQueue.Instance.AddEvent(EEventType.ENTER_GAME);
     }
 
@@ -45,5 +36,6 @@ public class Main : MonoBehaviour
         }
 
         EventQueue.Instance.Update(Time.deltaTime);
+        SafeCoroutine.CoroutineManager.Update(Time.deltaTime);
 	}
 }
