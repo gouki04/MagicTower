@@ -52,35 +52,57 @@ namespace MagicTower
 
                 // enter the map
                 yield return _enterTileMap(PlayerData.Instance.LastTileMapLevel);
+            }
 
-                yield return null;
+            public IEnumerator ChangeLevel(uint level, TilePosition origin_position)
+            {
+                yield return mCurTileMap.Exit();
+
+                mPlayer.Parent = null;
+                mPlayer.Position = origin_position;
+
+                yield return _enterTileMap(level);
             }
 
             public IEnumerator MoveTileTo(Tile tile, TilePosition destination)
             {
                 do
                 {
-                    if (tile == null || tile.IsMoving)
+                    if (tile == null || tile.IsMoving || tile.Position == destination)
                         break;
 
-                    var dst_tile = mCurTileMap.LayerCollide[destination];
-                    if (tile == dst_tile)
+                    var dst_collide_tile = mCurTileMap.LayerCollide[destination];
+                    if (dst_collide_tile != null && !dst_collide_tile.ValidateMove(tile))
+                        break;
+
+                    var dst_floor_tile = mCurTileMap.LayerFloor[destination];
+                    if (dst_floor_tile != null && !dst_floor_tile.ValidateMove(tile))
                         break;
 
                     tile.IsMoving = true;
-                    
-                    if (dst_tile != null)
-                    {
-                        if (!dst_tile.ValidateMove(tile))
-                            break;
 
-                        yield return dst_tile.BeginTrigger(tile);
+                    if (dst_collide_tile != null)
+                    {
+                        yield return dst_collide_tile.BeginTrigger(tile);
+
+                        if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
+                            break;
+                    }
+
+                    if (dst_floor_tile != null)
+                    {
+                        yield return dst_floor_tile.BeginTrigger(tile);
 
                         if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
                             break;
                     }
 
                     yield return tile.MoveTo(destination);
+
+                    if (dst_floor_tile != null)
+                    {
+                        yield return dst_floor_tile.EndTrigger(tile);
+                    }
                 } while (false);
 
                 tile.IsMoving = false;

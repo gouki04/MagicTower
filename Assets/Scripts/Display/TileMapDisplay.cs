@@ -8,6 +8,10 @@ namespace MagicTower.Display
         IEnumerator BeginEnter();
 
         IEnumerator EndEnter();
+
+        IEnumerator BeginExit();
+
+        IEnumerator EndExit();
     }
 
     public class TileMapDisplay : MonoBehaviour, ITileMapDisplay
@@ -27,6 +31,18 @@ namespace MagicTower.Display
 
         public IEnumerator EndEnter()
         {
+            yield return null;
+        }
+
+        public IEnumerator BeginExit()
+        {
+            yield return null;
+        }
+
+        public IEnumerator EndExit()
+        {
+            Destroy(gameObject);
+
             yield return null;
         }
     }

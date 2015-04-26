@@ -95,6 +95,29 @@ namespace MagicTower
 
                 yield return mDisplay.EndEnter();
             }
+
+            public IEnumerator Exit()
+            {
+                yield return mDisplay.BeginExit();
+
+				foreach (Tile tile in mLayerCollide)
+				{
+					if (tile != null)
+					{
+						yield return tile.Exit();
+					}
+				}
+
+                foreach (Tile tile in mLayerFloor)
+                {
+                    if (tile != null)
+                    {
+                        yield return tile.Exit();
+                    }
+                }
+
+                yield return mDisplay.EndExit();
+            }
         }
     }
 }

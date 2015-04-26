@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Logic\Tile_Actor.cs" />
     <Compile Include="Assets\Scripts\Logic\Tile_Monster.cs" />
     <Compile Include="Assets\Scripts\Logic\Tile_Player.cs" />
+    <Compile Include="Assets\Scripts\Logic\Tile_Portal.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Utils\Logger.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
@@ -81,6 +82,9 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Resources\level1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

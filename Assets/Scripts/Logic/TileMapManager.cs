@@ -112,7 +112,20 @@ namespace MagicTower.Logic
 			
 			int count = Convert.ToInt32 (content [cur++]);
 			for (int i = 0; i < count; ++i, ++cur) {
-	
+                var portal_info = content[cur].Split(new char[] { ',' });
+                var row = Convert.ToUInt32(portal_info[0]);
+                var col = Convert.ToUInt32(portal_info[1]);
+                var direction = portal_info[2].Equals("up") ? EProtalDirection.Up : EProtalDirection.Down;
+                var destination_level = Convert.ToUInt32(portal_info[3]);
+                var destination_row = Convert.ToUInt32(portal_info[4]);
+                var destination_col = Convert.ToUInt32(portal_info[5]);
+
+                var portal_tile = TileFactory.Instance.CreatePortal();
+                portal_tile.Direction = direction;
+                portal_tile.DestinationLevel = destination_level;
+                portal_tile.DestinationPosition = new TilePosition(destination_row, destination_col);
+
+                layer[row, col] = portal_tile;
 			}
 			
 			return cur;
@@ -148,7 +161,7 @@ namespace MagicTower.Logic
 			cur_idx = parseItem (content, cur_idx, map.LayerCollide);
 	
 			// portal
-			cur_idx = parsePortal (content, cur_idx, map.LayerCollide);
+			cur_idx = parsePortal (content, cur_idx, map.LayerFloor);
 	
 			yield return map;
 		}

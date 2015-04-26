@@ -58,8 +58,7 @@ namespace MagicTower.Logic
             //yield return Battle.Instance.BeginBattle(target as Tile_Player, this);
 
             // remove self from tile map
-            mParent.LayerCollide[mPosition] = null;
-            yield return mDisplay.Destroy();
+            yield return Exit();
 
             Game.Instance.IsInBattle = false;
 

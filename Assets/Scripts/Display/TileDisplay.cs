@@ -10,7 +10,7 @@ namespace MagicTower.Display
 
         IEnumerator MoveTo(Logic.TilePosition dest);
 
-        IEnumerator Destroy();
+        IEnumerator Exit();
     }
 
     public class WaitForMoveTo : SafeCoroutine.IYieldInstruction
@@ -70,7 +70,7 @@ namespace MagicTower.Display
             yield return new WaitForMoveTo(gameObject, dest, 0.2f);
         }
 
-        public IEnumerator Destroy()
+        public IEnumerator Exit()
         {
             Destroy(gameObject);
             yield return null;

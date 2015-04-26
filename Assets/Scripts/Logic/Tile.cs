@@ -55,14 +55,26 @@ namespace MagicTower
                 set { mPosition = value; }
             }
 
+            protected bool mIsBlock = true;
+            public bool IsBlock
+            {
+                get { return mIsBlock; }
+                set { mIsBlock = value; }
+            }
+
             public virtual bool ValidateMove(Tile target)
             {
-                return true;
+                return !mIsBlock;
             }
 
             public virtual IEnumerator BeginTrigger(Tile target)
             {
-                yield return false;
+                yield return true;
+            }
+
+            public virtual IEnumerator EndTrigger(Tile target)
+            {
+                yield return null;
             }
 
             public virtual IEnumerator MoveTo(uint row, uint col)
@@ -88,6 +100,14 @@ namespace MagicTower
                 }
 
                 yield return mDisplay.Enter();
+            }
+
+            public virtual IEnumerator Exit()
+            {
+                mParent.LayerCollide[mPosition] = null;
+                yield return mDisplay.Exit();
+                mDisplay = null;
+				yield return null;
             }
 
             private bool mIsMoving = false;

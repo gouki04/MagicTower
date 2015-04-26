@@ -66,6 +66,10 @@ namespace MagicTower.Display
                     {
                         return CreatePlayer(tile).GetComponent<TileDisplay>();
                     }
+                case Logic.Tile.EType.Portal:
+                    {
+                        return CreatePortal(tile).GetComponent<TileDisplay>();
+                    }
                 default:
                     return null;
             }
@@ -136,7 +140,7 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateWall(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "wall_7", "Collide");
+            return _createTerrainBlockTile(tile_data, "wall_7", "Floor");
         }
 
         /// <summary>
@@ -146,7 +150,7 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateSky(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "wall_13", "Collide");
+            return _createTerrainBlockTile(tile_data, "wall_13", "Floor");
         }
 
         /// <summary>
@@ -156,7 +160,7 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateWater(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "water_0", "Collide");
+            return _createTerrainBlockTile(tile_data, "water_0", "Floor");
         }
 
         /// <summary>
@@ -186,6 +190,15 @@ namespace MagicTower.Display
             // add collider
             var collider_component = obj.AddComponent<BoxCollider2D>();
             collider_component.isTrigger = true;
+
+            return obj;
+        }
+
+        public GameObject CreatePortal(Logic.Tile tile_data)
+        {
+            var tile_portal = tile_data as Logic.Tile_Portal;
+
+            var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "portal_up" : "portal_down", "Floor");
 
             return obj;
         }

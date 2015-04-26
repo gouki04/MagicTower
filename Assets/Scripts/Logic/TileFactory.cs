@@ -13,31 +13,61 @@ namespace MagicTower.Logic
 
         public Tile_Player CreatePlayer()
         {
-            return new Tile_Player();
+            var player = new Tile_Player();
+            player.IsBlock = false;
+
+            return player;
         }
 
         public Tile CreateMonster(uint id)
         {
-            return new Tile_Monster(id);
+            var monster = new Tile_Monster(id);
+            monster.IsBlock = false;
+
+            return monster;
+        }
+
+        public Tile_Portal CreatePortal()
+        {
+            var portal = new Tile_Portal();
+            portal.IsBlock = false;
+
+            return portal;
+        }
+
+        public Tile CreateTerrainTile(Tile.EType type)
+        {
+            var tile = new Tile(type);
+            tile.IsBlock = false;
+
+            return tile;
+        }
+
+        public Tile CreateTerrainBlockTile(Tile.EType type)
+        {
+            var tile = new Tile(type);
+            tile.IsBlock = true;
+
+            return tile;
         }
 
         public Tile CreateTile(char tile_type)
         {
             if (tile_type == '1')
             {
-                return new Tile(Tile.EType.Floor);
+                return CreateTerrainTile(Tile.EType.Floor);
             }
             else if (tile_type == '2')
             {
-                return new Tile(Tile.EType.Wall);
+                return CreateTerrainBlockTile(Tile.EType.Wall);
             }
             else if (tile_type == '3')
             {
-                return new Tile(Tile.EType.Water);
+                return CreateTerrainBlockTile(Tile.EType.Water);
             }
             else if (tile_type == '4')
             {
-                return new Tile(Tile.EType.Sky);
+                return CreateTerrainBlockTile(Tile.EType.Sky);
             }
             else
             {

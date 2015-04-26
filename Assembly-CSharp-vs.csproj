@@ -71,12 +71,14 @@
      <Compile Include="Assets\Scripts\Logic\Tile_Actor.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Monster.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Player.cs" />
+     <Compile Include="Assets\Scripts\Logic\Tile_Portal.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Utils\Logger.cs" />
      <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
      <Compile Include="Assets\Scripts\Utils\SpriteSheet.cs" />
      <Compile Include="Assets\Scripts\Utils\SpriteSheetManager.cs" />
      <None Include="Assets\Resources\level0.txt" />
+     <None Include="Assets\Resources\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
