@@ -166,16 +166,15 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateMonster(Logic.Tile tile_data)
         {
-            //var tile_monster = tile_data as Logic.Tile_Monster;
+            var tile_monster = tile_data as Logic.Tile_Monster;
 
-            //var obj = _createBasicTile(tile_data, tile_monster.SpriteName, "Collide");
+            var obj = _createBasicTile(tile_data, tile_monster.CsvData["sprite"], "Collide");
 
-            //// add collider
-            //var collider_component = obj.AddComponent<BoxCollider2D>();
-            //collider_component.isTrigger = true;
+            // add collider
+            var collider_component = obj.AddComponent<BoxCollider2D>();
+            collider_component.isTrigger = true;
 
-            //return obj;
-            return null;
+            return obj;
         }
 
         public GameObject CreatePlayer(Logic.Tile tile_data)

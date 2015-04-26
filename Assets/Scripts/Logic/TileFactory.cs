@@ -18,8 +18,7 @@ namespace MagicTower.Logic
 
         public Tile CreateMonster(uint id)
         {
-            //return new Tile_Monster(id);
-            return null;
+            return new Tile_Monster(id);
         }
 
         public Tile CreateTile(char tile_type)

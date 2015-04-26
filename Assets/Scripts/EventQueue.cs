@@ -39,6 +39,11 @@ namespace MagicTower
         {
             throw new System.NotImplementedException();
         }
+
+        public IEnumerator Destroy()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class NullDisplayFacotry : Display.IDisplayFactory

@@ -28,6 +28,13 @@ namespace MagicTower
                 get { return mPlayer; }
             }
 
+            private bool mIsInBattle = false;
+            public bool IsInBattle
+            {
+                get { return mIsInBattle; }
+                set { mIsInBattle = value; }
+            }
+
             public Game()
             {
 

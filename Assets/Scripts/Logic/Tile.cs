@@ -8,7 +8,7 @@ namespace MagicTower
     {
         public class Tile
         {
-            private Display.ITileDisplay mDisplay;
+            protected Display.ITileDisplay mDisplay;
             public Display.ITileDisplay Display
             {
                 get { return mDisplay; }
@@ -30,13 +30,13 @@ namespace MagicTower
                 Player = 11,
             }
 
-            private EType mType;
+            protected EType mType;
             public EType Type
             {
                 get { return mType; }
             }
 
-            private TileMap mParent = null;
+            protected TileMap mParent = null;
             public TileMap Parent
             {
                 get { return mParent; }
@@ -48,7 +48,7 @@ namespace MagicTower
                 mType = type;
             }
 
-            private TilePosition mPosition = new TilePosition(0, 0);
+            protected TilePosition mPosition = new TilePosition(0, 0);
             public TilePosition Position
             {
                 get { return mPosition; }
