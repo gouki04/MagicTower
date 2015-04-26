@@ -23,6 +23,10 @@ namespace MagicTower
 
             private TileMap mCurTileMap;
             private Tile_Player mPlayer;
+            public Tile_Player Player
+            {
+                get { return mPlayer; }
+            }
 
             public Game()
             {
@@ -71,6 +75,8 @@ namespace MagicTower
 
                     yield return tile.MoveTo(destination);
                 } while (false);
+
+                tile.IsMoving = false;
             }
 
             private IEnumerator _loadGameData()

@@ -1,6 +1,8 @@
 ﻿using SafeCoroutine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using Utils;
 
 namespace MagicTower
@@ -31,6 +33,11 @@ namespace MagicTower
         {
             Logger.LogDebug("NullTileDisplay.Enter");
             yield return null;
+        }
+
+        public IEnumerator MoveTo(Logic.TilePosition dest)
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -93,7 +100,7 @@ namespace MagicTower
             mEventQ = new Queue<EventData>();
         }
 
-        private void translateEvent(EEventType type, object[] args, out EEventType out_type, out object[] out_args)
+        private bool translateEvent(EEventType type, object[] args, out EEventType out_type, out object[] out_args)
         {
             switch (type)
             {
@@ -108,28 +115,51 @@ namespace MagicTower
                         out_args[0] = tile;
 
                         if (direction == EDirection.UP)
+                        {
+                            if (tile.Position.Row >= tile.Parent.LayerCollide.Height)
+                                return false;
+                    
                             out_args[1] = new Logic.TilePosition(tile.Position.Row + 1, tile.Position.Col);
+                        }
                         else if (direction == EDirection.DOWN)
-                            out_args[1] = new Logic.TilePosition(tile.Position.Row - 1, tile.Position.Col);
-                        else if (direction == EDirection.LEFT)
-                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col - 1);
-                        else if (direction == EDirection.RIGHT)
-                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col + 1);
+                        {
+                            if (tile.Position.Row <= 0)
+                                return false;
 
-                        break;
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row - 1, tile.Position.Col);
+                        }
+                        else if (direction == EDirection.LEFT)
+                        {
+                            if (tile.Position.Col <= 0)
+                                return false;
+
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col - 1);
+                        }
+                        else if (direction == EDirection.RIGHT)
+                        {
+                            if (tile.Position.Col >= tile.Parent.LayerCollide.Width)
+                                return false;
+
+                            out_args[1] = new Logic.TilePosition(tile.Position.Row, tile.Position.Col + 1);
+                        }
+
+                        return true;
                     }
             }
 
             out_type = type;
             out_args = args;
+
+            return true;
         }
 
         public void AddEvent(EEventType type, params object[] args)
         {
-            translateEvent(type, args, out type, out args);
-
-            var data = new EventData(mIdGenerator++, type, args);
-            mEventQ.Enqueue(data);
+            if (translateEvent(type, args, out type, out args))
+            {
+                var data = new EventData(mIdGenerator++, type, args);
+                mEventQ.Enqueue(data);
+            }
         }
 
         public void Update(float dt)
@@ -147,9 +177,8 @@ namespace MagicTower
                     case EEventType.TILE_MOVE:
                         {
                             var tile = evt.Params[0] as Logic.Tile;
-                            var row = (uint)evt.Params[1];
-                            var col = (uint)evt.Params[2];
-                            CoroutineManager.StartCoroutine(Logic.Game.Instance.MoveTileTo(tile, new Logic.TilePosition(row, col)));
+                            var destination = (Logic.TilePosition)evt.Params[1];
+                            CoroutineManager.StartCoroutine(Logic.Game.Instance.MoveTileTo(tile, destination));
                             break;
                         }
                     case EEventType.ENTER_GAME:

@@ -62,7 +62,7 @@ namespace MagicTower
 
             public virtual IEnumerator BeginTrigger(Tile target)
             {
-                yield return null;
+                yield return false;
             }
 
             public virtual IEnumerator MoveTo(uint row, uint col)

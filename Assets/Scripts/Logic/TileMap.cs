@@ -78,13 +78,19 @@ namespace MagicTower
                 foreach (Tile tile in mLayerFloor)
                 {
                     if (tile != null)
+                    {
+                        tile.Parent = this;
                         yield return tile.Enter();
+                    }
                 }
 
                 foreach (Tile tile in mLayerCollide)
                 {
                     if (tile != null)
+                    {
+                        tile.Parent = this;
                         yield return tile.Enter();
+                    }
                 }
 
                 yield return mDisplay.EndEnter();

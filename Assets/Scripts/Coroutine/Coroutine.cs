@@ -210,6 +210,24 @@ namespace SafeCoroutine
             }
         }
 
+        private bool moveNext(IEnumerator itr)
+        {
+            do
+            {
+                if (itr.MoveNext())
+                {
+                    if (itr.Current != null)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            } while (true);
+        }
+
         /// <summary>
         /// 是否完成了
         /// 每帧调用
@@ -226,7 +244,7 @@ namespace SafeCoroutine
 
             if (mIterator.Current == null)
             {
-                if (!mIterator.MoveNext())
+                if (!moveNext(mIterator))
                     return finish();
             }
             else if (mIterator.Current is Coroutine)
@@ -243,7 +261,7 @@ namespace SafeCoroutine
                 {
                     // 如果已经完成了，执行下一步
                     mChildCoroutine = null;
-                    if (!mIterator.MoveNext())
+                    if (!moveNext(mIterator))
                         return finish();
                 }
             }
@@ -254,18 +272,18 @@ namespace SafeCoroutine
 
                 // 更新指令
                 bool result = yieldBase.IsComplete(delta_time);
-                if (result && !mIterator.MoveNext())
+                if (result && !moveNext(mIterator))
                     return finish();
             }
             else if (mIterator.Current is IEnumerator)
             {
                 bool result = update(mIterator.Current as IEnumerator, delta_time);
-                if (result && !mIterator.MoveNext())
+                if (result && !moveNext(mIterator))
                     return finish();
             }
             else
             {
-                if (!mIterator.MoveNext())
+                if (!moveNext(mIterator))
                 {
                     // 已经没有下一步了，设置完成状态
                     GlobalResult = mIterator.Current;
@@ -283,7 +301,7 @@ namespace SafeCoroutine
 
             if (iterator.Current == null)
             {
-                if (!iterator.MoveNext())
+                if (!moveNext(iterator))
                     return true;
             }
             else if (iterator.Current is Coroutine)
@@ -300,7 +318,7 @@ namespace SafeCoroutine
                 {
                     // 如果已经完成了，执行下一步
                     mChildCoroutine = null;
-                    if (!iterator.MoveNext())
+                    if (!moveNext(iterator))
                         return true;
                 }
             }
@@ -311,18 +329,18 @@ namespace SafeCoroutine
 
                 // 更新指令
                 bool result = yieldBase.IsComplete(delta_time);
-                if (result && !iterator.MoveNext())
+                if (result && !moveNext(iterator))
                     return true;
             }
             else if (iterator.Current is IEnumerator)
             {
                 bool result = update(iterator.Current as IEnumerator, delta_time);
-                if (result && !iterator.MoveNext())
+                if (result && !moveNext(iterator))
                     return true;
             }
             else
             {
-                if (!iterator.MoveNext())
+                if (!moveNext(iterator))
                 {
                     // 已经没有下一步了，设置完成状态
                     GlobalResult = iterator.Current;

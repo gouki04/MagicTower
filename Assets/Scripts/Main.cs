@@ -33,7 +33,19 @@ public class Main : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-
+			EventQueue.Instance.AddEvent(EEventType.TILE_MOVE_RELATIVETY, MagicTower.Logic.Game.Instance.Player, EDirection.UP);
+        }
+		else if (Input.GetKeyDown(KeyCode.S))
+		{
+            EventQueue.Instance.AddEvent(EEventType.TILE_MOVE_RELATIVETY, MagicTower.Logic.Game.Instance.Player, EDirection.DOWN);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            EventQueue.Instance.AddEvent(EEventType.TILE_MOVE_RELATIVETY, MagicTower.Logic.Game.Instance.Player, EDirection.LEFT);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            EventQueue.Instance.AddEvent(EEventType.TILE_MOVE_RELATIVETY, MagicTower.Logic.Game.Instance.Player, EDirection.RIGHT);
         }
 
         EventQueue.Instance.Update(Time.deltaTime);

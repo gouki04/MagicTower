@@ -14,19 +14,35 @@ namespace MagicTower.Display
     public class WaitForMoveTo : SafeCoroutine.IYieldInstruction
     {
         private GameObject mGameObject;
-        private Logic.TilePosition mDestination;
-        private float mSpeed;
+        private Vector3 mBeginPosition;
+        private Vector3 mEndPosition;
+        private float mTime;
+        private float mDuration;
 
-        public WaitForMoveTo(GameObject gameobject, Logic.TilePosition destination, float speed)
+        public WaitForMoveTo(GameObject gameobject, Logic.TilePosition destination, float time)
         {
             mGameObject = gameobject;
-            mDestination = destination;
-            mSpeed = speed;
+            mBeginPosition = gameobject.transform.localPosition;
+            mEndPosition = new Vector3(destination.Col, destination.Row, 0);
+            mTime = 0;
+            mDuration = time;
         }
 
         public bool IsComplete(float delta_time)
         {
-            var cur_position = mGameObject.transform.localPosition;
+            mTime += delta_time;
+            if (mTime >= mDuration)
+            {
+                mGameObject.transform.localPosition = mEndPosition;
+                return true;
+            }
+
+            var cur_progress = mTime / mDuration;
+            var distance = mEndPosition - mBeginPosition;
+            var cur_position = mBeginPosition + distance * cur_progress;
+            mGameObject.transform.localPosition = cur_position;
+
+            return false;
         }
     }
 
@@ -49,7 +65,7 @@ namespace MagicTower.Display
 
         public IEnumerator MoveTo(Logic.TilePosition dest)
         {
-            mDestination = dest;
+            yield return new WaitForMoveTo(gameObject, dest, 0.2f);
         }
     }
 }

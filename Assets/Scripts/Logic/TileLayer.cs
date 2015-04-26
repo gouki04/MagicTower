@@ -64,7 +64,9 @@ namespace MagicTower
                 set
                 {
                     mTiles[r, c] = value;
-                    value.Position = new TilePosition(r, c);
+    
+                    if (value != null)
+                        value.Position = new TilePosition(r, c);
                 }
             }
 
@@ -84,7 +86,9 @@ namespace MagicTower
                 set 
                 { 
                     mTiles[(uint)pos.Row, (uint)pos.Col] = value;
-                    value.Position = pos;
+
+                    if (value != null)
+                        value.Position = pos;
                 }
             }
 
