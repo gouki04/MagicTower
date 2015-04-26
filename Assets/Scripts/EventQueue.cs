@@ -5,12 +5,12 @@ using Utils;
 
 namespace MagicTower
 {
-    public class NullGameDisplay : Display.GameDisplay
+    public class NullGameDisplay : Display.IGameDisplay
     {
 
     }
 
-    public class NullTileMapDisplay : Display.TileMapDisplay
+    public class NullTileMapDisplay : Display.ITileMapDisplay
     {
         public IEnumerator BeginEnter()
         {
@@ -25,7 +25,7 @@ namespace MagicTower
         }
     }
 
-    public class NullTileDisplay : Display.TileDisplay
+    public class NullTileDisplay : Display.ITileDisplay
     {
         public IEnumerator Enter()
         {
@@ -34,19 +34,19 @@ namespace MagicTower
         }
     }
 
-    public class NullDisplayFacotry : Display.DisplayFactory
+    public class NullDisplayFacotry : Display.IDisplayFactory
     {
-        public Display.GameDisplay GetGameDisplay(Logic.Game game)
+        public Display.IGameDisplay GetGameDisplay(Logic.Game game)
         {
             return new NullGameDisplay();
         }
 
-        public Display.TileMapDisplay GetTileMapDisplay(Logic.TileMap tile_map)
+        public Display.ITileMapDisplay GetTileMapDisplay(Logic.TileMap tile_map)
         {
             return new NullTileMapDisplay();
         }
 
-        public Display.TileDisplay GetTileDisplay(Logic.Tile tile)
+        public Display.ITileDisplay GetTileDisplay(Logic.Tile tile)
         {
             return new NullTileDisplay();
         }
@@ -154,7 +154,7 @@ namespace MagicTower
                         }
                     case EEventType.ENTER_GAME:
                         {
-                            CoroutineManager.StartCoroutine(Logic.Game.Instance.Init(new NullDisplayFacotry()));
+                            CoroutineManager.StartCoroutine(Logic.Game.Instance.Init(new Display.DisplayFactory()));
                             break;
                         }
                 }

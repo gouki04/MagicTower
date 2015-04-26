@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +68,8 @@
      <Compile Include="Assets\Scripts\Logic\TileMap.cs" />
      <Compile Include="Assets\Scripts\Logic\TileMapManager.cs" />
      <Compile Include="Assets\Scripts\Logic\TilePosition.cs" />
+     <Compile Include="Assets\Scripts\Logic\Tile_Actor.cs" />
+     <Compile Include="Assets\Scripts\Logic\Tile_Player.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
      <Compile Include="Assets\Scripts\Utils\Logger.cs" />
      <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
@@ -75,7 +77,7 @@
      <Compile Include="Assets\Scripts\Utils\SpriteSheetManager.cs" />
      <None Include="Assets\Resources\level0.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,8 +8,8 @@ namespace MagicTower
     {
         public class Tile
         {
-            private Display.TileDisplay mDisplay;
-            public Display.TileDisplay Display
+            private Display.ITileDisplay mDisplay;
+            public Display.ITileDisplay Display
             {
                 get { return mDisplay; }
             }
@@ -72,10 +72,10 @@ namespace MagicTower
 
             public virtual IEnumerator MoveTo(TilePosition destination)
             {
-                mParent.LayerCollide[Position] = null;
+                yield return mDisplay.MoveTo(destination);
 
-                Position = destination;
-                mParent.LayerCollide[Position] = this;
+                mParent.LayerCollide[Position] = null;
+                mParent.LayerCollide[destination] = this;
 
                 yield return null;
             }

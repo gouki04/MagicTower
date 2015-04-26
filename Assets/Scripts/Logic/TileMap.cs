@@ -12,8 +12,8 @@ namespace MagicTower
         /// </summary>
         public class TileMap
         {
-            private Display.TileMapDisplay mDisplay;
-            public Display.TileMapDisplay Display
+            private Display.ITileMapDisplay mDisplay;
+            public Display.ITileMapDisplay Display
             {
                 get { return mDisplay; }
             }

@@ -9,14 +9,14 @@ namespace MagicTower
     {
         public class Game : Singleton<Game>
         {
-            private Display.DisplayFactory mDisplayFactory;
-            public Display.DisplayFactory DisplayFactory
+            private Display.IDisplayFactory mDisplayFactory;
+            public Display.IDisplayFactory DisplayFactory
             {
                 get { return mDisplayFactory; }
             }
 
-            private Display.GameDisplay mDisplay;
-            public Display.GameDisplay Display
+            private Display.IGameDisplay mDisplay;
+            public Display.IGameDisplay Display
             {
                 get { return mDisplay; }
             }
@@ -29,7 +29,7 @@ namespace MagicTower
 
             }
 
-            public IEnumerator Init(Display.DisplayFactory factory)
+            public IEnumerator Init(Display.IDisplayFactory factory)
             {
                 mDisplayFactory = factory;
 
@@ -53,20 +53,21 @@ namespace MagicTower
                         break;
 
                     var dst_tile = mCurTileMap.LayerCollide[destination];
-                    if (dst_tile == null)
-                        break;
-
                     if (tile == dst_tile)
                         break;
 
                     tile.IsMoving = true;
-                    if (!dst_tile.ValidateMove(tile))
-                        break;
+                    
+                    if (dst_tile != null)
+                    {
+                        if (!dst_tile.ValidateMove(tile))
+                            break;
 
-                    yield return dst_tile.BeginTrigger(tile);
+                        yield return dst_tile.BeginTrigger(tile);
 
-                    if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
-                        break;
+                        if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
+                            break;
+                    }
 
                     yield return tile.MoveTo(destination);
                 } while (false);

@@ -9,10 +9,10 @@ namespace MagicTower
     {
         public struct TilePosition
         {
-            public float Row;
-            public float Col;
+            public uint Row;
+            public uint Col;
 
-            public TilePosition(float r, float c)
+            public TilePosition(uint r, uint c)
             {
                 Row = r;
                 Col = c;
@@ -20,7 +20,7 @@ namespace MagicTower
 
             static public TilePosition Zero
             {
-                get { return new TilePosition(0.0f, 0.0f); }
+                get { return new TilePosition(0, 0); }
             }
 
             public override bool Equals(object obj)
@@ -35,7 +35,7 @@ namespace MagicTower
 
             public static bool operator ==(TilePosition x, TilePosition y)
             {
-                return (x.Row - y.Row) <= 0.0001f && (x.Col - y.Col) <= 0.0001f;
+                return (x.Row == y.Row) && (x.Col == y.Col);
             }
 
             public static bool operator !=(TilePosition x, TilePosition y)

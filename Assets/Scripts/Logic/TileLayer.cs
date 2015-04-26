@@ -64,6 +64,7 @@ namespace MagicTower
                 set
                 {
                     mTiles[r, c] = value;
+                    value.Position = new TilePosition(r, c);
                 }
             }
 
@@ -80,7 +81,11 @@ namespace MagicTower
                         return null;
                     }
                 }
-                set { mTiles[(uint)pos.Row, (uint)pos.Col] = value; }
+                set 
+                { 
+                    mTiles[(uint)pos.Row, (uint)pos.Col] = value;
+                    value.Position = pos;
+                }
             }
 
             public IEnumerator GetEnumerator()

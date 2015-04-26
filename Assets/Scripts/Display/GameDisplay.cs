@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
 
-namespace MagicTower
+namespace MagicTower.Display
 {
-    namespace Display
+    public interface IGameDisplay
     {
-        public interface GameDisplay
-        {
-        } 
+    }
+
+    public class GameDisplay : MonoBehaviour, IGameDisplay
+    {
+
     }
 }

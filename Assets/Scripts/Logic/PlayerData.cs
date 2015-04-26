@@ -17,8 +17,8 @@ namespace MagicTower.Logic
 
         public TilePosition LastPlayerPosition
         {
-            get;
-            set;
+            get { return new TilePosition(0, 5); }
+            set { }
         }
 
         public bool IsTileExist(uint lv, uint row, uint col)
