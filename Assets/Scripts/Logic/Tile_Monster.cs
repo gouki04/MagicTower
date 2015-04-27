@@ -94,7 +94,7 @@ namespace MagicTower.Logic
             // start the battle
             Game.Instance.IsInBattle = true;
 
-            //yield return Battle.Instance.BeginBattle(target as Tile_Player, this);
+            yield return Battle.Instance.BeginBattle(target as Tile_Player, this);
 
             // remove self from tile map
             yield return Exit();

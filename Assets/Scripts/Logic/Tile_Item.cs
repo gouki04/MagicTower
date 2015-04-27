@@ -28,10 +28,41 @@ namespace MagicTower.Logic
 
         public override IEnumerator BeginTrigger(Tile target)
         {
-            // add property to the target
-            // property = CsvData["hp"] .. "mp"
+            var data = CsvData;
 
-            yield return null;
+            var atk = data.GetUIntValue("atk");
+            if (atk > 0)
+                PlayerData.Instance.Attack += atk;
+
+            var def = data.GetUIntValue("def");
+            if (def > 0)
+                PlayerData.Instance.Defend += def;
+
+            var hp = data.GetUIntValue("hp");
+            if (hp > 0)
+                PlayerData.Instance.Hp += hp;
+
+            var gold = data.GetUIntValue("gold");
+            if (gold > 0)
+                PlayerData.Instance.Gold += gold;
+
+            var exp = data.GetUIntValue("exp");
+            if (exp > 0)
+                PlayerData.Instance.Exp += exp;
+
+            var key_yellow = data.GetUIntValue("key_y");
+            if (key_yellow > 0)
+                PlayerData.Instance.ObtainKey(EDoorKeyType.YellowKey);
+
+            var key_blue = data.GetUIntValue("key_b");
+            if (key_blue > 0)
+                PlayerData.Instance.ObtainKey(EDoorKeyType.BlueKey);
+
+            var key_red = data.GetUIntValue("key_r");
+            if (key_red > 0)
+                PlayerData.Instance.ObtainKey(EDoorKeyType.RedKey);
+
+            yield return Exit();
         }
     }
 }

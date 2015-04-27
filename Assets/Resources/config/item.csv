@@ -1,4 +1,8 @@
-﻿id,name,sprite,msg
-1,骷髅人,monster_8,这里很危险！
-2,小蝙蝠,monster_4,这里很危险2！
-3,红色史莱姆,monster_1,这里很危险3！
+﻿id,name,type,sprite,atk,def,hp,gold,exp,key_y,key_b,key_r
+1,黄钥匙,1,key_yellow,0,0,0,0,0,1,0,0
+2,蓝钥匙,2,key_blue,0,0,0,0,0,0,1,0
+3,红钥匙,3,key_red,0,0,0,0,0,0,0,1
+4,蓝药瓶,4,bottle_blue,0,0,200,0,0,0,0,0
+5,红药瓶,5,bottle_red,0,0,1000,0,0,0,0,0
+6,红水晶,6,crystal_red,20,0,0,0,0,0,0,0
+7,蓝水晶,7,crystal_blue,0,20,0,0,0,0,0,0
