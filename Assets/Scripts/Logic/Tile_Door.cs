@@ -32,13 +32,66 @@ namespace MagicTower.Logic
 
         public override bool ValidateMove(Tile target)
         {
-            // TODO check if the player get the key
-            return false;
+            switch (mDoorType)
+            {
+                case EDoorType.Fences:
+                    {
+                        return true;
+                    }
+                case EDoorType.Trigger:
+                    {
+                        return false;
+                    }
+                case EDoorType.Red:
+                    {
+                        return PlayerData.Instance.RedKeys > 0;
+                    }
+                case EDoorType.Blue:
+                    {
+                        return PlayerData.Instance.BlueKeys > 0;
+                    }
+                case EDoorType.Yellow:
+                    {
+                        return PlayerData.Instance.YellowKeys > 0;
+                    }
+                default:
+                    {
+                        return false;
+                    }
+            }
         }
 
         public override IEnumerator BeginTrigger(Tile target)
         {
-            // TODO reduces the key of the player
+            // use the key
+            switch (mDoorType)
+            {
+                case EDoorType.Fences:
+                    {
+                        break;
+                    }
+                case EDoorType.Trigger:
+                    {
+                        break;
+                    }
+                case EDoorType.Red:
+                    {
+                        PlayerData.Instance.UseKey(EDoorKeyType.RedKey);
+                        break;
+                    }
+                case EDoorType.Blue:
+                    {
+                        PlayerData.Instance.UseKey(EDoorKeyType.BlueKey);
+                        break;
+                    }
+                case EDoorType.Yellow:
+                    {
+                        PlayerData.Instance.UseKey(EDoorKeyType.YellowKey);
+                        break;
+                    }
+            }
+
+            // TODO show the door open anim
             yield return true;
         }
     }

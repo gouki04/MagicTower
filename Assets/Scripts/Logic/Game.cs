@@ -9,7 +9,7 @@ namespace MagicTower.Logic
     /// 游戏类
     /// 负责与EventQueue对接
     /// </summary>
-    public class Game : Singleton<Game>
+    public sealed class Game : Singleton<Game>
     {
         /// <summary>
         /// 当前使用的Display工厂
