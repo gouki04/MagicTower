@@ -78,6 +78,10 @@ namespace MagicTower.Display
                     {
                         return CreateItem(tile).GetComponent<TileDisplay>();
                     }
+                case Logic.Tile.EType.Door:
+                    {
+                        return CreateDoor(tile).GetComponent<TileDisplay>();
+                    }
                 default:
                     return null;
             }
@@ -225,6 +229,17 @@ namespace MagicTower.Display
             var tile_item = tile_data as Logic.Tile_Item;
 
             var obj = _createBasicTile(tile_data, tile_item.CsvData["sprite"], "Collide");
+
+            return obj;
+        }
+
+        public GameObject CreateDoor(Logic.Tile tile_data)
+        {
+            var tile_door = tile_data as Logic.Tile_Door;
+
+            // TODO set the sprite base on the tile_door.Type
+            var sprite = "monster_9";
+            var obj = _createBasicTile(tile_data, sprite, "Floor");
 
             return obj;
         }

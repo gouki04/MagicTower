@@ -67,6 +67,14 @@ namespace MagicTower.Logic
             return tile;
         }
 
+        public Tile CreateDoor(EDoorType doorType)
+        {
+            var tile = new Tile_Door(doorType);
+            tile.IsBlock = false;
+
+            return tile;
+        }
+
         public Tile CreateTile(char tile_type)
         {
             if (tile_type == '1')
@@ -84,6 +92,26 @@ namespace MagicTower.Logic
             else if (tile_type == '4')
             {
                 return CreateTerrainBlockTile(Tile.EType.Sky);
+            }
+            else if (tile_type == 'R')
+            {
+                return CreateDoor(EDoorType.Red);
+            }
+            else if (tile_type == 'B')
+            {
+                return CreateDoor(EDoorType.Blue);
+            }
+            else if (tile_type == 'Y')
+            {
+                return CreateDoor(EDoorType.Yellow);
+            }
+            else if (tile_type == 'D')
+            {
+                return CreateDoor(EDoorType.Fences);
+            }
+            else if (tile_type == 'S')
+            {
+                return CreateDoor(EDoorType.Trigger);
             }
             else
             {
