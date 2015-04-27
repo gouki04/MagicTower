@@ -88,7 +88,13 @@ namespace MagicTower.Logic
 			
 			int count = Convert.ToInt32 (content [cur++]);
 			for (int i = 0; i < count; ++i, ++cur) {
-				// TODO add npc
+                var npc_info = content[cur].Split(new char[] { ',' });
+                var row = Convert.ToUInt32(npc_info[0]);
+                var col = Convert.ToUInt32(npc_info[1]);
+                var npc_id = Convert.ToUInt32(npc_info[2]);
+
+                var npc_tile = TileFactory.Instance.CreateMonster(npc_id);
+                layer[row, col] = npc_tile;
 			}
 			
 			return cur;

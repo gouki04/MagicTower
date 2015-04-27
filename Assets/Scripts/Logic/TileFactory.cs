@@ -35,6 +35,14 @@ namespace MagicTower.Logic
             return portal;
         }
 
+        public Tile_Npc CreateNpc(uint id)
+        {
+            var npc = new Tile_Npc(id);
+            npc.IsBlock = false;
+
+            return npc;
+        }
+
         public Tile CreateTerrainTile(Tile.EType type)
         {
             var tile = new Tile(type);

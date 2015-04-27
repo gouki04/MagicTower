@@ -70,6 +70,10 @@ namespace MagicTower.Display
                     {
                         return CreatePortal(tile).GetComponent<TileDisplay>();
                     }
+                case Logic.Tile.EType.Npc:
+                    {
+                        return CreateNpc(tile).GetComponent<TileDisplay>();
+                    }
                 default:
                     return null;
             }
@@ -199,6 +203,15 @@ namespace MagicTower.Display
             var tile_portal = tile_data as Logic.Tile_Portal;
 
             var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "portal_up" : "portal_down", "Floor");
+
+            return obj;
+        }
+
+        public GameObject CreateNpc(Logic.Tile tile_data)
+        {
+            var tile_npc = tile_data as Logic.Tile_Npc;
+
+            var obj = _createBasicTile(tile_data, tile_npc.CsvData["sprite"], "Collide");
 
             return obj;
         }

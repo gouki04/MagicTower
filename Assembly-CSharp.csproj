@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\Logic\TilePosition.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Actor.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Monster.cs" />
+     <Compile Include="Assets\Scripts\Logic\Tile_Npc.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Player.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile_Portal.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
