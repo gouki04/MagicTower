@@ -56,11 +56,13 @@
     <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
     <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
     <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
+    <Compile Include="Assets\Scripts\Display\BattleDisplay.cs" />
     <Compile Include="Assets\Scripts\Display\DisplayFactory.cs" />
     <Compile Include="Assets\Scripts\Display\GameDisplay.cs" />
     <Compile Include="Assets\Scripts\Display\TileDisplay.cs" />
     <Compile Include="Assets\Scripts\Display\TileMapDisplay.cs" />
     <Compile Include="Assets\Scripts\EventQueue.cs" />
+    <Compile Include="Assets\Scripts\Logic\Battle.cs" />
     <Compile Include="Assets\Scripts\Logic\Game.cs" />
     <Compile Include="Assets\Scripts\Logic\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Logic\Tile.cs" />

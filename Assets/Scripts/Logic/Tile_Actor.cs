@@ -22,6 +22,7 @@ namespace MagicTower.Logic
         public abstract uint Hp
         {
             get;
+            set;
         }
 
 		public bool IsDead
@@ -29,9 +30,27 @@ namespace MagicTower.Logic
 			get { return Hp <= 0; }
 		}
 
-        //public abstract Damage AttackTo(Tile_Actor actor);
+        public virtual uint CalcOneHitDamage(Tile_Actor defender)
+        {
+            if (Attack < defender.Defend)
+            {
+                return 0;
+            }
 
-        //public abstract Damage TakeDamage(Damage dam);
+            return Attack - defender.Defend;
+        }
+
+        public virtual void TakeDamage(uint dam)
+        {
+            if (Hp < dam)
+            {
+                Hp = 0;
+            }
+            else
+            {
+                Hp -= dam;
+            }
+        }
 	}
 }
 

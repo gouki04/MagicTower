@@ -27,6 +27,7 @@ namespace MagicTower.Logic
         public override uint Hp
         {
             get { return PlayerData.Instance.Hp; }
+            set { PlayerData.Instance.Hp = value; }
         }
 
         public override IEnumerator Exit()

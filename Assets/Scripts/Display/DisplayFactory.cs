@@ -10,6 +10,8 @@ namespace MagicTower.Display
 
         ITileMapDisplay GetTileMapDisplay(Logic.TileMap tile_map);
 
+        IBattleDisplay GetBattleDisplay(Logic.Battle battle);
+
         ITileDisplay GetTileDisplay(Logic.Tile tile);
     }
 
@@ -17,6 +19,7 @@ namespace MagicTower.Display
     {
 
         private GameObject mTileMapObj;
+        private GameObject mBattleObj;
 
         public IGameDisplay GetGameDisplay(Logic.Game game)
         {
@@ -36,6 +39,18 @@ namespace MagicTower.Display
 
             var tile_map_display = mTileMapObj.AddComponent<TileMapDisplay>();
             return tile_map_display;
+        }
+
+        public IBattleDisplay GetBattleDisplay(Logic.Battle battle)
+        {
+            if (mBattleObj == null)
+            {
+                mBattleObj = new GameObject("Battle");
+                mBattleObj.transform.localPosition = new Vector3(0, -5, 0);
+            }
+
+            var battle_display = mBattleObj.AddComponent<BattleDisplay>();
+            return battle_display;
         }
 
         public ITileDisplay GetTileDisplay(Logic.Tile tile)

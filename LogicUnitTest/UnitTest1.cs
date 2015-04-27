@@ -67,6 +67,11 @@ namespace LogicUnitTest
         {
             return new TestTileDisplay();
         }
+
+        public MagicTower.Display.IBattleDisplay GetBattleDisplay(MagicTower.Logic.Battle battle)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestClass]

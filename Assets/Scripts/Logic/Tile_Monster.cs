@@ -19,6 +19,7 @@ namespace MagicTower.Logic
             : base(EType.Monster)
         {
             mId = id;
+            mHp = CsvData.GetUIntValue("hp");
         }
 
         public CSVLine CsvData
@@ -49,9 +50,11 @@ namespace MagicTower.Logic
             get { return CsvData.GetUIntValue("def"); }
         }
 
+        private uint mHp;
         public override uint Hp
         {
-            get { return CsvData.GetUIntValue("hp"); }
+            get { return mHp; }
+            set { mHp = value; }
         }
 
         public uint Damage
