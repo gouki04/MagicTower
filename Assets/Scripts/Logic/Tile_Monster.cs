@@ -83,11 +83,11 @@ namespace MagicTower.Logic
 			return false;
 		}
 
-		public float CalcDamage(Tile_Player player)
-		{
-			var damage_value = (float)Math.Floor((float)Hp / ((float)player.Attack - (float)Defend)) * ((float)Attack - (float)player.Defend);
-			return damage_value;
-		}
+        //public float CalcDamage(Tile_Player player)
+        //{
+        //    var damage_value = (float)Math.Floor((float)Hp / ((float)player.Attack - (float)Defend)) * ((float)Attack - (float)player.Defend);
+        //    return damage_value;
+        //}
 		
 		public override IEnumerator BeginTrigger(Tile target)
 		{
