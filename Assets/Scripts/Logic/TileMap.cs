@@ -80,6 +80,7 @@ namespace MagicTower
                     if (tile != null)
                     {
                         tile.Parent = this;
+                        tile.Layer = mLayerFloor;
                         yield return tile.Enter();
                     }
                 }
@@ -89,6 +90,7 @@ namespace MagicTower
                     if (tile != null)
                     {
                         tile.Parent = this;
+                        tile.Layer = mLayerCollide;
                         yield return tile.Enter();
                     }
                 }
@@ -100,15 +102,15 @@ namespace MagicTower
             {
                 yield return mDisplay.BeginExit();
 
-				foreach (Tile tile in mLayerCollide)
-				{
-					if (tile != null)
-					{
-						yield return tile.Exit();
-					}
-				}
-
                 foreach (Tile tile in mLayerFloor)
+                {
+                    if (tile != null)
+                    {
+                        yield return tile.Exit();
+                    }
+                }
+
+                foreach (Tile tile in mLayerCollide)
                 {
                     if (tile != null)
                     {

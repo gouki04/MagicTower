@@ -43,6 +43,13 @@ namespace MagicTower
                 set { mParent = value; }
             }
 
+            protected TileLayer mLayer;
+            public TileLayer Layer
+            {
+                get { return mLayer; }
+                set { mLayer = value; }
+            }
+
             public Tile(EType type)
             {
                 mType = type;
@@ -79,15 +86,15 @@ namespace MagicTower
 
             public virtual IEnumerator MoveTo(uint row, uint col)
             {
-                yield return null;
+                yield return MoveTo(new TilePosition(row, col));
             }
 
             public virtual IEnumerator MoveTo(TilePosition destination)
             {
                 yield return mDisplay.MoveTo(destination);
 
-                mParent.LayerCollide[Position] = null;
-                mParent.LayerCollide[destination] = this;
+                mLayer[Position] = null;
+                mLayer[destination] = this;
 
                 yield return null;
             }
@@ -104,10 +111,11 @@ namespace MagicTower
 
             public virtual IEnumerator Exit()
             {
-                mParent.LayerCollide[mPosition] = null;
+                mLayer[mPosition] = null;
+
                 yield return mDisplay.Exit();
+
                 mDisplay = null;
-				yield return null;
             }
 
             private bool mIsMoving = false;
