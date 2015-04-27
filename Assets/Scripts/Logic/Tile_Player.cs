@@ -14,6 +14,21 @@ namespace MagicTower.Logic
 
         }
 
+        public override uint Attack
+        {
+            get { return PlayerData.Instance.Attack; }
+        }
+
+        public override uint Defend
+        {
+            get { return PlayerData.Instance.Defend; }
+        }
+
+        public override uint Hp
+        {
+            get { return PlayerData.Instance.Hp; }
+        }
+
         public override IEnumerator Exit()
         {
             yield return base.Exit();

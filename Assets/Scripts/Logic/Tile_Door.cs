@@ -20,14 +20,14 @@ namespace MagicTower.Logic
         public Tile_Door(EDoorType type)
             : base(EType.Door)
         {
-            mType = type;
+            mDoorType = type;
         }
 
-        private EDoorType mType;
-        public EDoorType Type
+        private EDoorType mDoorType;
+        public EDoorType DoorType
         {
-            get { return mType; }
-            set { mType = value; }
+            get { return mDoorType; }
+            set { mDoorType = value; }
         }
 
         public override bool ValidateMove(Tile target)

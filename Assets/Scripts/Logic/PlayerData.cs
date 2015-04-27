@@ -24,6 +24,41 @@ namespace MagicTower.Logic
             set { mLastPlayerPosition = value; }
         }
 
+        private uint mAttack;
+        public uint Attack
+        {
+            get { return mAttack; }
+            set { mAttack = value; }
+        }
+
+        private uint mDefend;
+        public uint Defend
+        {
+            get { return mDefend; }
+            set { mDefend = value; }
+        }
+
+        private uint mHp;
+        public uint Hp
+        {
+            get { return mHp; }
+            set { mHp = value; }
+        }
+
+        private uint mGold;
+        public uint Gold
+        {
+            get { return mGold; }
+            set { mGold = value; }
+        }
+
+        private uint mExp;
+        public uint Exp
+        {
+            get { return mExp; }
+            set { mExp = value; }
+        }
+
         public bool IsTileExist(uint lv, uint row, uint col)
         {
             return true;

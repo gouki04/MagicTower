@@ -237,7 +237,7 @@ namespace MagicTower.Display
         {
             var tile_door = tile_data as Logic.Tile_Door;
 
-            // TODO set the sprite base on the tile_door.Type
+            // TODO set the sprite base on the tile_door.DoorType
             var sprite = "monster_9";
             var obj = _createBasicTile(tile_data, sprite, "Floor");
 

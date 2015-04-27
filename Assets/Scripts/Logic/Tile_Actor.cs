@@ -2,33 +2,27 @@ using System;
 
 namespace MagicTower.Logic
 {
-	public class Tile_Actor : Tile
+	public abstract class Tile_Actor : Tile
 	{
 		public Tile_Actor (EType type)
             : base(type)
 		{
 		}
 
-		private uint mAttack;
-		public uint Attack
-		{
-			get { return mAttack; }
-			set { mAttack = value; }
-		}
-		
-		private uint mDefend;
-		public uint Defend
-		{
-			get { return mDefend; }
-			set { mDefend = value; }
-		}
-		
-		private uint mHp;
-		public uint Hp
-		{
-			get { return mHp; }
-			set { mHp = value; }
-		}
+        public abstract uint Attack
+        {
+            get;
+        }
+
+        public abstract uint Defend
+        {
+            get;
+        }
+
+        public abstract uint Hp
+        {
+            get;
+        }
 
 		public bool IsDead
 		{

@@ -29,16 +29,52 @@ namespace MagicTower.Logic
             }
         }
 
+        public uint Gold
+        {
+            get { return CsvData.GetUIntValue("gold"); }
+        }
+
+        public uint Exp
+        {
+            get { return CsvData.GetUIntValue("exp"); }
+        }
+
+        public override uint Attack
+        {
+            get { return CsvData.GetUIntValue("atk"); }
+        }
+
+        public override uint Defend
+        {
+            get { return CsvData.GetUIntValue("def"); }
+        }
+
+        public override uint Hp
+        {
+            get { return CsvData.GetUIntValue("hp"); }
+        }
+
+        public uint Damage
+        {
+            get
+            {
+                var hp = (float)Hp;
+                var atk = (float)Attack;
+                var def = (float)Defend;
+                var player_atk = (float)PlayerData.Instance.Attack;
+                var player_def = (float)PlayerData.Instance.Defend;
+
+                var damage = Math.Floor(hp / (player_atk - def)) * (atk - player_def);
+                return (uint)damage;
+            }
+        }
+
 		public override bool ValidateMove(Tile target)
 		{
 			if (target is Tile_Player)
 			{
-				return true;
-
 				var player = target as Tile_Player;
-				
-				var damage = CalcDamage(player);
-				return player.Hp > damage;
+				return player.Hp > Damage;
 			}
 
 			return false;

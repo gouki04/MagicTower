@@ -6,6 +6,19 @@ namespace MagicTower.Logic
 {
     public class TileFactory : Singleton<TileFactory>
     {
+        public enum ETileChar
+        {
+            Floor = '1',
+            Wall = '2',
+            Water = '3',
+            Sky = '4',
+            RedDoor = 'R',
+            BlueDoor = 'B',
+            YellowDoor = 'Y',
+            FencesDoor = 'D',
+            TriggerDoor = 'S',
+        }
+
         public TileFactory()
         {
             
@@ -75,47 +88,51 @@ namespace MagicTower.Logic
             return tile;
         }
 
-        public Tile CreateTile(char tile_type)
+        public Tile CreateTile(char tile_char)
         {
-            if (tile_type == '1')
+            var tile_type = (ETileChar)tile_char;
+            switch (tile_type)
             {
-                return CreateTerrainTile(Tile.EType.Floor);
-            }
-            else if (tile_type == '2')
-            {
-                return CreateTerrainBlockTile(Tile.EType.Wall);
-            }
-            else if (tile_type == '3')
-            {
-                return CreateTerrainBlockTile(Tile.EType.Water);
-            }
-            else if (tile_type == '4')
-            {
-                return CreateTerrainBlockTile(Tile.EType.Sky);
-            }
-            else if (tile_type == 'R')
-            {
-                return CreateDoor(EDoorType.Red);
-            }
-            else if (tile_type == 'B')
-            {
-                return CreateDoor(EDoorType.Blue);
-            }
-            else if (tile_type == 'Y')
-            {
-                return CreateDoor(EDoorType.Yellow);
-            }
-            else if (tile_type == 'D')
-            {
-                return CreateDoor(EDoorType.Fences);
-            }
-            else if (tile_type == 'S')
-            {
-                return CreateDoor(EDoorType.Trigger);
-            }
-            else
-            {
-                return null;
+                case ETileChar.Floor:
+                    {
+                        return CreateTerrainTile(Tile.EType.Floor);
+                    }
+                case ETileChar.Wall:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Wall);
+                    }
+                case ETileChar.Water:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Water);
+                    }
+                case ETileChar.Sky:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Sky);
+                    }
+                case ETileChar.RedDoor:
+                    {
+                        return CreateDoor(EDoorType.Red);
+                    }
+                case ETileChar.BlueDoor:
+                    {
+                        return CreateDoor(EDoorType.Blue);
+                    }
+                case ETileChar.YellowDoor:
+                    {
+                        return CreateDoor(EDoorType.Yellow);
+                    }
+                case ETileChar.FencesDoor:
+                    {
+                        return CreateDoor(EDoorType.Fences);
+                    }
+                case ETileChar.TriggerDoor:
+                    {
+                        return CreateDoor(EDoorType.Trigger);
+                    }
+                default:
+                    {
+                        return null;
+                    }
             }
         }
     }

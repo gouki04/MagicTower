@@ -7,63 +7,6 @@ using Utils;
 
 namespace MagicTower
 {
-    //public class NullGameDisplay : Display.IGameDisplay
-    //{
-
-    //}
-
-    //public class NullTileMapDisplay : Display.ITileMapDisplay
-    //{
-    //    public IEnumerator BeginEnter()
-    //    {
-    //        Logger.LogDebug("NullTileMapDisplay.BeginEnter");
-    //        yield return null;
-    //    }
-
-    //    public IEnumerator EndEnter()
-    //    {
-    //        Logger.LogDebug("NullTileMapDisplay.EndEnter");
-    //        yield return null;
-    //    }
-    //}
-
-    //public class NullTileDisplay : Display.ITileDisplay
-    //{
-    //    public IEnumerator Enter()
-    //    {
-    //        Logger.LogDebug("NullTileDisplay.Enter");
-    //        yield return null;
-    //    }
-
-    //    public IEnumerator MoveTo(Logic.TilePosition dest)
-    //    {
-    //        throw new System.NotImplementedException();
-    //    }
-
-    //    public IEnumerator Exit()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-    //public class NullDisplayFacotry : Display.IDisplayFactory
-    //{
-    //    public Display.IGameDisplay GetGameDisplay(Logic.Game game)
-    //    {
-    //        return new NullGameDisplay();
-    //    }
-
-    //    public Display.ITileMapDisplay GetTileMapDisplay(Logic.TileMap tile_map)
-    //    {
-    //        return new NullTileMapDisplay();
-    //    }
-
-    //    public Display.ITileDisplay GetTileDisplay(Logic.Tile tile)
-    //    {
-    //        return new NullTileDisplay();
-    //    }
-    //}
-
     public enum EEventType
     {
         TILE_MOVE = 1,
@@ -188,7 +131,8 @@ namespace MagicTower
                         }
                     case EEventType.ENTER_GAME:
                         {
-                            CoroutineManager.StartCoroutine(Logic.Game.Instance.Init(new Display.DisplayFactory()));
+                            var display_factory = evt.Params[0] as Display.DisplayFactory;
+                            CoroutineManager.StartCoroutine(Logic.Game.Instance.Init(display_factory));
                             break;
                         }
                     case EEventType.CHANGE_LEVEL:

@@ -17,7 +17,7 @@ public class Main : MonoBehaviour
 
 		Logger.LogInfo(CSVManager.Instance["monster"][2]["name"]);
 
-        EventQueue.Instance.AddEvent(EEventType.ENTER_GAME);
+        EventQueue.Instance.AddEvent(EEventType.ENTER_GAME, new MagicTower.Display.DisplayFactory());
     }
 
     //private void AddMonster(int r, int c, uint id)
