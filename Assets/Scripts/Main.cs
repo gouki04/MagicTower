@@ -11,9 +11,9 @@ public class Main : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-        SpriteSheetManager.Instance.Load("3");
-        SpriteSheetManager.Instance.Load("monster");
-        SpriteSheetManager.Instance.Load("wall");
+        SpriteSheetManager.Instance.Load("tile");
+        //SpriteSheetManager.Instance.Load("monster");
+        //SpriteSheetManager.Instance.Load("wall");
 
 		Logger.LogInfo(CSVManager.Instance["monster"][2]["name"]);
 

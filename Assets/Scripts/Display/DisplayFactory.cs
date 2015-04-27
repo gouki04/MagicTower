@@ -167,7 +167,7 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateWall(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "wall_7", "Floor");
+            return _createTerrainBlockTile(tile_data, "wall_0", "Floor");
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateSky(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "wall_13", "Floor");
+            return _createTerrainBlockTile(tile_data, "sky_0", "Floor");
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace MagicTower.Display
         {
             var tile_player = tile_data as Logic.Tile_Player;
 
-            var obj = _createBasicTile(tile_data, "monster_23", "Collide");
+            var obj = _createBasicTile(tile_data, "player", "Collide");
 
             // add collider
             var collider_component = obj.AddComponent<BoxCollider2D>();
@@ -225,7 +225,7 @@ namespace MagicTower.Display
         {
             var tile_portal = tile_data as Logic.Tile_Portal;
 
-            var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "portal_up" : "portal_down", "Floor");
+            var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "stair_up" : "stair_down", "Floor");
 
             return obj;
         }
@@ -252,8 +252,36 @@ namespace MagicTower.Display
         {
             var tile_door = tile_data as Logic.Tile_Door;
 
-            // TODO set the sprite base on the tile_door.DoorType
-            var sprite = "monster_9";
+            var sprite = "door_yellow";
+            switch (tile_door.DoorType)
+            {
+                case Logic.EDoorType.Yellow:
+                    {
+                        sprite = "door_yellow";
+                        break;
+                    }
+                case Logic.EDoorType.Blue:
+                    {
+                        sprite = "door_blue";
+                        break;
+                    }
+                case Logic.EDoorType.Red:
+                    {
+                        sprite = "door_red";
+                        break;
+                    }
+                case Logic.EDoorType.Trigger:
+                    {
+                        sprite = "door_special";
+                        break;
+                    }
+                case Logic.EDoorType.Fences:
+                    {
+                        sprite = "door_fences";
+                        break;
+                    }
+            }
+
             var obj = _createBasicTile(tile_data, sprite, "Floor");
 
             return obj;
