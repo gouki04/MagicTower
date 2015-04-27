@@ -68,7 +68,10 @@ namespace MagicTower.Logic
                 var player_def = (float)PlayerData.Instance.Defend;
 
                 var damage = Math.Floor(hp / (player_atk - def)) * (atk - player_def);
-                return (uint)damage;
+                if (damage < 0)
+					return 0;
+
+				return (uint)damage;
             }
         }
 
