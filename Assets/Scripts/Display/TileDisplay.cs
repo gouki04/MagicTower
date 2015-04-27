@@ -67,7 +67,7 @@ namespace MagicTower.Display
 
         public IEnumerator MoveTo(Logic.TilePosition dest)
         {
-            yield return new WaitForMoveTo(gameObject, dest, 0.2f);
+            yield return new WaitForMoveTo(gameObject, dest, 0.1f);
         }
 
         public IEnumerator Exit()
