@@ -106,7 +106,13 @@ namespace MagicTower.Logic
 			
 			int count = Convert.ToInt32 (content [cur++]);
 			for (int i = 0; i < count; ++i, ++cur) {
-				// TODO add item
+                var item_info = content[cur].Split(new char[] { ',' });
+                var row = Convert.ToUInt32(item_info[0]);
+                var col = Convert.ToUInt32(item_info[1]);
+                var item_id = Convert.ToUInt32(item_info[2]);
+
+                var item_tile = TileFactory.Instance.CreateMonster(item_id);
+                layer[row, col] = item_tile;
 			}
 			
 			return cur;

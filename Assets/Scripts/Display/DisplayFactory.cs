@@ -74,6 +74,10 @@ namespace MagicTower.Display
                     {
                         return CreateNpc(tile).GetComponent<TileDisplay>();
                     }
+                case Logic.Tile.EType.Item:
+                    {
+                        return CreateItem(tile).GetComponent<TileDisplay>();
+                    }
                 default:
                     return null;
             }
@@ -212,6 +216,15 @@ namespace MagicTower.Display
             var tile_npc = tile_data as Logic.Tile_Npc;
 
             var obj = _createBasicTile(tile_data, tile_npc.CsvData["sprite"], "Collide");
+
+            return obj;
+        }
+
+        public GameObject CreateItem(Logic.Tile tile_data)
+        {
+            var tile_item = tile_data as Logic.Tile_Item;
+
+            var obj = _createBasicTile(tile_data, tile_item.CsvData["sprite"], "Collide");
 
             return obj;
         }
