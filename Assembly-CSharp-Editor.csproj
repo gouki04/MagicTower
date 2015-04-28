@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{0C614966-3817-29A6-D9EA-DAB3C7FA513F}</ProjectGuid>
+	<ProjectGuid>{31823C3C-EBC3-2CF7-BCE9-10307B1D240B}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-Editor</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,49 +46,23 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Grid.cs" />
-     <Compile Include="Assets\Scripts\CSV\CSVLine.cs" />
-     <Compile Include="Assets\Scripts\CSV\CSVManager.cs" />
-     <Compile Include="Assets\Scripts\CSV\CSVTable.cs" />
-     <Compile Include="Assets\Scripts\Component\UserMovementControlComponent.cs" />
-     <Compile Include="Assets\Scripts\Coroutine\Coroutine.cs" />
-     <Compile Include="Assets\Scripts\Coroutine\CoroutineManager.cs" />
-     <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
-     <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
-     <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
-     <Compile Include="Assets\Scripts\Display\BattleDisplay.cs" />
-     <Compile Include="Assets\Scripts\Display\DisplayFactory.cs" />
-     <Compile Include="Assets\Scripts\Display\GameDisplay.cs" />
-     <Compile Include="Assets\Scripts\Display\TileDisplay.cs" />
-     <Compile Include="Assets\Scripts\Display\TileMapDisplay.cs" />
-     <Compile Include="Assets\Scripts\EditorData\TileMap.cs" />
-     <Compile Include="Assets\Scripts\EventQueue.cs" />
-     <Compile Include="Assets\Scripts\Logic\Battle.cs" />
-     <Compile Include="Assets\Scripts\Logic\Game.cs" />
-     <Compile Include="Assets\Scripts\Logic\PlayerData.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile.cs" />
-     <Compile Include="Assets\Scripts\Logic\TileFactory.cs" />
-     <Compile Include="Assets\Scripts\Logic\TileLayer.cs" />
-     <Compile Include="Assets\Scripts\Logic\TileMap.cs" />
-     <Compile Include="Assets\Scripts\Logic\TileMapManager.cs" />
-     <Compile Include="Assets\Scripts\Logic\TilePosition.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Actor.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Door.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Item.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Monster.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Npc.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Player.cs" />
-     <Compile Include="Assets\Scripts\Logic\Tile_Portal.cs" />
-     <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Utils\Logger.cs" />
-     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
-     <Compile Include="Assets\Scripts\Utils\SpriteSheet.cs" />
-     <Compile Include="Assets\Scripts\Utils\SpriteSheetManager.cs" />
+     <Compile Include="Assets\Editor\TileMapEditor.cs" />
+     <Compile Include="Assets\Editor\TileMapWindow.cs" />
      <None Include="Assets\Resources\level0.txt" />
      <None Include="Assets\Resources\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{0C614966-3817-29A6-D9EA-DAB3C7FA513F}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
