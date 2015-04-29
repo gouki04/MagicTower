@@ -6,22 +6,16 @@ using System.Collections.Generic;
 
 namespace MagicTower.Editor
 {
-    
-
     [CustomEditor(typeof(EditorData.TileMap))]
     public class TileMapEditor : UnityEditor.Editor
     {
-        EditorData.TileMap tilemap;
+        EditorData.TileMap mTilemap;
         
-
         public void OnEnable()
         {
-            tilemap = (EditorData.TileMap)target;
+            mTilemap = (EditorData.TileMap)target;
 
             SceneView.onSceneGUIDelegate += TileMapUpdate;
-
-
-            
         }
 
         void TileMapUpdate(SceneView scene_view)
@@ -32,14 +26,14 @@ namespace MagicTower.Editor
                 Ray r = Camera.current.ScreenPointToRay(
                                 new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
 
-                var mousePos = r.origin;
+                var mouse_pos = r.origin;
 
-                var local_pos = tilemap.gameObject.transform.InverseTransformPoint(mousePos);
+                var local_pos = mTilemap.gameObject.transform.InverseTransformPoint(mouse_pos);
                 local_pos.x = Mathf.Floor(local_pos.x + 0.5f);
                 local_pos.y = Mathf.Floor(local_pos.y + 0.5f);
                 local_pos.z = 0.0f;
 
-                if (local_pos.x < 0 || local_pos.x >= tilemap.Width || local_pos.y < 0 || local_pos.y >= tilemap.Height)
+                if (local_pos.x < 0 || local_pos.x >= mTilemap.Width || local_pos.y < 0 || local_pos.y >= mTilemap.Height)
                     return;
 
                 var obj = new GameObject("Tile");
@@ -51,15 +45,14 @@ namespace MagicTower.Editor
                 else if (Selecting.SelectedList is ItemList)
                     renderer.sprite = (Selecting.SelectedList as ItemList).GetSprite(Selecting.SelectedIndex);
 
-                obj.transform.parent = tilemap.transform;
-                obj.transform.localPosition = local_pos;
+                mTilemap.SetTile((int)local_pos.y, (int)local_pos.x, obj);
+                //obj.transform.parent = mTilemap.transform;
+                //obj.transform.localPosition = local_pos;
             }
         }
 
         public override void OnInspectorGUI()
         {
-            
-
             SceneView.RepaintAll();
         }
     } 

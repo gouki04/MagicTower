@@ -3,6 +3,12 @@ using UnityEngine;
 
 namespace MagicTower.EditorData
 {
+    public class Tile : MonoBehaviour
+    {
+        public Logic.Tile.EType TileType;
+        public object[] Properties = null;
+    }
+
     public class TileMap : MonoBehaviour
     {
         private int mWidth = 11;
@@ -17,10 +23,32 @@ namespace MagicTower.EditorData
             get { return mHeight; }
         }
 
+        private GameObject[,] mLayerFloor;
+        private GameObject[,] mLayerCollide;
+
         public void Init(int width, int height)
         {
             mWidth = width;
             mHeight = height;
+
+            mLayerFloor = new GameObject[height, width];
+            mLayerCollide = new GameObject[height, width];
+        }
+
+        public void SetTile(int r, int c, GameObject tile)
+        {
+            var layer = tile.layer == 1 ? mLayerCollide : mLayerFloor;
+
+            var org_tile = layer[r, c];
+            if (org_tile != null)
+            {
+                Destroy(org_tile);
+            }
+
+            tile.transform.parent = transform;
+            tile.transform.localPosition = new Vector3(c, r, 0);
+
+            layer[r, c] = tile;
         }
 
         void OnDrawGizmos()
