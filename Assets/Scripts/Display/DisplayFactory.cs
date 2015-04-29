@@ -1,4 +1,5 @@
 ﻿
+using UnityEditorInternal;
 using UnityEngine;
 using Utils;
 
@@ -213,6 +214,10 @@ namespace MagicTower.Display
             var tile_player = tile_data as Logic.Tile_Player;
 
             var obj = _createBasicTile(tile_data, "player", "Collide");
+
+            var animator = obj.AddComponent<Animator>();
+            var animtor_controller = Resources.Load("Animation/player_controller") as AnimatorController;
+            animator.runtimeAnimatorController = animtor_controller;
 
             // add collider
             var collider_component = obj.AddComponent<BoxCollider2D>();

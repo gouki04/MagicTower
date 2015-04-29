@@ -67,7 +67,14 @@ namespace MagicTower.Display
 
         public IEnumerator MoveTo(Logic.TilePosition dest)
         {
+            var animator = GetComponent<Animator>();
+            if (animator != null)
+                animator.SetBool("moving", true);
+
             yield return new WaitForMoveTo(gameObject, dest, 0.1f);
+
+            if (animator != null)
+                animator.SetBool("moving", false);
         }
 
         public IEnumerator Exit()
