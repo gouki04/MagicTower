@@ -30,9 +30,9 @@ namespace MagicTower.Logic
             set { PlayerData.Instance.Hp = value; }
         }
 
-        public override IEnumerator Exit()
-        {
-            yield return base.Exit();
-        }
+//        public override IEnumerator Exit()
+//        {
+//            yield return Exit();
+//        }
     }
 }

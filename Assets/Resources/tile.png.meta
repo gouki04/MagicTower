@@ -5,35 +5,35 @@ TextureImporter:
     21300000: tile_0
     21300002: tile_1
     21300004: tile_2
-    21300006: tile_3
+    21300006: monster_10_1
     21300008: monster_17
-    21300010: tile_5
+    21300010: monster_17_1
     21300012: monster_15
-    21300014: tile_7
+    21300014: monster_15_1
     21300016: monster_19
-    21300018: tile_9
+    21300018: monster_19_1
     21300020: monster_12
-    21300022: tile_11
+    21300022: monster_12_1
     21300024: monster_11
     21300026: tile_13
-    21300028: tile_14
+    21300028: monster_11_1
     21300030: monster_13
-    21300032: tile_16
+    21300032: monster_13_1
     21300034: monster_8
-    21300036: tile_18
+    21300036: monster_8_1
     21300038: monster_14
-    21300040: tile_20
+    21300040: monster_14_1
     21300042: monster_1
-    21300044: tile_22
+    21300044: monster_1_1
     21300046: monster_4
     21300048: tile_24
-    21300050: tile_25
+    21300050: monster_4_1
     21300052: monster_2
-    21300054: tile_27
+    21300054: monster_2_1
     21300056: monster_3
-    21300058: tile_29
+    21300058: monster_3_1
     21300060: monster_7
-    21300062: tile_31
+    21300062: monster_7_1
     21300064: tile_32
     21300066: tile_33
     21300068: tile_34
@@ -79,10 +79,10 @@ TextureImporter:
     21300148: tile_74
     21300150: tile_75
     21300152: monster_29
-    21300154: tile_77
+    21300154: monster_29_1
     21300156: monster_31
     21300158: tile_79
-    21300160: tile_80
+    21300160: monster_31_1
     21300162: tile_81
     21300164: tile_82
     21300166: player
@@ -143,37 +143,37 @@ TextureImporter:
     21300276: floor_0
     21300278: monster_30
     21300280: tile_140
-    21300282: tile_141
+    21300282: monster_30_1
     21300284: monster_23
-    21300286: tile_143
+    21300286: monster_23_1
     21300288: monster_24
-    21300290: tile_145
+    21300290: monster_24_1
     21300292: monster_22
-    21300294: tile_147
+    21300294: monster_22_1
     21300296: monster_21
-    21300298: tile_149
+    21300298: monster_21_1
     21300300: monster_16
     21300302: tile_151
-    21300304: tile_152
+    21300304: monster_16_1
     21300306: monster_20
-    21300308: tile_154
+    21300308: monster_20_1
     21300310: monster_6
-    21300312: tile_156
+    21300312: monster_6_1
     21300314: monster_28
-    21300316: tile_158
+    21300316: monster_28_1
     21300318: monster_26
-    21300320: tile_160
+    21300320: monster_26_1
     21300322: monster_18
     21300324: tile_162
-    21300326: tile_163
+    21300326: monster_18_1
     21300328: monster_25
-    21300330: tile_165
+    21300330: monster_25_1
     21300332: monster_27
-    21300334: tile_167
+    21300334: monster_27_1
     21300336: monster_5
-    21300338: tile_169
+    21300338: monster_5_1
     21300340: monster_9
-    21300342: tile_171
+    21300342: monster_9_1
     21300344: monster_10
     21300346: tile_173
     21300348: tile_174
@@ -249,7 +249,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_3
+    - name: monster_10_1
       rect:
         serializedVersion: 2
         x: 96
@@ -269,7 +269,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_5
+    - name: monster_17_1
       rect:
         serializedVersion: 2
         x: 160
@@ -289,7 +289,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_7
+    - name: monster_15_1
       rect:
         serializedVersion: 2
         x: 224
@@ -309,7 +309,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_9
+    - name: monster_19_1
       rect:
         serializedVersion: 2
         x: 288
@@ -329,7 +329,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_11
+    - name: monster_12_1
       rect:
         serializedVersion: 2
         x: 352
@@ -359,7 +359,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_14
+    - name: monster_11_1
       rect:
         serializedVersion: 2
         x: 448
@@ -379,7 +379,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_16
+    - name: monster_13_1
       rect:
         serializedVersion: 2
         x: 0
@@ -399,7 +399,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_18
+    - name: monster_8_1
       rect:
         serializedVersion: 2
         x: 64
@@ -419,7 +419,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_20
+    - name: monster_14_1
       rect:
         serializedVersion: 2
         x: 128
@@ -439,7 +439,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_22
+    - name: monster_1_1
       rect:
         serializedVersion: 2
         x: 192
@@ -469,7 +469,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_25
+    - name: monster_4_1
       rect:
         serializedVersion: 2
         x: 288
@@ -489,7 +489,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_27
+    - name: monster_2_1
       rect:
         serializedVersion: 2
         x: 352
@@ -509,7 +509,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_29
+    - name: monster_3_1
       rect:
         serializedVersion: 2
         x: 416
@@ -529,7 +529,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_31
+    - name: monster_7_1
       rect:
         serializedVersion: 2
         x: 480
@@ -989,7 +989,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_77
+    - name: monster_29_1
       rect:
         serializedVersion: 2
         x: 416
@@ -1019,7 +1019,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_80
+    - name: monster_31_1
       rect:
         serializedVersion: 2
         x: 0
@@ -1629,7 +1629,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_141
+    - name: monster_30_1
       rect:
         serializedVersion: 2
         x: 416
@@ -1649,7 +1649,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_143
+    - name: monster_23_1
       rect:
         serializedVersion: 2
         x: 480
@@ -1669,7 +1669,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_145
+    - name: monster_24_1
       rect:
         serializedVersion: 2
         x: 32
@@ -1689,7 +1689,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_147
+    - name: monster_22_1
       rect:
         serializedVersion: 2
         x: 96
@@ -1709,7 +1709,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_149
+    - name: monster_21_1
       rect:
         serializedVersion: 2
         x: 160
@@ -1739,7 +1739,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_152
+    - name: monster_16_1
       rect:
         serializedVersion: 2
         x: 256
@@ -1759,7 +1759,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_154
+    - name: monster_20_1
       rect:
         serializedVersion: 2
         x: 320
@@ -1779,7 +1779,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_156
+    - name: monster_6_1
       rect:
         serializedVersion: 2
         x: 384
@@ -1799,7 +1799,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_158
+    - name: monster_28_1
       rect:
         serializedVersion: 2
         x: 448
@@ -1819,7 +1819,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_160
+    - name: monster_26_1
       rect:
         serializedVersion: 2
         x: 0
@@ -1849,7 +1849,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_163
+    - name: monster_18_1
       rect:
         serializedVersion: 2
         x: 96
@@ -1869,7 +1869,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_165
+    - name: monster_25_1
       rect:
         serializedVersion: 2
         x: 160
@@ -1889,7 +1889,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_167
+    - name: monster_27_1
       rect:
         serializedVersion: 2
         x: 224
@@ -1909,7 +1909,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_169
+    - name: monster_5_1
       rect:
         serializedVersion: 2
         x: 288
@@ -1929,7 +1929,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: tile_171
+    - name: monster_9_1
       rect:
         serializedVersion: 2
         x: 352

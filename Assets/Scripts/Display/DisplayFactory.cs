@@ -1,5 +1,5 @@
 ﻿
-using UnityEditorInternal;
+//using UnityEditorInternal;
 using UnityEngine;
 using Utils;
 
@@ -200,11 +200,31 @@ namespace MagicTower.Display
         {
             var tile_monster = tile_data as Logic.Tile_Monster;
 
-            var obj = _createBasicTile(tile_data, tile_monster.CsvData["sprite"], "Collide");
+            //var obj = _createBasicTile(tile_data, tile_monster.CsvData["sprite"], "Collide");
+            var prefab = Resources.Load("Prefabs/monster_" + tile_monster.Id) as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
 
-            // add collider
-            var collider_component = obj.AddComponent<BoxCollider2D>();
-            collider_component.isTrigger = true;
+            obj.name = tile_data.Type.ToString();
+
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Collide";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            //var animator = obj.AddComponent<Animator>();
+            //var animator_controller = Resources.Load("Animation/Temp/monster_" + tile_monster.Id) as AnimatorController;
+            //animator.runtimeAnimatorController = animator_controller;
+
+            //// add collider
+            //var collider_component = obj.AddComponent<BoxCollider2D>();
+            //collider_component.isTrigger = true;
 
             return obj;
         }
@@ -213,15 +233,31 @@ namespace MagicTower.Display
         {
             var tile_player = tile_data as Logic.Tile_Player;
 
-            var obj = _createBasicTile(tile_data, "player", "Collide");
+            //var obj = _createBasicTile(tile_data, "player", "Collide");
+            var prefab = Resources.Load("Prefabs/Player") as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
 
-            var animator = obj.AddComponent<Animator>();
-            var animtor_controller = Resources.Load("Animation/player_controller") as AnimatorController;
-            animator.runtimeAnimatorController = animtor_controller;
+            obj.name = tile_data.Type.ToString();
 
-            // add collider
-            var collider_component = obj.AddComponent<BoxCollider2D>();
-            collider_component.isTrigger = true;
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Collide";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            //var animator = obj.AddComponent<Animator>();
+            //var animtor_controller = Resources.Load("Animation/player_controller") as AnimatorController;
+            //animator.runtimeAnimatorController = animtor_controller;
+
+            //// add collider
+            //var collider_component = obj.AddComponent<BoxCollider2D>();
+            //collider_component.isTrigger = true;
 
             return obj;
         }
