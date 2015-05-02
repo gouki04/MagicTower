@@ -138,8 +138,12 @@ namespace MagicTower.Logic
                         break;
                 }
 
+                tile.BeginMove();
+
                 // 等待移动
                 yield return tile.MoveTo(destination);
+
+                tile.EndMove();
 
                 // 碰撞层没有trigger结束
                 // 因为现在layer里同一个位置不允许有多个tile，所以moveto后，原tile就被干掉了，所以不需要trigger结束

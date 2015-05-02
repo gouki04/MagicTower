@@ -210,13 +210,23 @@ namespace SafeCoroutine
             }
         }
 
+		private static int count = 0;
+
         private bool moveNext(IEnumerator itr)
         {
-            do
+            while (true)
             {
                 if (itr.MoveNext())
                 {
-                    if (itr.Current != null)
+                    if (itr.Current == null)
+                    { }
+                    else if (itr.Current is IEnumerator)
+                    {
+                        bool result = moveNext(itr.Current as IEnumerator);
+                        if (result == true)
+                            return true;
+                    }
+                    else
                     {
                         return true;
                     }
@@ -225,7 +235,7 @@ namespace SafeCoroutine
                 {
                     return false;
                 }
-            } while (true);
+			}
         }
 
         /// <summary>

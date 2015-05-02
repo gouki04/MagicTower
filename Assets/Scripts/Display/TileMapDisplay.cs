@@ -26,7 +26,7 @@ namespace MagicTower.Display
         public IEnumerator BeginEnter()
         {
             gameObject.SetActive(true);
-            yield return null;
+			yield return null;
         }
 
         public IEnumerator EndEnter()

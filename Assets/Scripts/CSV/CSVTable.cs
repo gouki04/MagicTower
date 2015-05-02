@@ -45,7 +45,7 @@ namespace Utils
             Add(id, csv_line);
 	    }
 
-        public CSVLine this[uint id]
+        public new CSVLine this[uint id]
         {
             get { return base[id]; }
             protected set { base[id] = value; }

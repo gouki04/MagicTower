@@ -13,7 +13,7 @@ namespace Utils
             }
         }
 
-        public Sprite this[string key]
+        public new Sprite this[string key]
         {
             get
             {

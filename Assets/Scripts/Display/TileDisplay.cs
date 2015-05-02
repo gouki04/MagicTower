@@ -8,6 +8,9 @@ namespace MagicTower.Display
     {
         IEnumerator Enter();
 
+        void BeginMove();
+        void EndMove();
+
         IEnumerator MoveTo(Logic.TilePosition dest);
 
         IEnumerator Exit();
@@ -69,18 +72,39 @@ namespace MagicTower.Display
         {
             var animator = GetComponent<Animator>();
             if (animator != null)
-                animator.SetBool("moving", true);
+            {
+                if (mTile.Position.Row > dest.Row)
+					animator.SetInteger("direction", 1);
+                else if (mTile.Position.Row < dest.Row)
+                    animator.SetInteger("direction", 0);
+
+                if (mTile.Position.Col > dest.Col)
+					animator.SetInteger("direction", 2);
+                else if (mTile.Position.Col < dest.Col)
+                    animator.SetInteger("direction", 3);
+            }
 
             yield return new WaitForMoveTo(gameObject, dest, 0.1f);
-
-            if (animator != null)
-                animator.SetBool("moving", false);
         }
 
         public IEnumerator Exit()
         {
             Destroy(gameObject);
             yield return null;
+        }
+
+        public void BeginMove()
+        {
+            var animator = GetComponent<Animator>();
+            if (animator != null)
+                animator.SetBool("moving", true);
+        }
+
+        public void EndMove()
+        {
+            var animator = GetComponent<Animator>();
+            if (animator != null)
+                animator.SetBool("moving", false);
         }
     }
 }

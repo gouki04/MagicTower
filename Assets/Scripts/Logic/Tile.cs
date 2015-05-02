@@ -118,6 +118,16 @@ namespace MagicTower.Logic
             yield return null;
         }
 
+        public virtual void BeginMove()
+        {
+            mDisplay.BeginMove();
+        }
+
+        public virtual void EndMove()
+        {
+            mDisplay.EndMove();
+        }
+
         /// <summary>
         /// 移动tile到指定位置
         /// </summary>
