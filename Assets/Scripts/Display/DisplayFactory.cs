@@ -234,7 +234,7 @@ namespace MagicTower.Display
             var tile_player = tile_data as Logic.Tile_Player;
 
             //var obj = _createBasicTile(tile_data, "player", "Collide");
-            var prefab = Resources.Load("Prefabs/Player") as GameObject;
+            var prefab = Resources.Load("Prefabs/player") as GameObject;
             var obj = GameObject.Instantiate(prefab) as GameObject;
 
             obj.name = tile_data.Type.ToString();

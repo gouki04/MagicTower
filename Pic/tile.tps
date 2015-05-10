@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.2</string>
         <key>fileName</key>
-        <string>E:/Projects/MagicTower/Pic/tile.tps</string>
+        <string>E:/GitHub/MagicTower/Pic/tile.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -314,13 +314,9 @@
             <filename>player_idle_right.png</filename>
             <filename>player_idle_up.png</filename>
             <filename>player_move_down_1.png</filename>
-            <filename>player_move_down_2.png</filename>
             <filename>player_move_left_1.png</filename>
-            <filename>player_move_left_2.png</filename>
             <filename>player_move_right_1.png</filename>
-            <filename>player_move_right_2.png</filename>
             <filename>player_move_up_1.png</filename>
-            <filename>player_move_up_2.png</filename>
             <filename>shop_center.png</filename>
             <filename>shop_center_1.png</filename>
             <filename>shop_left.png</filename>
@@ -346,6 +342,10 @@
             <filename>image_0.png</filename>
             <filename>image_1.png</filename>
             <filename>image_2.png</filename>
+            <filename>player_move_right.png</filename>
+            <filename>player_move_up.png</filename>
+            <filename>player_move_down.png</filename>
+            <filename>player_move_left.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

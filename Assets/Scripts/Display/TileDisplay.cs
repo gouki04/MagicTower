@@ -68,23 +68,31 @@ namespace MagicTower.Display
             yield return null;
         }
 
+        public enum EDisplayDirection
+        {
+            Up = 0,
+            Down = 1,
+            Left = 2,
+            Right = 3
+        }
+
         public IEnumerator MoveTo(Logic.TilePosition dest)
         {
             var animator = GetComponent<Animator>();
             if (animator != null)
             {
                 if (mTile.Position.Row > dest.Row)
-					animator.SetInteger("direction", 1);
+					animator.SetInteger("direction", (int)EDisplayDirection.Down);
                 else if (mTile.Position.Row < dest.Row)
-                    animator.SetInteger("direction", 0);
+                    animator.SetInteger("direction", (int)EDisplayDirection.Up);
 
                 if (mTile.Position.Col > dest.Col)
-					animator.SetInteger("direction", 2);
+                    animator.SetInteger("direction", (int)EDisplayDirection.Left);
                 else if (mTile.Position.Col < dest.Col)
-                    animator.SetInteger("direction", 3);
+                    animator.SetInteger("direction", (int)EDisplayDirection.Right);
             }
 
-            yield return new WaitForMoveTo(gameObject, dest, 0.1f);
+            yield return new WaitForMoveTo(gameObject, dest, 0.5f);
         }
 
         public IEnumerator Exit()

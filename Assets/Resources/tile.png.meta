@@ -366,6 +366,10 @@ TextureImporter:
     21300722: shop_center_1
     21300724: shop_left
     21300726: shop_right
+    21300728: player_move_down
+    21300730: player_move_left
+    21300732: player_move_right
+    21300734: player_move_up
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -1957,7 +1961,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_down_1
+    - name: player_move_down
       rect:
         serializedVersion: 2
         x: 320
@@ -1967,7 +1971,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_down_2
+    - name: player_move_down_1
       rect:
         serializedVersion: 2
         x: 352
@@ -1977,7 +1981,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_left_1
+    - name: player_move_left
       rect:
         serializedVersion: 2
         x: 384
@@ -1987,7 +1991,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_left_2
+    - name: player_move_left_1
       rect:
         serializedVersion: 2
         x: 416
@@ -1997,7 +2001,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_right_1
+    - name: player_move_right
       rect:
         serializedVersion: 2
         x: 448
@@ -2007,7 +2011,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_right_2
+    - name: player_move_right_1
       rect:
         serializedVersion: 2
         x: 480
@@ -2017,7 +2021,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_up_1
+    - name: player_move_up
       rect:
         serializedVersion: 2
         x: 0
@@ -2027,7 +2031,7 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player_move_up_2
+    - name: player_move_up_1
       rect:
         serializedVersion: 2
         x: 32
