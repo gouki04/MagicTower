@@ -30,6 +30,7 @@ namespace MagicTower.Editor
 
         private MonsterGenerator mMonsterGenerator;
         private PlayerGenerator mPlayerGenerator;
+        private TerrainGenerator mTerrainGenerator;
 
         public string ANIMATION_PATH = "Assets/Resources/Animation/";
         public string ANIMATOR_CONTROLLER_PATH = "Assets/Resources/Animation/";
@@ -50,6 +51,9 @@ namespace MagicTower.Editor
 
             mPlayerGenerator = new PlayerGenerator();
             mPlayerGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
+
+            mTerrainGenerator = new TerrainGenerator();
+            mTerrainGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
         }
 
         void OnGUI()
@@ -88,6 +92,13 @@ namespace MagicTower.Editor
             }
             EditorGUILayout.EndVertical();
 
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.LabelField("Terrain");
+            if (GUILayout.Button("Generate"))
+            {
+                mTerrainGenerator.Generate();
+            }
+            EditorGUILayout.EndVertical();
         }
 
         

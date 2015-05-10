@@ -158,7 +158,25 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateFloor(Logic.Tile tile_data)
         {
-            return _createBasicTile(tile_data, "floor_0", "Floor");
+            var prefab = Resources.Load("Prefabs/floor") as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
+
+            obj.name = tile_data.Type.ToString();
+
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Floor";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            return obj;
+            //return _createBasicTile(tile_data, "floor_0", "Floor");
         }
 
         /// <summary>
@@ -168,7 +186,25 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateWall(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "wall_0", "Floor");
+            var prefab = Resources.Load("Prefabs/wall") as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
+
+            obj.name = tile_data.Type.ToString();
+
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Floor";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            return obj;
+            //return _createTerrainBlockTile(tile_data, "wall_0", "Floor");
         }
 
         /// <summary>
@@ -178,7 +214,25 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateSky(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "sky_0", "Floor");
+            var prefab = Resources.Load("Prefabs/sky") as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
+
+            obj.name = tile_data.Type.ToString();
+
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Floor";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            return obj;
+            //return _createTerrainBlockTile(tile_data, "sky_0", "Floor");
         }
 
         /// <summary>
@@ -188,7 +242,25 @@ namespace MagicTower.Display
         /// <returns></returns>
         public GameObject CreateWater(Logic.Tile tile_data)
         {
-            return _createTerrainBlockTile(tile_data, "water_0", "Floor");
+            var prefab = Resources.Load("Prefabs/water") as GameObject;
+            var obj = GameObject.Instantiate(prefab) as GameObject;
+
+            obj.name = tile_data.Type.ToString();
+
+            // set the sprite
+            var sprite_renderer = obj.GetComponent<SpriteRenderer>();
+            sprite_renderer.sortingLayerName = "Floor";
+
+            // set the tile data
+            var tile_component = obj.AddComponent<TileDisplay>();
+            tile_component.Tile = tile_data;
+
+            // set the position
+            obj.transform.parent = mTileMapObj.transform;
+            obj.transform.localPosition = new Vector3(tile_data.Position.Col, tile_data.Position.Row, 0);
+
+            return obj;
+            //return _createTerrainBlockTile(tile_data, "water_0", "Floor");
         }
 
         /// <summary>

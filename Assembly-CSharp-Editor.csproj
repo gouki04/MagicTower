@@ -53,6 +53,7 @@
     <Compile Include="Assets\Editor\PrefabGeneratorWindow.cs" />
     <Compile Include="Assets\Editor\SimpleJSON.cs" />
     <Compile Include="Assets\Editor\SpriteEditor.cs" />
+    <Compile Include="Assets\Editor\TerrainGenerator.cs" />
     <Compile Include="Assets\Editor\TileMapEditor.cs" />
     <Compile Include="Assets\Editor\TileMapWindow.cs" />
     <Compile Include="Assets\Scripts\Editor\TileMap.cs" />
