@@ -1,30 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Logic\Tile_Player.cs">
-    <Files>
-      <File FileName="Assets\Scripts\Display\TileMapDisplay.cs" Line="39" Column="1" />
-      <File FileName="Assets\Scripts\Logic\TileMap.cs" Line="113" Column="1" />
-      <File FileName="Assets\Scripts\Logic\Game.cs" Line="93" Column="23" />
-      <File FileName="Assets\Scripts\Coroutine\Coroutine.cs" Line="219" Column="1" />
-      <File FileName="Assets\Scripts\Logic\Tile_Monster.cs" Line="19" Column="23" />
-      <File FileName="Assets\Scripts\Logic\Tile_Actor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Logic\Tile.cs" Line="172" Column="1" />
-      <File FileName="Assets\Scripts\Logic\Tile_Player.cs" Line="33" Column="5" />
-      <File FileName="Assets\Scripts\Display\TileDisplay.cs" Line="92" Column="31" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Editor\MonsterAnimationGeneratorWindow.cs" line="92" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\Game.cs" line="88" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\Game.cs" line="93" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Display\TileMapDisplay.cs" line="39" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\TileMap.cs" line="103" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Display\TileMapDisplay.cs" line="44" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\TileMap.cs" line="105" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\TileMap.cs" line="121" />
-      <Breakpoint file="E:\Projects\MagicTower\Assets\Scripts\Logic\TileMap.cs" line="117" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

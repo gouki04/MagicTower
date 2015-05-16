@@ -3,112 +3,28 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using Utils;
+using MagicTower.EditorData;
 
 namespace MagicTower.Editor
 {
-    public class Selecting
-    {
-        public static object SelectedList;
-        public static int SelectedIndex;
-    }
-
-    public abstract class SpriteList<T> : List<T>
-    {
-        public int Margin = 1;
-        public int Border = 1;
-        public int TileWidth = 32;
-        public int TileHeight = 32;
-        public int TilePerRow = 12;
-
-        public abstract Sprite GetSprite(int index);
-
-        public bool Draw()
-        {
-            int row = (int)Mathf.Ceil(Count / (float)TilePerRow);
-
-            var rect = GUILayoutUtility.GetRect(Border * 2 + TileWidth * TilePerRow + Margin * (TilePerRow - 1),
-                Border * 2 + TileHeight * row + Margin * (row - 1));
-
-            rect.width = TileWidth;
-            rect.height = TileHeight;
-
-            var origin_x = rect.x;
-            var origin_y = rect.y;
-
-            bool selected_tile = false;
-            for (int r = 0; r < row; ++r)
-            {
-                rect.x = origin_x + Border;
-                rect.y = origin_y + Border + r * TileHeight;
-
-                if (r > 0)
-                    rect.y += (r - 1) * Margin;
-
-                for (int c = 0; c < TilePerRow; ++c)
-                {
-                    var index = TilePerRow * r + c;
-                    if (index >= Count)
-                        break;
-
-                    var sprite = GetSprite(index);
-
-                    var texRect = new Rect(
-                        sprite.textureRect.xMin / sprite.texture.width,
-                        sprite.textureRect.yMin / sprite.texture.height,
-                        sprite.textureRect.width / sprite.texture.width,
-                        sprite.textureRect.height / sprite.texture.height);
-
-                    if (Selecting.SelectedList == this && Selecting.SelectedIndex == index)
-                        GUI.color = Color.yellow;
-                    else
-                        GUI.color = Color.white;
-
-                    GUI.DrawTextureWithTexCoords(rect, sprite.texture, texRect);
-
-                    Event e = Event.current;
-                    if (e.type == EventType.MouseDown)
-                    {
-                        if (rect.Contains(e.mousePosition))
-                        {
-                            Selecting.SelectedList = this;
-                            Selecting.SelectedIndex = index;
-                        }
-
-                        selected_tile = true;
-                    }
-
-                    rect.x += TileWidth + Margin;
-                }
-            }
-
-            return selected_tile;
-        }
-    }
-
-    public class MonsterList : SpriteList<uint>
-    {
-        public override Sprite GetSprite(int index)
-        {
-            var monster_id = this[index];
-            var sprite_name = CSVManager.Instance["monster"][monster_id]["sprite"];
-            return SpriteSheetManager.Instance[sprite_name];
-        }
-    }
-
-    public class ItemList : SpriteList<uint>
-    {
-        public override Sprite GetSprite(int index)
-        {
-            var item_id = this[index];
-            var sprite_name = CSVManager.Instance["item"][item_id]["sprite"];
-            return SpriteSheetManager.Instance[sprite_name];
-        }
-    }
-
     public class TileMapWindow : EditorWindow
     {
+        public enum EEditMode
+        {
+            Select = 0,
+            Modify = 1,
+            Erase = 2,
+        }
+
+        EEditMode mEditMode = EEditMode.Select;
+        ETileMapLayer mEditLayer = ETileMapLayer.Floor;
+        int mEditRange = 1;
+
+        EditorData.TileMap mTilemap;
+
         MonsterList mMonsterList;
         ItemList mItemList;
+        TerrainList mTerrainList;
 
         [MenuItem("Window/TileMapWindow")]
         public static void ShowWindow()
@@ -118,10 +34,16 @@ namespace MagicTower.Editor
 
         void OnEnable()
         {
+            var tile_map = GameObject.FindGameObjectWithTag("TileMap");
+            if (tile_map != null)
+            {
+                mTilemap = tile_map.GetComponent<EditorData.TileMap>();
+            }
+
             SpriteSheetManager.Instance.Load("tile");
 
             mMonsterList = new MonsterList();
-            for (uint i = 1; i <= 30; ++i)
+            for (uint i = 1; i <= 31; ++i)
             {
                 mMonsterList.Add(i);
             }
@@ -131,10 +53,142 @@ namespace MagicTower.Editor
             {
                 mItemList.Add(i);
             }
+
+            mTerrainList = new TerrainList();
+            for (uint i = 1; i <= 4; ++i)
+            {
+                mTerrainList.Add(i);
+            }
+
+            SceneView.onSceneGUIDelegate += TileMapUpdate;
+        }
+
+        bool GetTilePositionByMousePosition(Vector2 mouse_position, ref int row, ref int col)
+        {
+            Ray r = Camera.current.ScreenPointToRay(
+                                    new Vector3(mouse_position.x, -mouse_position.y + Camera.current.pixelHeight));
+
+            var mouse_pos = r.origin;
+
+            var local_pos = mTilemap.gameObject.transform.InverseTransformPoint(mouse_pos);
+            local_pos.x = Mathf.Floor(local_pos.x + 0.0f);
+            local_pos.y = Mathf.Floor(local_pos.y + 0.0f);
+            local_pos.z = 0.0f;
+
+            if (local_pos.x < 0 || local_pos.x >= mTilemap.Width || local_pos.y < 0 || local_pos.y >= mTilemap.Height)
+                return false;
+
+            row = (int)local_pos.y;
+            col = (int)local_pos.x;
+
+            return true;
+        }
+
+        void TileMapUpdate(SceneView scene_view)
+        {
+            if (mTilemap == null)
+                return;
+
+            if (mEditMode == EEditMode.Modify)
+            {
+                if (Selecting.SelectedList == null)
+                    return;
+
+                Event e = Event.current;
+                if (e.type == EventType.MouseDown)
+                {
+                    int row = 0;
+                    int col = 0;
+                    if (GetTilePositionByMousePosition(e.mousePosition, ref row, ref col))
+                    {
+                        var range = mEditRange - 1;
+                        for (int r = row - range; r <= row + range; ++r)
+                        {
+                            for (int c = col - range; c <= col + range; ++c)
+                            {
+                                if (c < 0 || c >= mTilemap.Width || r < 0 || r >= mTilemap.Height)
+                                    continue;
+
+                                var obj = Selecting.SelectedList.CreateTile(Selecting.SelectedIndex);
+
+                                mTilemap.SetTile(r, c, obj, mEditLayer);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (mEditMode == EEditMode.Erase)
+            {
+                Event e = Event.current;
+                if (e.type == EventType.MouseDown)
+                {
+                    int row = 0;
+                    int col = 0;
+                    if (GetTilePositionByMousePosition(e.mousePosition, ref row, ref col))
+                    {
+                        var range = mEditRange - 1;
+                        for (int r = row - range; r <= row + range; ++r)
+                        {
+                            for (int c = col - range; c <= col + range; ++c)
+                            {
+                                if (c < 0 || c >= mTilemap.Width || r < 0 || r >= mTilemap.Height)
+                                    continue;
+
+                                mTilemap.RemoveTile(r, c, mEditLayer);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (mEditMode == EEditMode.Select)
+            {
+
+            }
         }
 
         void OnGUI()
         {
+            if (Application.isPlaying)
+            {
+                EditorGUILayout.LabelField("Please exit the play mode.");
+                return;
+            }
+
+            if (mTilemap == null)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("TileMap Width:");
+                int width = EditorGUILayout.IntField(11);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("TileMap Height");
+                int height = EditorGUILayout.IntField(11);
+                EditorGUILayout.EndHorizontal();
+
+                if (GUILayout.Button("Generate TileMap"))
+                {
+                    var tile_map_obj = new GameObject("TileMap");
+                    mTilemap = tile_map_obj.AddComponent<EditorData.TileMap>();
+                    tile_map_obj.tag = "TileMap";
+
+                    mTilemap.Init(width, height);
+                }
+                return;
+            }
+
+            mEditMode = (EEditMode)EditorGUILayout.EnumPopup("Edit Mode", mEditMode);
+            if (mEditMode == EEditMode.Modify || mEditMode == EEditMode.Erase)
+            {
+                mEditRange = EditorGUILayout.IntSlider("Range", mEditRange, 1, 4);
+            }
+
+            mEditLayer = (ETileMapLayer)EditorGUILayout.EnumPopup("Edit Layer", mEditLayer);
+
+            EditorGUILayout.LabelField("Terrain List", EditorStyles.boldLabel);
+            if (mTerrainList.Draw())
+                Repaint();
+
             EditorGUILayout.LabelField("Monster List", EditorStyles.boldLabel);
             if (mMonsterList.Draw())
                 Repaint();

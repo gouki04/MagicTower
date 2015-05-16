@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace MagicTower.EditorData
 {
-    public class Tile : MonoBehaviour
+    public enum ETileMapLayer
     {
-        public Logic.Tile.EType TileType;
-        public object[] Properties = null;
+        Floor = 0,
+        Collide = 1
     }
 
     public class TileMap : MonoBehaviour
@@ -35,14 +36,14 @@ namespace MagicTower.EditorData
             mLayerCollide = new GameObject[height, width];
         }
 
-        public void SetTile(int r, int c, GameObject tile)
+        public void SetTile(int r, int c, GameObject tile, ETileMapLayer layer_type)
         {
-            var layer = tile.layer == 1 ? mLayerCollide : mLayerFloor;
+            var layer = layer_type == ETileMapLayer.Floor ? mLayerFloor : mLayerCollide;
 
             var org_tile = layer[r, c];
             if (org_tile != null)
             {
-                Destroy(org_tile);
+                DestroyImmediate(org_tile);
             }
 
             tile.transform.parent = transform;
@@ -51,20 +52,31 @@ namespace MagicTower.EditorData
             layer[r, c] = tile;
         }
 
+        public void RemoveTile(int r, int c, ETileMapLayer layer_type)
+        {
+            var layer = layer_type == ETileMapLayer.Floor ? mLayerFloor : mLayerCollide;
+
+            var org_tile = layer[r, c];
+            if (org_tile != null)
+                DestroyImmediate(org_tile);
+
+            layer[r, c] = null;
+        }
+
         void OnDrawGizmos()
         {
             Vector3 pos = gameObject.transform.position;
 
             for (float y = 0; y <= Height; ++y)
             {
-                Gizmos.DrawLine(new Vector3(pos.x - 0.5f, pos.y + y - 0.5f, 0.0f),
-                                new Vector3(pos.x - 0.5f + Width, pos.y + y - 0.5f, 0.0f));
+                Gizmos.DrawLine(new Vector3(pos.x, pos.y + y, 0.0f),
+                                new Vector3(pos.x + Width, pos.y + y, 0.0f));
             }
 
             for (float x = 0; x <= Width; ++x)
             {
-                Gizmos.DrawLine(new Vector3(pos.x + x - 0.5f, pos.y - 0.5f, 0.0f),
-                                new Vector3(pos.x + x - 0.5f, pos.y + Height - 0.5f, 0.0f));
+                Gizmos.DrawLine(new Vector3(pos.x + x, pos.y, 0.0f),
+                                new Vector3(pos.x + x, pos.y + Height, 0.0f));
             }
         }
     }  
