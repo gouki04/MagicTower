@@ -17,21 +17,26 @@ namespace MagicTower.Editor
             return GetSpriteByMonserId(monster_id);
         }
 
-        public override GameObject CreateTile(int index)
+        public static GameObject CreateTile(uint monster_id)
         {
-            var monster_id = this[index];
-
             var obj = new GameObject("Monster_" + monster_id);
             obj.layer = 1;
 
             var renderer = obj.AddComponent<SpriteRenderer>();
-            renderer.sprite = GetSprite(index);
+            renderer.sprite = GetSpriteByMonserId(monster_id);
 
             var tile = obj.AddComponent<EditorData.Tile>();
             tile.TileType = Logic.Tile.EType.Monster;
             tile.Properties["MonsterId"] = monster_id;
 
             return obj;
+        }
+
+        public override GameObject CreateTile(int index)
+        {
+            var monster_id = this[index];
+
+            return CreateTile(monster_id);
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Utils;
 using MagicTower.EditorData;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace MagicTower.Editor
 {
@@ -157,6 +159,11 @@ namespace MagicTower.Editor
             if (mTilemap == null)
             {
                 EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Level");
+                int level = EditorGUILayout.IntField(1);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("TileMap Width:");
                 int width = EditorGUILayout.IntField(11);
                 EditorGUILayout.EndHorizontal();
@@ -172,10 +179,53 @@ namespace MagicTower.Editor
                     mTilemap = tile_map_obj.AddComponent<EditorData.TileMap>();
                     tile_map_obj.tag = "TileMap";
 
+                    mTilemap.Level = level;
                     mTilemap.Init(width, height);
                 }
+                
+                if (GUILayout.Button("Load TileMap"))
+                {
+                    var asset = Resources.Load("test") as TextAsset;
+                    Data.TileMapData tile_map_data = null;
+                    using (var stream = new MemoryStream(asset.bytes))
+                    {
+                        var formatter = new BinaryFormatter();
+                        tile_map_data = formatter.Deserialize(stream) as Data.TileMapData;
+                    }
+
+                    //var tile_map_data = AssetDatabase.LoadAssetAtPath("Assets/test.asset", typeof(Data.TileMapData)) as Data.TileMapData;
+
+                    var tile_map_obj = new GameObject("TileMap");
+                    mTilemap = tile_map_obj.AddComponent<EditorData.TileMap>();
+                    tile_map_obj.tag = "TileMap";
+
+                    mTilemap.Level = tile_map_data.Level;
+                    mTilemap.Init(tile_map_data.Width, tile_map_data.Height);
+
+                    var floor_layer = tile_map_data.FloorLayer;
+                    for (int r = 0; r < floor_layer.GetLength(0); ++r)
+                    {
+                        for (int c = 0; c < floor_layer.GetLength(1); ++c)
+                        {
+                            var tile = TerrainList.CreateTile((Logic.Tile.EType)floor_layer[r, c]);
+                            mTilemap.SetTile(r, c, tile, ETileMapLayer.Floor);
+                        }
+                    }
+
+                    foreach (var monster_data in tile_map_data.MonsterDatas)
+                    {
+                        var monster = MonsterList.CreateTile(monster_data.Id);
+                        mTilemap.SetTile((int)monster_data.Row, (int)monster_data.Col, monster, ETileMapLayer.Collide);
+                    }
+                }
+
                 return;
             }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Level");
+            mTilemap.Level = EditorGUILayout.IntField(mTilemap.Level);
+            EditorGUILayout.EndHorizontal();
 
             mEditMode = (EEditMode)EditorGUILayout.EnumPopup("Edit Mode", mEditMode);
             if (mEditMode == EEditMode.Modify || mEditMode == EEditMode.Erase)
@@ -196,6 +246,11 @@ namespace MagicTower.Editor
             EditorGUILayout.LabelField("Item List", EditorStyles.boldLabel);
             if (mItemList.Draw())
                 Repaint();
+
+            if (GUILayout.Button("Save"))
+            {
+                mTilemap.Save("Assets/Resources/test.byte");
+            }
         }
     } 
 }

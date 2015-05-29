@@ -55,6 +55,11 @@
      <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
+     <Compile Include="Assets\Scripts\Data\ItemData.cs" />
+     <Compile Include="Assets\Scripts\Data\MonsterData.cs" />
+     <Compile Include="Assets\Scripts\Data\PortalData.cs" />
+     <Compile Include="Assets\Scripts\Data\TileData.cs" />
+     <Compile Include="Assets\Scripts\Data\TileMapData.cs" />
      <Compile Include="Assets\Scripts\Display\BattleDisplay.cs" />
      <Compile Include="Assets\Scripts\Display\DisplayFactory.cs" />
      <Compile Include="Assets\Scripts\Display\GameDisplay.cs" />
