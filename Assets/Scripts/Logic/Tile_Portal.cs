@@ -6,6 +6,7 @@ using System.Text;
 
 namespace MagicTower.Logic
 {
+    [Serializable]
     public enum EProtalDirection
     {
         Up = 0,
@@ -18,25 +19,21 @@ namespace MagicTower.Logic
             : base (EType.Portal)
         { }
 
-        private EProtalDirection mDirection;    
+        public Data.PortalData Data { get; set; }
+ 
         public EProtalDirection Direction
         {
-            get { return mDirection; }
-            set { mDirection = value; }
+            get { return Data.PortalType; }
         }
 
-        private uint mDestinationLevel;
         public uint DestinationLevel
         {
-            get { return mDestinationLevel; }
-            set { mDestinationLevel = value; }
+            get { return Data.DestinationLevel; }
         }
 
-        private TilePosition mDestinationPosition;
         public TilePosition DestinationPosition
         {
-            get { return mDestinationPosition; }
-            set { mDestinationPosition = value; }
+            get { return Data.DestinationPosition; }
         }
 
         public override bool ValidateMove(Tile target)
@@ -56,7 +53,7 @@ namespace MagicTower.Logic
 
         public override IEnumerator EndTrigger(Tile target)
         {
-            EventQueue.Instance.AddEvent(EEventType.CHANGE_LEVEL, mDestinationLevel, mDestinationPosition);
+            EventQueue.Instance.AddEvent(EEventType.CHANGE_LEVEL, DestinationLevel, DestinationPosition);
 
             yield return null;
         }

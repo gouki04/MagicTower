@@ -18,6 +18,12 @@ namespace MagicTower
                 get { return mDisplay; }
             }
 
+            private Data.TileMapData mData;
+            public Data.TileMapData Data
+            {
+                get { return mData; }
+            }
+
             /// <summary>
             /// 地图宽度
             /// </summary>
@@ -54,16 +60,16 @@ namespace MagicTower
                 get { return mLayerCollide; }
             }
 
-            public void Init(uint width, uint height)
+            public void Init(Data.TileMapData data)
             {
-                mWidth = width;
-                mHeight = height;
+                mWidth = data.Width;
+                mHeight = data.Height;
 
                 mLayerFloor = new TileLayer();
-                mLayerFloor.Init(this, width, height);
+                mLayerFloor.Init(this, mWidth, mHeight);
 
                 mLayerCollide = new TileLayer();
-                mLayerCollide.Init(this, width, height);
+                mLayerCollide.Init(this, mWidth, mHeight);
             }
 
             public IEnumerator Enter()

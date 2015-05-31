@@ -9,10 +9,11 @@ namespace MagicTower.Logic
 {
     public class Tile_Monster : Tile_Actor
     {
-        private uint mId;
+        public Data.MonsterData Data { get; set; }
+
         public uint Id
         {
-            get { return mId; }
+            get { return Data.Id; }
         }
 
         public Tile_Monster(uint id)
@@ -26,7 +27,7 @@ namespace MagicTower.Logic
         {
             get
             {
-                return CSVManager.Instance["monster"][mId];
+                return CSVManager.Instance["monster"][Id];
             }
         }
 

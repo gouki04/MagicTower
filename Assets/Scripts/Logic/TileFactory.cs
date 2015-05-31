@@ -40,9 +40,10 @@ namespace MagicTower.Logic
             return monster;
         }
 
-        public Tile_Portal CreatePortal()
+        public Tile_Portal CreatePortal(Data.PortalData data)
         {
             var portal = new Tile_Portal();
+            portal.Data = data;
             portal.IsBlock = false;
 
             return portal;
@@ -128,6 +129,33 @@ namespace MagicTower.Logic
                 case ETileChar.TriggerDoor:
                     {
                         return CreateDoor(EDoorType.Trigger);
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+
+        public Tile CreateTile(Tile.EType tile_type)
+        {
+            switch (tile_type)
+            {
+                case Tile.EType.Floor:
+                    {
+                        return CreateTerrainTile(Tile.EType.Floor);
+                    }
+                case Tile.EType.Wall:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Wall);
+                    }
+                case Tile.EType.Water:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Water);
+                    }
+                case Tile.EType.Sky:
+                    {
+                        return CreateTerrainBlockTile(Tile.EType.Sky);
                     }
                 default:
                     {

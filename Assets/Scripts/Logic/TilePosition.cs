@@ -3,45 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MagicTower
+namespace MagicTower.Logic
 {
-    namespace Logic
+    [Serializable]
+    public struct TilePosition
     {
-        public struct TilePosition
+        public uint Row;
+        public uint Col;
+
+        public TilePosition(uint r, uint c)
         {
-            public uint Row;
-            public uint Col;
+            Row = r;
+            Col = c;
+        }
 
-            public TilePosition(uint r, uint c)
-            {
-                Row = r;
-                Col = c;
-            }
+        static public TilePosition Zero
+        {
+            get { return new TilePosition(0, 0); }
+        }
 
-            static public TilePosition Zero
-            {
-                get { return new TilePosition(0, 0); }
-            }
+        public override bool Equals(object obj)
+        {
+            return obj is TilePosition && this == (TilePosition)obj;
+        }
 
-            public override bool Equals(object obj)
-            {
-                return obj is TilePosition && this == (TilePosition)obj;
-            }
+        public override int GetHashCode()
+        {
+            return (int)(Row * Col);
+        }
 
-            public override int GetHashCode()
-            {
-                return (int)(Row * Col);
-            }
+        public static bool operator ==(TilePosition x, TilePosition y)
+        {
+            return (x.Row == y.Row) && (x.Col == y.Col);
+        }
 
-            public static bool operator ==(TilePosition x, TilePosition y)
-            {
-                return (x.Row == y.Row) && (x.Col == y.Col);
-            }
-
-            public static bool operator !=(TilePosition x, TilePosition y)
-            {
-                return !(x == y);
-            }
-        } 
+        public static bool operator !=(TilePosition x, TilePosition y)
+        {
+            return !(x == y);
+        }
     }
 }

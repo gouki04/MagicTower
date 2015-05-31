@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Utils;
 
@@ -142,41 +144,93 @@ namespace MagicTower.Logic
 			
 			return cur;
 		}
-	
-		public IEnumerator LoadMap(uint lv)
-		{
-			var asset = Resources.Load ("level" + lv) as TextAsset;
-			var content = asset.text.Split (new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
-	
-			int cur_idx = 0;
-	
-			// map size
-			uint width, height;
-			cur_idx = parseMapSize (content, cur_idx, out width, out height);
+
+        public IEnumerator LoadMap(uint lv)
+        {
+            var async = Resources.LoadAsync("level" + lv);
+            yield return async;
+
+            var asset = async.asset as TextAsset;
+
+            Data.TileMapData tile_map_data = null;
+            using (var stream = new MemoryStream(asset.bytes))
+            {
+                var formatter = new BinaryFormatter();
+                tile_map_data = formatter.Deserialize(stream) as Data.TileMapData;
+            }
 
             var map = new TileMap();
-			map.Init (width, height);
+            map.Init(tile_map_data);
+
+            var floor_layer_data = tile_map_data.FloorLayer;
+            for (int row = 0; row < floor_layer_data.GetLength(0); ++row)
+            {
+                for (int col = 0; col < floor_layer_data.GetLength(1); ++col)
+                {
+                    var tile_type = (Tile.EType)floor_layer_data[row, col];
+                    var tile = TileFactory.Instance.CreateTile(tile_type);
+                    if (tile != null)
+                    {
+                        map.LayerFloor[(uint)(map.Height - row - 1), (uint)col] = tile;
+                    }
+                }
+            }
+
+            var portals = tile_map_data.PortalDatas;
+            foreach (var portal in portals)
+            {
+                var portal_tile = TileFactory.Instance.CreatePortal(portal);
+                map.LayerCollide[portal.Row, portal.Col] = portal_tile;
+            }
+
+            var monsters = tile_map_data.MonsterDatas;
+            foreach (var monster in monsters)
+            {
+                var row = monster.Row;
+                var col = monster.Col;
+                var monster_id = monster.Id;
+
+                var monster_tile = TileFactory.Instance.CreateMonster(monster_id);
+                map.LayerCollide[row, col] = monster_tile;
+            }
+                
+            yield return map;
+        }
 	
-			// layer 0
-			cur_idx = parseLayer (content, cur_idx, map.LayerFloor);
+        //public IEnumerator LoadMap(uint lv)
+        //{
+        //    var asset = Resources.Load ("level" + lv) as TextAsset;
+        //    var content = asset.text.Split (new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
 	
-			// layer 1
-			cur_idx = parseLayer (content, cur_idx, map.LayerCollide);
+        //    int cur_idx = 0;
 	
-			// monster
-			cur_idx = parseMonter (content, cur_idx, map.LayerCollide);
+        //    // map size
+        //    uint width, height;
+        //    cur_idx = parseMapSize (content, cur_idx, out width, out height);
+
+        //    var map = new TileMap();
+        //    map.Init (width, height);
 	
-			// npc
-			cur_idx = parseNpc (content, cur_idx, map.LayerCollide);
+        //    // layer 0
+        //    cur_idx = parseLayer (content, cur_idx, map.LayerFloor);
 	
-			// item
-			cur_idx = parseItem (content, cur_idx, map.LayerCollide);
+        //    // layer 1
+        //    cur_idx = parseLayer (content, cur_idx, map.LayerCollide);
 	
-			// portal
-			cur_idx = parsePortal (content, cur_idx, map.LayerFloor);
+        //    // monster
+        //    cur_idx = parseMonter (content, cur_idx, map.LayerCollide);
 	
-			yield return map;
-		}
+        //    // npc
+        //    cur_idx = parseNpc (content, cur_idx, map.LayerCollide);
+	
+        //    // item
+        //    cur_idx = parseItem (content, cur_idx, map.LayerCollide);
+	
+        //    // portal
+        //    cur_idx = parsePortal (content, cur_idx, map.LayerFloor);
+	
+        //    yield return map;
+        //}
 	}
 }
 
