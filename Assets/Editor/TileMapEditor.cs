@@ -13,7 +13,7 @@ namespace MagicTower.Editor
         
         public void OnEnable()
         {
-            mTilemap = (EditorData.TileMap)target;
+//            mTilemap = (EditorData.TileMap)target;
 
             //SceneView.onSceneGUIDelegate += TileMapUpdate;
         }

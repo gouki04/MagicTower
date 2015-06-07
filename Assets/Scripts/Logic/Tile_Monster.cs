@@ -9,17 +9,17 @@ namespace MagicTower.Logic
 {
     public class Tile_Monster : Tile_Actor
     {
-        public Data.MonsterData Data { get; set; }
+        public Data.MonsterData Data { get; private set; }
 
         public uint Id
         {
             get { return Data.Id; }
         }
 
-        public Tile_Monster(uint id)
+        public Tile_Monster(Data.MonsterData data)
             : base(EType.Monster)
         {
-            mId = id;
+            Data = data;
             mHp = CsvData.GetUIntValue("hp");
         }
 

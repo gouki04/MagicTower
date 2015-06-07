@@ -66,84 +66,84 @@ namespace MagicTower.Logic
 			return cur;
 		}
 	
-		private int parseMonter(string[] content, int cur, TileLayer layer)
-		{
-			++cur;
+        //private int parseMonter(string[] content, int cur, TileLayer layer)
+        //{
+        //    ++cur;
 	
-			int count = Convert.ToInt32 (content [cur++]);
-			for (int i = 0; i < count; ++i, ++cur) {
-                var monster_info = content[cur].Split(new char[] { ',' });
-                var row = Convert.ToUInt32(monster_info[0]);
-                var col = Convert.ToUInt32(monster_info[1]);
-                var monster_id = Convert.ToUInt32(monster_info[2]);
+        //    int count = Convert.ToInt32 (content [cur++]);
+        //    for (int i = 0; i < count; ++i, ++cur) {
+        //        var monster_info = content[cur].Split(new char[] { ',' });
+        //        var row = Convert.ToUInt32(monster_info[0]);
+        //        var col = Convert.ToUInt32(monster_info[1]);
+        //        var monster_id = Convert.ToUInt32(monster_info[2]);
 
-                var monster_tile = TileFactory.Instance.CreateMonster(monster_id);
-                layer[row, col] = monster_tile;
-			}
+        //        var monster_tile = TileFactory.Instance.CreateMonster(monster_id);
+        //        layer[row, col] = monster_tile;
+        //    }
 	
-			return cur;
-		}
+        //    return cur;
+        //}
 	
-		private int parseNpc(string[] content, int cur, TileLayer layer)
-		{
-			++cur;
+        //private int parseNpc(string[] content, int cur, TileLayer layer)
+        //{
+        //    ++cur;
 			
-			int count = Convert.ToInt32 (content [cur++]);
-			for (int i = 0; i < count; ++i, ++cur) {
-                var npc_info = content[cur].Split(new char[] { ',' });
-                var row = Convert.ToUInt32(npc_info[0]);
-                var col = Convert.ToUInt32(npc_info[1]);
-                var npc_id = Convert.ToUInt32(npc_info[2]);
+        //    int count = Convert.ToInt32 (content [cur++]);
+        //    for (int i = 0; i < count; ++i, ++cur) {
+        //        var npc_info = content[cur].Split(new char[] { ',' });
+        //        var row = Convert.ToUInt32(npc_info[0]);
+        //        var col = Convert.ToUInt32(npc_info[1]);
+        //        var npc_id = Convert.ToUInt32(npc_info[2]);
 
-                var npc_tile = TileFactory.Instance.CreateMonster(npc_id);
-                layer[row, col] = npc_tile;
-			}
+        //        var npc_tile = TileFactory.Instance.CreateMonster(npc_id);
+        //        layer[row, col] = npc_tile;
+        //    }
 			
-			return cur;
-		}
+        //    return cur;
+        //}
 	
-		private int parseItem(string[] content, int cur, TileLayer layer)
-		{
-			++cur;
+        //private int parseItem(string[] content, int cur, TileLayer layer)
+        //{
+        //    ++cur;
 			
-			int count = Convert.ToInt32 (content [cur++]);
-			for (int i = 0; i < count; ++i, ++cur) {
-                var item_info = content[cur].Split(new char[] { ',' });
-                var row = Convert.ToUInt32(item_info[0]);
-                var col = Convert.ToUInt32(item_info[1]);
-                var item_id = Convert.ToUInt32(item_info[2]);
+        //    int count = Convert.ToInt32 (content [cur++]);
+        //    for (int i = 0; i < count; ++i, ++cur) {
+        //        var item_info = content[cur].Split(new char[] { ',' });
+        //        var row = Convert.ToUInt32(item_info[0]);
+        //        var col = Convert.ToUInt32(item_info[1]);
+        //        var item_id = Convert.ToUInt32(item_info[2]);
 
-                var item_tile = TileFactory.Instance.CreateMonster(item_id);
-                layer[row, col] = item_tile;
-			}
+        //        var item_tile = TileFactory.Instance.CreateMonster(item_id);
+        //        layer[row, col] = item_tile;
+        //    }
 			
-			return cur;
-		}
+        //    return cur;
+        //}
 	
-		private int parsePortal(string[] content, int cur, TileLayer layer)
-		{
-			++cur;
+        //private int parsePortal(string[] content, int cur, TileLayer layer)
+        //{
+        //    ++cur;
 			
-			int count = Convert.ToInt32 (content [cur++]);
-			for (int i = 0; i < count; ++i, ++cur) {
-                var portal_info = content[cur].Split(new char[] { ',' });
-                var row = Convert.ToUInt32(portal_info[0]);
-                var col = Convert.ToUInt32(portal_info[1]);
-                var direction = portal_info[2].Equals("up") ? EProtalDirection.Up : EProtalDirection.Down;
-                var destination_level = Convert.ToUInt32(portal_info[3]);
-                var destination_row = Convert.ToUInt32(portal_info[4]);
-                var destination_col = Convert.ToUInt32(portal_info[5]);
+        //    int count = Convert.ToInt32 (content [cur++]);
+        //    for (int i = 0; i < count; ++i, ++cur) {
+        //        var portal_info = content[cur].Split(new char[] { ',' });
+        //        var row = Convert.ToUInt32(portal_info[0]);
+        //        var col = Convert.ToUInt32(portal_info[1]);
+        //        var direction = portal_info[2].Equals("up") ? EProtalDirection.Up : EProtalDirection.Down;
+        //        var destination_level = Convert.ToUInt32(portal_info[3]);
+        //        var destination_row = Convert.ToUInt32(portal_info[4]);
+        //        var destination_col = Convert.ToUInt32(portal_info[5]);
 
-                var portal_tile = TileFactory.Instance.CreatePortal();
-                portal_tile.Direction = direction;
-                portal_tile.DestinationLevel = destination_level;
-                portal_tile.DestinationPosition = new TilePosition(destination_row, destination_col);
+        //        var portal_tile = TileFactory.Instance.CreatePortal();
+        //        portal_tile.Direction = direction;
+        //        portal_tile.DestinationLevel = destination_level;
+        //        portal_tile.DestinationPosition = new TilePosition(destination_row, destination_col);
 
-                layer[row, col] = portal_tile;
-			}
+        //        layer[row, col] = portal_tile;
+        //    }
 			
-			return cur;
-		}
+        //    return cur;
+        //}
 
         public IEnumerator LoadMap(uint lv)
         {
@@ -167,7 +167,7 @@ namespace MagicTower.Logic
             {
                 for (int col = 0; col < floor_layer_data.GetLength(1); ++col)
                 {
-                    var tile_type = (Tile.EType)floor_layer_data[row, col];
+                    var tile_type = floor_layer_data[row, col];
                     var tile = TileFactory.Instance.CreateTile(tile_type);
                     if (tile != null)
                     {
@@ -177,21 +177,26 @@ namespace MagicTower.Logic
             }
 
             var portals = tile_map_data.PortalDatas;
-            foreach (var portal in portals)
+            if (portals != null)
             {
-                var portal_tile = TileFactory.Instance.CreatePortal(portal);
-                map.LayerCollide[portal.Row, portal.Col] = portal_tile;
+                foreach (var portal in portals)
+                {
+                    var portal_tile = TileFactory.Instance.CreatePortal(portal);
+                    map.LayerCollide[portal.Row, portal.Col] = portal_tile;
+                }
             }
 
             var monsters = tile_map_data.MonsterDatas;
-            foreach (var monster in monsters)
+            if (monsters != null)
             {
-                var row = monster.Row;
-                var col = monster.Col;
-                var monster_id = monster.Id;
+                foreach (var monster in monsters)
+                {
+                    var row = monster.Row;
+                    var col = monster.Col;
 
-                var monster_tile = TileFactory.Instance.CreateMonster(monster_id);
-                map.LayerCollide[row, col] = monster_tile;
+                    var monster_tile = TileFactory.Instance.CreateMonster(monster);
+                    map.LayerCollide[row, col] = monster_tile;
+                }
             }
                 
             yield return map;

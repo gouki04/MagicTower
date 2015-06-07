@@ -61,7 +61,7 @@
      <Compile Include="Assets\Editor\TileMapEditor.cs" />
      <Compile Include="Assets\Editor\TileMapWindow.cs" />
      <None Include="Assets\Resources\level0.txt" />
-     <None Include="Assets\Resources\level1.txt" />
+     <None Include="Assets\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>

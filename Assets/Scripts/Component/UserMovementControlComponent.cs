@@ -8,11 +8,11 @@ class UserMovementControlComponent : MonoBehaviour
 {
     private void FixedUpdate()
     {
-        var h = Input.GetAxis("Horizontal");
-        var v = Input.GetAxis("Vertical");
-
-        if (h > 0)
-        {
-        }
+//        var h = Input.GetAxis("Horizontal");
+//        var v = Input.GetAxis("Vertical");
+//
+//        if (h > 0)
+//        {
+//        }
     }
 }

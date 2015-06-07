@@ -210,8 +210,6 @@ namespace SafeCoroutine
             }
         }
 
-		private static int count = 0;
-
         private bool moveNext(IEnumerator itr)
         {
             while (true)

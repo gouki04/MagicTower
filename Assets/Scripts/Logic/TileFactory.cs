@@ -32,9 +32,9 @@ namespace MagicTower.Logic
             return player;
         }
 
-        public Tile CreateMonster(uint id)
+        public Tile CreateMonster(Data.MonsterData data)
         {
-            var monster = new Tile_Monster(id);
+            var monster = new Tile_Monster(data);
             monster.IsBlock = false;
 
             return monster;

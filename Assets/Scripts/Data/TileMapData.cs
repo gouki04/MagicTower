@@ -8,7 +8,7 @@ namespace MagicTower.Data
         public uint Level;
         public uint Width;
         public uint Height;
-        public int[,] FloorLayer;
+        public Logic.Tile.EType[,] FloorLayer;
         public PortalData[] PortalDatas;
         public MonsterData[] MonsterDatas;
         public ItemData[] ItemDatas;

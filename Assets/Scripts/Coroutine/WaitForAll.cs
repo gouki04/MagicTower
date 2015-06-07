@@ -26,7 +26,8 @@ namespace SafeCoroutine
                 var instruction = mInstructions[i];
                 if (instruction != null)
                 { 
-                    if (false && instruction is Coroutine)
+					// FIXME 不记得这里有什么bug了，反正应该是有问题的
+                    if (/*false && */instruction is Coroutine)
                     {
                         var coroutine = instruction as Coroutine;
                         if (coroutine.IsFinish)

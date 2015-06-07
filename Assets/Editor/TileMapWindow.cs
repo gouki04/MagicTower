@@ -160,17 +160,17 @@ namespace MagicTower.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Level");
-                int level = EditorGUILayout.IntField(1);
+                var level = (uint)EditorGUILayout.IntField(1);
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("TileMap Width:");
-                int width = EditorGUILayout.IntField(11);
+                var width = (uint)EditorGUILayout.IntField(11);
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("TileMap Height");
-                int height = EditorGUILayout.IntField(11);
+                var height = (uint)EditorGUILayout.IntField(11);
                 EditorGUILayout.EndHorizontal();
 
                 if (GUILayout.Button("Generate TileMap"))
@@ -185,7 +185,7 @@ namespace MagicTower.Editor
                 
                 if (GUILayout.Button("Load TileMap"))
                 {
-                    var asset = Resources.Load("test") as TextAsset;
+                    var asset = Resources.Load("level1") as TextAsset;
                     Data.TileMapData tile_map_data = null;
                     using (var stream = new MemoryStream(asset.bytes))
                     {
@@ -224,7 +224,7 @@ namespace MagicTower.Editor
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Level");
-            mTilemap.Level = EditorGUILayout.IntField(mTilemap.Level);
+            mTilemap.Level = (uint)EditorGUILayout.IntField((int)mTilemap.Level);
             EditorGUILayout.EndHorizontal();
 
             mEditMode = (EEditMode)EditorGUILayout.EnumPopup("Edit Mode", mEditMode);
@@ -249,7 +249,7 @@ namespace MagicTower.Editor
 
             if (GUILayout.Button("Save"))
             {
-                mTilemap.Save("Assets/Resources/test.byte");
+                mTilemap.Save(string.Format("Assets/Resources/level{0}.bytes", mTilemap.Level));
             }
         }
     } 

@@ -30,7 +30,7 @@ namespace MagicTower.Logic
         /// <summary>
         /// 上次游戏时最后停留的层数
         /// </summary>
-        private uint mLastTileMapLevel = 0;
+        private uint mLastTileMapLevel = 1;
         public uint LastTileMapLevel
         {
             get { return mLastTileMapLevel; }

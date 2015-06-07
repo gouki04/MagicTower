@@ -18,6 +18,7 @@ namespace MagicTower.Display
 
     public class BattleDisplay : MonoBehaviour, IBattleDisplay
     {
+#pragma warning disable 0414
         private Logic.Tile_Actor mPlayer;
         private Logic.Tile_Actor mMonster;
 

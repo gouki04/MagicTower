@@ -36,6 +36,7 @@ namespace MagicTower.Editor
                 var json_content = File.ReadAllText(mPlistPath);
                 var json = SimpleJSON.JSON.Parse(json_content);
 
+#pragma warning disable 0168
                 var width = json["meta"]["size"]["w"].AsInt;
                 var height = json["meta"]["size"]["h"].AsInt;
 

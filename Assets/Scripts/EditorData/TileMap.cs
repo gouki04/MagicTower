@@ -15,16 +15,16 @@ namespace MagicTower.EditorData
 
     public class TileMap : MonoBehaviour
     {
-        public int Level;
+        public uint Level;
 
-        private int mWidth = 11;
-        public int Width
+        private uint mWidth = 11;
+        public uint Width
         {
             get { return mWidth; }
         }
 
-        private int mHeight = 11;
-        public int Height
+        private uint mHeight = 11;
+        public uint Height
         {
             get { return mHeight; }
         }
@@ -32,7 +32,7 @@ namespace MagicTower.EditorData
         private GameObject[,] mLayerFloor;
         private GameObject[,] mLayerCollide;
 
-        public void Init(int width, int height)
+        public void Init(uint width, uint height)
         {
             mWidth = width;
             mHeight = height;
@@ -93,14 +93,14 @@ namespace MagicTower.EditorData
 
         #region serialization
 
-        private int _parseTerrainTile(GameObject gameobject)
+        private Logic.Tile.EType _parseTerrainTile(GameObject gameobject)
         {
-            return (int)gameobject.GetComponent<Tile>().TileType;
+            return gameobject.GetComponent<Tile>().TileType;
         }
 
-        private int[,] _parseFloorLayer()
+        private Logic.Tile.EType[,] _parseFloorLayer()
         {
-            var floor_layer = new int[Height, Width];
+            var floor_layer = new Logic.Tile.EType[Height, Width];
 
             for (int r = 0; r < Height; ++r)
             {
