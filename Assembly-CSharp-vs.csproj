@@ -55,8 +55,10 @@
      <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
+     <Compile Include="Assets\Scripts\Data\GameData.cs" />
      <Compile Include="Assets\Scripts\Data\ItemData.cs" />
      <Compile Include="Assets\Scripts\Data\MonsterData.cs" />
+     <Compile Include="Assets\Scripts\Data\PlayerData.cs" />
      <Compile Include="Assets\Scripts\Data\PortalData.cs" />
      <Compile Include="Assets\Scripts\Data\TileData.cs" />
      <Compile Include="Assets\Scripts\Data\TileMapData.cs" />
@@ -71,7 +73,6 @@
      <Compile Include="Assets\Scripts\EventQueue.cs" />
      <Compile Include="Assets\Scripts\Logic\Battle.cs" />
      <Compile Include="Assets\Scripts\Logic\Game.cs" />
-     <Compile Include="Assets\Scripts\Logic\PlayerData.cs" />
      <Compile Include="Assets\Scripts\Logic\Tile.cs" />
      <Compile Include="Assets\Scripts\Logic\TileFactory.cs" />
      <Compile Include="Assets\Scripts\Logic\TileLayer.cs" />
@@ -90,7 +91,6 @@
      <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
      <Compile Include="Assets\Scripts\Utils\SpriteSheet.cs" />
      <Compile Include="Assets\Scripts\Utils\SpriteSheetManager.cs" />
-     <None Include="Assets\Resources\level0.txt" />
      <None Include="Assets\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>

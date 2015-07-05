@@ -54,13 +54,13 @@
      <Compile Include="Assets\Editor\SpriteEditor.cs" />
      <Compile Include="Assets\Editor\SpriteList\ItemList.cs" />
      <Compile Include="Assets\Editor\SpriteList\MonsterList.cs" />
+     <Compile Include="Assets\Editor\SpriteList\PortalList.cs" />
      <Compile Include="Assets\Editor\SpriteList\SpriteList.cs" />
      <Compile Include="Assets\Editor\SpriteList\TerrainList.cs" />
      <Compile Include="Assets\Editor\TerrainGenerator.cs" />
      <Compile Include="Assets\Editor\TileEditor.cs" />
      <Compile Include="Assets\Editor\TileMapEditor.cs" />
      <Compile Include="Assets\Editor\TileMapWindow.cs" />
-     <None Include="Assets\Resources\level0.txt" />
      <None Include="Assets\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>

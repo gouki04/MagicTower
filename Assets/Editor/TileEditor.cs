@@ -37,6 +37,39 @@ namespace MagicTower.Editor
             return value != origin;
         }
 
+        private bool PosField(Dictionary<string, object> properties, string key, out Logic.TilePosition pos)
+        {
+			EditorGUILayout.BeginVertical ();
+            EditorGUILayout.LabelField(key);
+
+            var origin = (Logic.TilePosition)properties[key];
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Row");
+            pos.Row = (uint)EditorGUILayout.IntField((int)origin.Row);
+			EditorGUILayout.EndHorizontal ();
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Col");
+            pos.Col = (uint)EditorGUILayout.IntField((int)origin.Col);
+            EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.EndVertical ();
+
+            return pos.Row != origin.Row || pos.Col != origin.Col;
+        }
+
+        private uint IntField(Dictionary<string, object> properties, string key)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(key);
+			uint origin = (uint)properties [key];
+            uint result = (uint)EditorGUILayout.IntField((int)origin);
+            EditorGUILayout.EndHorizontal();
+
+            return result;
+        }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -65,6 +98,16 @@ namespace MagicTower.Editor
                 {
                     mTile.Properties["ItemId"] = item_id;
                     mTile.GetComponent<SpriteRenderer>().sprite = ItemList.GetSpriteByItemId(item_id);
+                }
+            }
+            else if (mTile.TileType == Logic.Tile.EType.Portal)
+            {
+				mTile.Properties["DestLevel"] = (uint)IntField(mTile.Properties, "DestLevel");
+
+                Logic.TilePosition pos;
+                if (PosField(mTile.Properties, "DestPos", out pos))
+                {
+                    mTile.Properties["DestPos"] = pos;
                 }
             }
         }

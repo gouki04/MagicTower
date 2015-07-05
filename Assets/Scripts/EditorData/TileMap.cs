@@ -117,7 +117,7 @@ namespace MagicTower.EditorData
             return floor_layer;
         }
 
-        private Data.MonsterData[] _parseMonsters()
+        private List<Data.MonsterData> _parseMonsters()
         {
             var monsters = new List<Data.MonsterData>();
 
@@ -133,8 +133,7 @@ namespace MagicTower.EditorData
                     if (tile.TileType == Logic.Tile.EType.Monster)
                     {
                         var data = new Data.MonsterData();
-                        data.Row = r;
-                        data.Col = c;
+                        data.Pos = new Logic.TilePosition(r, c);
                         data.Id = (uint)tile.Properties["MonsterId"];
 
                         monsters.Add(data);
@@ -142,7 +141,7 @@ namespace MagicTower.EditorData
                 }
             }
 
-            return monsters.ToArray();
+            return monsters;
         }
 
         public void Save(string file_path)
@@ -153,7 +152,44 @@ namespace MagicTower.EditorData
             tile_map_data.Height = Height;
 
             tile_map_data.FloorLayer = _parseFloorLayer();
-            tile_map_data.MonsterDatas = _parseMonsters();
+            tile_map_data.MonsterDatas = new List<Data.MonsterData>();
+            tile_map_data.PortalDatas = new List<Data.PortalData>();
+            tile_map_data.ItemDatas = new List<Data.ItemData>();
+
+            for (uint r = 0; r < Height; ++r)
+            {
+                for (uint c = 0; c < Width; ++c)
+                {
+                    var go = mLayerCollide[r, c];
+                    if (go == null)
+                        continue;
+
+                    var tile = go.GetComponent<Tile>();
+                    switch (tile.TileType)
+                    {
+                        case Logic.Tile.EType.Monster:
+                            {
+                                var data = new Data.MonsterData();
+                                data.Pos = new Logic.TilePosition(r, c);
+                                data.Id = (uint)tile.Properties["MonsterId"];
+
+                                tile_map_data.MonsterDatas.Add(data);
+                                break;
+                            }
+                        case Logic.Tile.EType.Portal:
+                            {
+                                var data = new Data.PortalData();
+                                data.Pos = new Logic.TilePosition(r, c);
+                                data.DestinationLevel = (uint)tile.Properties["DestLevel"];
+                                data.DestinationPosition = (Logic.TilePosition)tile.Properties["DestPos"];
+
+                                tile_map_data.PortalDatas.Add(data);
+
+                                break;
+                            }
+                    }
+                }
+            }
 
             using (var file = new FileStream(file_path, FileMode.Create))
             {

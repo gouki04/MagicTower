@@ -338,7 +338,7 @@ namespace MagicTower.Display
         {
             var tile_portal = tile_data as Logic.Tile_Portal;
 
-            var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "stair_up" : "stair_down", "Floor");
+			var obj = _createBasicTile(tile_data, tile_portal.Direction == Logic.EProtalDirection.Up ? "stair_up" : "stair_down", "Collide");
 
             return obj;
         }

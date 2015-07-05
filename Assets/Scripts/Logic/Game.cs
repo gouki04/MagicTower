@@ -147,8 +147,12 @@ namespace MagicTower.Logic
 
                 // 碰撞层没有trigger结束
                 // 因为现在layer里同一个位置不允许有多个tile，所以moveto后，原tile就被干掉了，所以不需要trigger结束
+				if (dst_collide_tile != null && !dst_collide_tile.IsDead)
+				{
+					yield return dst_collide_tile.EndTrigger(tile);
+				}
 
-                if (dst_floor_tile != null)
+                if (dst_floor_tile != null && !dst_floor_tile.IsDead)
                 {
                     // 地板层trigger结束
                     yield return dst_floor_tile.EndTrigger(tile);
@@ -164,7 +168,7 @@ namespace MagicTower.Logic
         /// <returns></returns>
         private IEnumerator _loadGameData()
         {
-            PlayerData.Instance.LoadDataFromFile();
+            //PlayerData.Instance.LoadDataFromFile();
 
             // 第一次创建玩家
             mPlayer = TileFactory.Instance.CreatePlayer();

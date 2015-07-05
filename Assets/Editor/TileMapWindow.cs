@@ -22,11 +22,14 @@ namespace MagicTower.Editor
         ETileMapLayer mEditLayer = ETileMapLayer.Floor;
         int mEditRange = 1;
 
+		uint mMapLevel = 1;
+
         EditorData.TileMap mTilemap;
 
         MonsterList mMonsterList;
         ItemList mItemList;
         TerrainList mTerrainList;
+        PortalList mPortalList;
 
         [MenuItem("Window/TileMapWindow")]
         public static void ShowWindow()
@@ -61,6 +64,10 @@ namespace MagicTower.Editor
             {
                 mTerrainList.Add(i);
             }
+
+            mPortalList = new PortalList();
+            mPortalList.Add(0);
+            mPortalList.Add(1);
 
             SceneView.onSceneGUIDelegate += TileMapUpdate;
         }
@@ -160,8 +167,8 @@ namespace MagicTower.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Level");
-                var level = (uint)EditorGUILayout.IntField(1);
-                EditorGUILayout.EndHorizontal();
+				mMapLevel = (uint)EditorGUILayout.IntField((int)mMapLevel);
+				EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("TileMap Width:");
@@ -179,13 +186,13 @@ namespace MagicTower.Editor
                     mTilemap = tile_map_obj.AddComponent<EditorData.TileMap>();
                     tile_map_obj.tag = "TileMap";
 
-                    mTilemap.Level = level;
-                    mTilemap.Init(width, height);
+					mTilemap.Level = mMapLevel;
+					mTilemap.Init(width, height);
                 }
                 
                 if (GUILayout.Button("Load TileMap"))
                 {
-                    var asset = Resources.Load("level1") as TextAsset;
+					var asset = Resources.Load("level" + mMapLevel) as TextAsset;
                     Data.TileMapData tile_map_data = null;
                     using (var stream = new MemoryStream(asset.bytes))
                     {
@@ -215,8 +222,14 @@ namespace MagicTower.Editor
                     foreach (var monster_data in tile_map_data.MonsterDatas)
                     {
                         var monster = MonsterList.CreateTile(monster_data.Id);
-                        mTilemap.SetTile((int)monster_data.Row, (int)monster_data.Col, monster, ETileMapLayer.Collide);
+                        mTilemap.SetTile((int)monster_data.Pos.Row, (int)monster_data.Pos.Col, monster, ETileMapLayer.Collide);
                     }
+
+					foreach (var portal_data in tile_map_data.PortalDatas)
+					{
+						var portal = PortalList.CreateTile(portal_data.PortalType, portal_data.DestinationLevel, portal_data.DestinationPosition);
+						mTilemap.SetTile((int)portal_data.Pos.Row, (int)portal_data.Pos.Col, portal, ETileMapLayer.Collide);
+					}
                 }
 
                 return;
@@ -237,6 +250,10 @@ namespace MagicTower.Editor
 
             EditorGUILayout.LabelField("Terrain List", EditorStyles.boldLabel);
             if (mTerrainList.Draw())
+                Repaint();
+
+            EditorGUILayout.LabelField("Portal List", EditorStyles.boldLabel);
+            if (mPortalList.Draw())
                 Repaint();
 
             EditorGUILayout.LabelField("Monster List", EditorStyles.boldLabel);

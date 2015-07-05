@@ -5,7 +5,6 @@ namespace MagicTower.Data
     [Serializable]
     public class TileData
     {
-        public uint Row;
-        public uint Col;
+        public Logic.TilePosition Pos;
     }
 }

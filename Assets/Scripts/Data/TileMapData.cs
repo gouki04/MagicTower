@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MagicTower.Data
 {
@@ -9,8 +10,8 @@ namespace MagicTower.Data
         public uint Width;
         public uint Height;
         public Logic.Tile.EType[,] FloorLayer;
-        public PortalData[] PortalDatas;
-        public MonsterData[] MonsterDatas;
-        public ItemData[] ItemDatas;
+        public List<PortalData> PortalDatas;
+        public List<MonsterData> MonsterDatas;
+        public List<ItemData> ItemDatas;
     }
 }

@@ -63,6 +63,8 @@ namespace MagicTower.Logic
             set { mLayer = value; }
         }
 
+		public bool IsDead { get; private set; }
+
         public Tile(EType type)
         {
             mType = type;
@@ -155,6 +157,7 @@ namespace MagicTower.Logic
         /// <returns></returns>
         public virtual IEnumerator Enter()
         {
+			IsDead = false;
             if (mDisplay == null)
             {
                 mDisplay = Game.Instance.DisplayFactory.GetTileDisplay(this);
@@ -169,6 +172,7 @@ namespace MagicTower.Logic
         /// <returns></returns>
         public virtual IEnumerator Exit()
         {
+			IsDead = true;
             mLayer[mPosition] = null;
 
             yield return mDisplay.Exit();
