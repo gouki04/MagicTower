@@ -395,7 +395,7 @@ namespace MagicTower.Display
                     }
             }
 
-            var obj = _createBasicTile(tile_data, sprite, "Floor");
+            var obj = _createBasicTile(tile_data, sprite, "Collide");
 
             return obj;
         }

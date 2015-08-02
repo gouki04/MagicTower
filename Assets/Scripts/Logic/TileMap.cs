@@ -88,6 +88,26 @@ namespace MagicTower.Logic
                 }
             }
 
+            var items = Data.ItemDatas;
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    var item_tile = TileFactory.Instance.CreateItem(item);
+                    LayerCollide[item.Pos] = item_tile;
+                }
+            }
+
+            var doors = Data.DoorDatas;
+            if (doors != null)
+            {
+                foreach (var door in doors)
+                {
+                    var door_tile = TileFactory.Instance.CreateDoor(door.DoorType);
+                    LayerCollide[door.Pos] = door_tile;
+                }
+            }
+
             yield return null;
         }
 

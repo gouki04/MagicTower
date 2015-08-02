@@ -25,7 +25,7 @@ namespace MagicTower.Logic
             set;
         }
 
-		public bool IsDead
+		public override bool IsDead
 		{
 			get { return Hp <= 0; }
 		}

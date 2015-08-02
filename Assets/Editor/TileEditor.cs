@@ -110,6 +110,10 @@ namespace MagicTower.Editor
                     mTile.Properties["DestPos"] = pos;
                 }
             }
+            else if (mTile.TileType == Logic.Tile.EType.Door)
+            {
+                
+            }
         }
     }
 }

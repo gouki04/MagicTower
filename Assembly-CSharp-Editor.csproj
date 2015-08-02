@@ -52,6 +52,7 @@
      <Compile Include="Assets\Editor\PrefabGeneratorWindow.cs" />
      <Compile Include="Assets\Editor\SimpleJSON.cs" />
      <Compile Include="Assets\Editor\SpriteEditor.cs" />
+     <Compile Include="Assets\Editor\SpriteList\DoorList.cs" />
      <Compile Include="Assets\Editor\SpriteList\ItemList.cs" />
      <Compile Include="Assets\Editor\SpriteList\MonsterList.cs" />
      <Compile Include="Assets\Editor\SpriteList\PortalList.cs" />

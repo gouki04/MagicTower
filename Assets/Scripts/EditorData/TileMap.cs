@@ -155,6 +155,7 @@ namespace MagicTower.EditorData
             tile_map_data.MonsterDatas = new List<Data.MonsterData>();
             tile_map_data.PortalDatas = new List<Data.PortalData>();
             tile_map_data.ItemDatas = new List<Data.ItemData>();
+			tile_map_data.DoorDatas = new List<Data.DoorData> ();
 
             for (uint r = 0; r < Height; ++r)
             {
@@ -185,6 +186,24 @@ namespace MagicTower.EditorData
 
                                 tile_map_data.PortalDatas.Add(data);
 
+                                break;
+                            }
+                        case Logic.Tile.EType.Item:
+                            {
+                                var data = new Data.ItemData();
+                                data.Pos = new Logic.TilePosition(r, c);
+                                data.Id = (uint)tile.Properties["ItemId"];
+
+                                tile_map_data.ItemDatas.Add(data);
+                                break;
+                            }
+                        case Logic.Tile.EType.Door:
+                            {
+                                var data = new Data.DoorData();
+                                data.Pos = new Logic.TilePosition(r, c);
+                                data.DoorType = (Logic.EDoorType)tile.Properties["DoorType"];
+
+                                tile_map_data.DoorDatas.Add(data);
                                 break;
                             }
                     }

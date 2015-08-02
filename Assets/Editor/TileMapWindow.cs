@@ -30,6 +30,7 @@ namespace MagicTower.Editor
         ItemList mItemList;
         TerrainList mTerrainList;
         PortalList mPortalList;
+        DoorList mDoorList;
 
         [MenuItem("Window/TileMapWindow")]
         public static void ShowWindow()
@@ -68,6 +69,13 @@ namespace MagicTower.Editor
             mPortalList = new PortalList();
             mPortalList.Add(0);
             mPortalList.Add(1);
+
+            mDoorList = new DoorList();
+            mDoorList.Add(0);
+            mDoorList.Add(1);
+            mDoorList.Add(2);
+            mDoorList.Add(3);
+            mDoorList.Add(4);
 
             SceneView.onSceneGUIDelegate += TileMapUpdate;
         }
@@ -200,6 +208,8 @@ namespace MagicTower.Editor
                         tile_map_data = formatter.Deserialize(stream) as Data.TileMapData;
                     }
 
+                    Resources.UnloadAsset(asset);
+
                     //var tile_map_data = AssetDatabase.LoadAssetAtPath("Assets/test.asset", typeof(Data.TileMapData)) as Data.TileMapData;
 
                     var tile_map_obj = new GameObject("TileMap");
@@ -230,6 +240,18 @@ namespace MagicTower.Editor
 						var portal = PortalList.CreateTile(portal_data.PortalType, portal_data.DestinationLevel, portal_data.DestinationPosition);
 						mTilemap.SetTile((int)portal_data.Pos.Row, (int)portal_data.Pos.Col, portal, ETileMapLayer.Collide);
 					}
+
+                    foreach (var item_data in tile_map_data.ItemDatas)
+                    {
+                        var item = ItemList.CreateTile(item_data.Id);
+                        mTilemap.SetTile((int)item_data.Pos.Row, (int)item_data.Pos.Col, item, ETileMapLayer.Collide);
+                    }
+
+                    foreach (var door_data in tile_map_data.DoorDatas)
+                    {
+                        var door = DoorList.CreateTile(door_data.DoorType);
+                        mTilemap.SetTile((int)door_data.Pos.Row, (int)door_data.Pos.Col, door, ETileMapLayer.Collide);
+                    }
                 }
 
                 return;
@@ -262,6 +284,10 @@ namespace MagicTower.Editor
 
             EditorGUILayout.LabelField("Item List", EditorStyles.boldLabel);
             if (mItemList.Draw())
+                Repaint();
+
+            EditorGUILayout.LabelField("Door List", EditorStyles.boldLabel);
+            if (mDoorList.Draw())
                 Repaint();
 
             if (GUILayout.Button("Save"))

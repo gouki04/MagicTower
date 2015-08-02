@@ -92,7 +92,7 @@ namespace MagicTower.Display
                     animator.SetInteger("direction", (int)EDisplayDirection.Right);
             }
 
-            yield return new WaitForMoveTo(gameObject, dest, 0.5f);
+            yield return new WaitForMoveTo(gameObject, dest, 0.2f);
         }
 
         public IEnumerator Exit()

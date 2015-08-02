@@ -63,7 +63,7 @@ namespace MagicTower.Logic
             set { mLayer = value; }
         }
 
-		public bool IsDead { get; private set; }
+		public virtual bool IsDead { get; private set; }
 
         public Tile(EType type)
         {

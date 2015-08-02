@@ -57,9 +57,9 @@ namespace MagicTower.Logic
             return npc;
         }
 
-        public Tile_Item CreateItem(uint id)
+        public Tile_Item CreateItem(Data.ItemData data)
         {
-            var item = new Tile_Item(id);
+            var item = new Tile_Item(data.Id);
             item.IsBlock = false;
 
             return item;

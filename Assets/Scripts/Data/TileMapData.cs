@@ -13,5 +13,6 @@ namespace MagicTower.Data
         public List<PortalData> PortalDatas;
         public List<MonsterData> MonsterDatas;
         public List<ItemData> ItemDatas;
+        public List<DoorData> DoorDatas;
     }
 }

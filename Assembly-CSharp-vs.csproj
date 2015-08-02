@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Coroutine\IYieldInstruction.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForAll.cs" />
      <Compile Include="Assets\Scripts\Coroutine\WaitForSeconds.cs" />
+     <Compile Include="Assets\Scripts\Data\DoorData.cs" />
      <Compile Include="Assets\Scripts\Data\GameData.cs" />
      <Compile Include="Assets\Scripts\Data\ItemData.cs" />
      <Compile Include="Assets\Scripts\Data\MonsterData.cs" />

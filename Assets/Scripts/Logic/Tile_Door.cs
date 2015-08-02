@@ -88,7 +88,7 @@ namespace MagicTower.Logic
             }
 
             // TODO show the door open anim
-            yield return true;
+            yield return Exit();
         }
     }
 }
