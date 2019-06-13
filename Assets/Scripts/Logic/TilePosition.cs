@@ -17,10 +17,8 @@ namespace MagicTower.Logic
             Col = c;
         }
 
-        static public TilePosition Zero
-        {
-            get { return new TilePosition(0, 0); }
-        }
+        //[NonSerialized]
+        //static readonly public TilePosition Zero = new TilePosition(0, 0);
 
         public override bool Equals(object obj)
         {

@@ -1,18 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Logic\Game.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Escape\Assets\RoomComponent.cs">
     <Files>
-      <File FileName="Assets\Scripts\Logic\TilePosition.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\TileEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\SpriteList\PortalList.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\SpriteList\MonsterList.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\TileMapWindow.cs" Line="281" Column="2" />
-      <File FileName="Assets\Scripts\Logic\TileMapManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Logic\Tile.cs" Line="200" Column="1" />
-      <File FileName="Assets\Scripts\Display\DisplayFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\SpriteList\ItemList.cs" Line="43" Column="1" />
-      <File FileName="Assets\Scripts\EditorData\TileMap.cs" Line="206" Column="21" />
-      <File FileName="Assets\Scripts\Logic\Game.cs" Line="91" Column="34" />
+      <File FileName="..\Escape\Assets\PlayMaker\Editor\PlayMakerGUIInspector.cs" Line="20" Column="2" />
+      <File FileName="..\Escape\Assets\iTween\PlayMaker\Editor\iTweenMoveToActionEditor.cs" Line="23" Column="10" />
+      <File FileName="..\Escape\Assets\RoomComponent.cs" Line="11" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

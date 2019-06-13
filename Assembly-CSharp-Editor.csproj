@@ -69,6 +69,12 @@
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
+ <Reference Include="LitJson">
+ <HintPath>E:/Projects/MagicTower/Assets/assembly/LitJson.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+ <HintPath>E:/Projects/MagicTower/Assets/assembly/System.Runtime.Serialization.Formatters.Soap.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>

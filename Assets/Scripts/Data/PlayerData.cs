@@ -95,6 +95,13 @@ namespace MagicTower.Logic
 
         public PlayerData()
         {
+            Lv = 1;
+            Hp = 100;
+            Gold = 0;
+            Exp = 0;
+            Attack = 10;
+            Defend = 10;
+
             mKeys[EDoorKeyType.YellowKey] = 0;
             mKeys[EDoorKeyType.BlueKey] = 0;
             mKeys[EDoorKeyType.RedKey] = 0;

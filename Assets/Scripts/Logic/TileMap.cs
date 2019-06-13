@@ -123,6 +123,8 @@ namespace MagicTower.Logic
 
             var monsters = new List<Data.MonsterData>();
             var portals = new List<Data.PortalData>();
+            var items = new List<Data.ItemData>();
+            var doors = new List<Data.DoorData>();
             foreach (Tile tile in LayerCollide)
             {
                 if (tile != null)
@@ -148,12 +150,32 @@ namespace MagicTower.Logic
 								portals.Add(portal_data);
                                 break;
                             }
+                        case Tile.EType.Item:
+                            {
+                                var item_data = new Data.ItemData();
+                                item_data.Pos = tile.Position;
+                                item_data.Id = (tile as Tile_Item).Id;
+
+                                items.Add(item_data);
+                                break;
+                            }
+                        case Tile.EType.Door:
+                            {
+                                var door_data = new Data.DoorData();
+                                door_data.Pos = tile.Position;
+                                door_data.DoorType = (tile as Tile_Door).DoorType;
+
+                                doors.Add(door_data);
+                                break;
+                            }
                     }
                 }
             }
 
             Data.MonsterDatas = monsters;
 			Data.PortalDatas = portals;
+            Data.ItemDatas = items;
+            Data.DoorDatas = doors;
 
             yield return null;
         }

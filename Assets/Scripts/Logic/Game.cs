@@ -29,6 +29,12 @@ namespace MagicTower.Logic
             get { return mDisplay; }
         }
 
+        public Display.IUIDisplay UIDisplay
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// 当前的TileMap
         /// </summary>
@@ -69,6 +75,8 @@ namespace MagicTower.Logic
 
             // set the display
             mDisplay = mDisplayFactory.GetGameDisplay(this);
+
+            UIDisplay = mDisplayFactory.GetUIDisplay();
 
             // load the save data
             yield return _loadGameData();
@@ -125,8 +133,16 @@ namespace MagicTower.Logic
                     // 先trigger碰撞层
                     yield return dst_collide_tile.BeginTrigger(tile);
 
-                    if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
+                    try
+                    {
+                        if ((bool)SafeCoroutine.Coroutine.GlobalResult == false)
+                            break;
+                    }
+                    catch
+                    {
+                        Logger.LogError("{0}.BeginTrigger do not return bool!", dst_collide_tile.GetType().Name);
                         break;
+                    }
                 }
 
                 if (dst_floor_tile != null)

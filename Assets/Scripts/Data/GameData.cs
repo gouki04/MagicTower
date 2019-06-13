@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Utils;
 
 namespace MagicTower
 {
@@ -19,35 +21,62 @@ namespace MagicTower
             return true;
         }
 
-        public void SaveDataToFile()
+        public void SaveDataToFile(uint index = 0u)
         {
+            try
+            {
+                var file_name = string.Format("save{0}.dat", index);
+                using (var stream_writer = new StreamWriter(file_name, false))
+                {
+                    var player_data = Logic.PlayerData.Instance;
+
+                    stream_writer.Write(player_data.Lv);
+                    stream_writer.Write(player_data.Attack);
+                    stream_writer.Write(player_data.Defend);
+                    stream_writer.Write(player_data.Hp);
+                    stream_writer.Write(player_data.Gold);
+                    stream_writer.Write(player_data.Exp);
+                    stream_writer.Write(player_data.RedKeys);
+                    stream_writer.Write(player_data.BlueKeys);
+                    stream_writer.Write(player_data.YellowKeys);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogError("Save File Failed! : " + e.Message);
+            }
         }
 
-        public void LoadDataFromFile()
+        public void LoadDataFromFile(uint index = 0u)
         {
-            //try
-            //{
-            //    using (var stream_reader = new StreamReader(DATA_TILE_NAME))
-            //    {
-            //        var content_text = stream_reader.ReadToEnd();
-            //        var content = content_text.Split('\n');
+            try
+            {
+                var file_name = string.Format("save{0}.dat", index);
+                using (var stream_reader = new StreamReader(file_name))
+                {
+                    var player_data = Logic.PlayerData.Instance;
 
-            //        Lv = Convert.ToUInt32(content[0]);
-            //        Attack = Convert.ToUInt32(content[1]);
-            //        Defend = Convert.ToUInt32(content[2]);
-            //        Hp = Convert.ToUInt32(content[3]);
-            //        Gold = Convert.ToUInt32(content[4]);
-            //        Exp = Convert.ToUInt32(content[5]);
+                    player_data.Lv = uint.Parse(stream_reader.ReadLine());
 
-            //        mKeys[EDoorKeyType.YellowKey] = Convert.ToUInt32(content[6]);
-            //        mKeys[EDoorKeyType.BlueKey] = Convert.ToUInt32(content[7]);
-            //        mKeys[EDoorKeyType.RedKey] = Convert.ToUInt32(content[8]);
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    Logger.LogDebug("Open {0} Failed!", DATA_TILE_NAME);
-            //}
+                    var content_text = stream_reader.ReadToEnd();
+                    var content = content_text.Split('\n');
+
+                    //Lv = Convert.ToUInt32(content[0]);
+                    //Attack = Convert.ToUInt32(content[1]);
+                    //Defend = Convert.ToUInt32(content[2]);
+                    //Hp = Convert.ToUInt32(content[3]);
+                    //Gold = Convert.ToUInt32(content[4]);
+                    //Exp = Convert.ToUInt32(content[5]);
+
+                    //mKeys[EDoorKeyType.YellowKey] = Convert.ToUInt32(content[6]);
+                    //mKeys[EDoorKeyType.BlueKey] = Convert.ToUInt32(content[7]);
+                    //mKeys[EDoorKeyType.RedKey] = Convert.ToUInt32(content[8]);
+                }
+            }
+            catch (Exception)
+            {
+                Logger.LogDebug("Open {0} Failed!", DATA_TILE_NAME);
+            }
         }
     }
 }

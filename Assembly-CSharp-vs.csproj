@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Display\GameDisplay.cs" />
      <Compile Include="Assets\Scripts\Display\TileDisplay.cs" />
      <Compile Include="Assets\Scripts\Display\TileMapDisplay.cs" />
+     <Compile Include="Assets\Scripts\Display\UIDisplay.cs" />
      <Compile Include="Assets\Scripts\EditorData\Tile.cs" />
      <Compile Include="Assets\Scripts\EditorData\TileMap.cs" />
      <Compile Include="Assets\Scripts\EditorData\Tile_Monster.cs" />
@@ -95,6 +96,12 @@
      <None Include="Assets\level1.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="LitJson">
+ <HintPath>E:/Projects/MagicTower/Assets/assembly/LitJson.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+ <HintPath>E:/Projects/MagicTower/Assets/assembly/System.Runtime.Serialization.Formatters.Soap.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

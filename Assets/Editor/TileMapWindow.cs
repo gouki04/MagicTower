@@ -202,12 +202,17 @@ namespace MagicTower.Editor
                 {
 					var asset = Resources.Load("level" + mMapLevel) as TextAsset;
                     Data.TileMapData tile_map_data = null;
-                    using (var stream = new MemoryStream(asset.bytes))
-                    {
-                        var formatter = new BinaryFormatter();
-                        tile_map_data = formatter.Deserialize(stream) as Data.TileMapData;
-                    }
+                    //using (var stream = new MemoryStream(asset.bytes))
+                    //{
+                    //    var formatter = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(Data.TileMapData));
+                    //    tile_map_data = formatter.ReadObject(stream) as Data.TileMapData;
+                    //    //tile_map_data = formatter.Deserialize(stream) as Data.TileMapData;
+                    //}
 
+                    //tile_map_data = Newtonsoft.JsonConvert.DeserializeObject<Data.TileMapData>(asset.bytes.ToString());
+                    var content = System.Text.Encoding.Default.GetString(asset.bytes);
+                    tile_map_data = LitJson.JsonMapper.ToObject<Data.TileMapData>(content);
+                    
                     Resources.UnloadAsset(asset);
 
                     //var tile_map_data = AssetDatabase.LoadAssetAtPath("Assets/test.asset", typeof(Data.TileMapData)) as Data.TileMapData;

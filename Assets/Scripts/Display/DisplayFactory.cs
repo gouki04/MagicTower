@@ -14,6 +14,8 @@ namespace MagicTower.Display
         IBattleDisplay GetBattleDisplay(Logic.Battle battle);
 
         ITileDisplay GetTileDisplay(Logic.Tile tile);
+
+        IUIDisplay GetUIDisplay();
     }
 
     public class DisplayFactory : IDisplayFactory
@@ -101,6 +103,14 @@ namespace MagicTower.Display
                 default:
                     return null;
             }
+        }
+
+        public IUIDisplay GetUIDisplay()
+        {
+            var ui_game_object = new GameObject("Game");
+            var ui_display = ui_game_object.AddComponent<TempUIDisplay>();
+
+            return ui_display;
         }
 
         /// <summary>

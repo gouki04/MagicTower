@@ -63,6 +63,8 @@ namespace MagicTower.Logic
                 PlayerData.Instance.ObtainKey(EDoorKeyType.RedKey);
 
             yield return Exit();
+
+            yield return true;
         }
     }
 }

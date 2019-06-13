@@ -13,6 +13,9 @@ namespace MagicTower.EditorData
         Collide = 1
     }
 
+    /// <summary>
+    /// 地图编辑器里使用的地图
+    /// </summary>
     public class TileMap : MonoBehaviour
     {
         public uint Level;
@@ -210,11 +213,24 @@ namespace MagicTower.EditorData
                 }
             }
 
-            using (var file = new FileStream(file_path, FileMode.Create))
+            //tile_map_data.MonsterDatas = new List<Data.MonsterData>();
+            //tile_map_data.PortalDatas = new List<Data.PortalData>();
+            //tile_map_data.ItemDatas = new List<Data.ItemData>();
+            //tile_map_data.DoorDatas = new List<Data.DoorData>();
+
+            var content = LitJson.JsonMapper.ToJson(tile_map_data);
+            //var content = Newtonsoft.JsonConvert.SerializeObject(tile_map_data);
+            using (var file = new StreamWriter(file_path, false))
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(file, tile_map_data);
+                file.Write(content);
             }
+            //File.WriteAllText(file_path, content);
+            //using (var file = File.Create(file_path))
+            //{
+            //    var content = JsonConvert.SerializeObject(tile_map_data);
+            //    file.
+            //    //formatter.Serialize(file, tile_map_data);
+            //}
         }
 
         #endregion
