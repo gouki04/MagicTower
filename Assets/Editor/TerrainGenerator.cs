@@ -16,7 +16,7 @@ namespace MagicTower.Editor
                 var sprite_renderer = go.AddComponent<SpriteRenderer>();
                 sprite_renderer.sprite = Utils.SpriteSheetManager.Instance["wall_0"];
 
-                PrefabUtility.CreatePrefab(string.Format("{0}wall.prefab", mPrefabPath), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}wall.prefab", m_PrefabPath), go);
 
                 DestroyImmediate(go);
             }
@@ -29,7 +29,7 @@ namespace MagicTower.Editor
                 var sprite_renderer = go.AddComponent<SpriteRenderer>();
                 sprite_renderer.sprite = Utils.SpriteSheetManager.Instance["floor_0"];
 
-                PrefabUtility.CreatePrefab(string.Format("{0}floor.prefab", mPrefabPath), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}floor.prefab", m_PrefabPath), go);
 
                 DestroyImmediate(go);
             }
@@ -41,10 +41,10 @@ namespace MagicTower.Editor
 
                 var clip = Helper.CreateAnimationClip("sky", 1f, 30f,
                     new string[] { "sky_0", "sky_0_1", "sky_0" }, true,
-                    mAnimationPath + "sky.anim");
+                    m_AnimationPath + "sky.anim");
 
                 var animator_controller = Helper.CreateSimpleAnimatorController(clip,
-                    mAnimatorControllerPath + "sky.controller");
+                    m_AnimatorControllerPath + "sky.controller");
 
                 var sprite_renderer = go.AddComponent<SpriteRenderer>();
                 sprite_renderer.sprite = Utils.SpriteSheetManager.Instance["sky_0"];
@@ -52,7 +52,7 @@ namespace MagicTower.Editor
                 var animator = go.AddComponent<Animator>();
                 animator.runtimeAnimatorController = animator_controller;
 
-                PrefabUtility.CreatePrefab(string.Format("{0}sky.prefab", mPrefabPath), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}sky.prefab", m_PrefabPath), go);
 
                 DestroyImmediate(go);
             }
@@ -64,10 +64,10 @@ namespace MagicTower.Editor
 
                 var clip = Helper.CreateAnimationClip("water", 1f, 30f,
                     new string[] { "water_0", "water_0_1", "water_0" }, true,
-                    mAnimationPath + "water.anim");
+                    m_AnimationPath + "water.anim");
 
                 var animator_controller = Helper.CreateSimpleAnimatorController(clip,
-                    mAnimatorControllerPath + "water.controller");
+                    m_AnimatorControllerPath + "water.controller");
 
                 var sprite_renderer = go.AddComponent<SpriteRenderer>();
                 sprite_renderer.sprite = Utils.SpriteSheetManager.Instance["water_0"];
@@ -75,7 +75,7 @@ namespace MagicTower.Editor
                 var animator = go.AddComponent<Animator>();
                 animator.runtimeAnimatorController = animator_controller;
 
-                PrefabUtility.CreatePrefab(string.Format("{0}water.prefab", mPrefabPath), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}water.prefab", m_PrefabPath), go);
 
                 DestroyImmediate(go);
             }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace MagicTower.Editor
                 if (animation_type == "idle")
                     frames = new string[] { animation_name };
                 else if (animation_type == "move")
-                    frames = new string[] { 
+                    frames = new string[] {
                         "player_" + animation_type + "_" + direction,
                         "player_" + "idle" + "_" + direction,
                         "player_" + animation_type + "_" + direction + "_1",
@@ -28,28 +29,28 @@ namespace MagicTower.Editor
 
                 return Helper.CreateAnimationClip(animation_name, 1f, 30f,
                     frames, true,
-                    string.Format("{0}{1}.anim", mAnimationPath, animation_name));
+                    string.Format("{0}{1}.anim", m_AnimationPath, animation_name));
             }
 
-            public AnimatorController GenerateAnimatorController(Dictionary<string, Dictionary<string, AnimationClip>> clips)
+            public UnityEditor.Animations.AnimatorController GenerateAnimatorController(Dictionary<string, Dictionary<string, AnimationClip>> clips)
             {
-                var animator_controller = Helper.CreateEmptyAnimatorController(mAnimatorControllerPath + "player_controller.controller");
-                animator_controller.AddParameter("moving", AnimatorControllerParameterType.Bool);
-                animator_controller.AddParameter("direction", AnimatorControllerParameterType.Int);
+                var animator_controller = Helper.CreateEmptyAnimatorController(m_AnimatorControllerPath + "player_controller.controller");
+                animator_controller.AddParameter("moving", UnityEngine.AnimatorControllerParameterType.Bool);
+                animator_controller.AddParameter("direction", UnityEngine.AnimatorControllerParameterType.Int);
 
-                var layer = animator_controller.GetLayer(0);
+                var layer = animator_controller.layers[0];
                 var sm = layer.stateMachine;
 
-                var states = new Dictionary<string, Dictionary<string, State>>();
-                states["idle"] = new Dictionary<string, State>();
-                states["move"] = new Dictionary<string, State>();
+                var states = new Dictionary<string, Dictionary<string, UnityEditor.Animations.AnimatorState>>();
+                states["idle"] = new Dictionary<string, UnityEditor.Animations.AnimatorState>();
+                states["move"] = new Dictionary<string, UnityEditor.Animations.AnimatorState>();
 
                 foreach (var animation_types in clips)
                 {
                     foreach (var clip in animation_types.Value)
                     {
                         var state = sm.AddState(clip.Value.name);
-                        state.SetAnimationClip(clip.Value, layer);
+                        animator_controller.SetStateEffectiveMotion(state, clip.Value, layer.syncedLayerIndex);
 
                         states[animation_types.Key][clip.Key] = state;
                     }
@@ -131,29 +132,22 @@ namespace MagicTower.Editor
                 var animator = go.AddComponent<Animator>();
                 animator.runtimeAnimatorController = animator_controller;
 
-                PrefabUtility.CreatePrefab(string.Format("{0}player.prefab", mPrefabPath), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}player.prefab", m_PrefabPath), go);
 
                 DestroyImmediate(go);
             }
 
-            private void AddTransition(StateMachine sm, State src, State dst, string param, int value)
+            private void AddTransition(UnityEditor.Animations.AnimatorStateMachine sm, UnityEditor.Animations.AnimatorState src, UnityEditor.Animations.AnimatorState dst, string param, int value)
             {
-                var trans = sm.AddTransition(src, dst);
-                var condition = trans.GetCondition(0);
-                condition.parameter = param;
-                condition.mode = TransitionConditionMode.Equals;
-                condition.threshold = value;
+                var trans = src.AddTransition(dst);
+                trans.AddCondition(AnimatorConditionMode.Equals, value, param);
             }
 
-            private void AddTransition(StateMachine sm, State src, State dst, string param, bool value)
+            private void AddTransition(UnityEditor.Animations.AnimatorStateMachine sm, UnityEditor.Animations.AnimatorState src, UnityEditor.Animations.AnimatorState dst, string param, bool value)
             {
-                var trans = sm.AddTransition(src, dst);
-                var condition = trans.GetCondition(0);
-                condition.parameter = param;
-                if (value)
-                    condition.mode = TransitionConditionMode.If;
-                else
-                    condition.mode = TransitionConditionMode.IfNot;
+                var trans = src.AddTransition(dst);
+                trans.AddCondition(value ? AnimatorConditionMode.If : AnimatorConditionMode.IfNot,
+                    0f, param);
             }
         }
     }

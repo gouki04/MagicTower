@@ -19,10 +19,10 @@ namespace MagicTower.Editor
                 return Helper.CreateAnimationClip("monster_" + index,
                     1f, 30f,
                     new string[] { "monster_" + index, "monster_" + index + "_1", "monster_" + index },
-                    true, string.Format("{0}monster_{1}.anim", mAnimationPath, index));
+                    true, string.Format("{0}monster_{1}.anim", m_AnimationPath, index));
             }
 
-            void GeneratePrefab(AnimatorController animator_controller, int index)
+            void GeneratePrefab(UnityEditor.Animations.AnimatorController animator_controller, int index)
             {
                 var go = new GameObject();
                 go.name = "monster_" + index;
@@ -33,7 +33,7 @@ namespace MagicTower.Editor
                 var animator = go.AddComponent<Animator>();
                 animator.runtimeAnimatorController = animator_controller;
 
-                PrefabUtility.CreatePrefab(string.Format("{0}monster_{1}.prefab", mPrefabPath, index), go);
+                PrefabUtility.CreatePrefab(string.Format("{0}monster_{1}.prefab", m_PrefabPath, index), go);
 
                 DestroyImmediate(go);
             }
@@ -61,7 +61,7 @@ namespace MagicTower.Editor
                 {
                     var clip = GenerateAnimationClip(CurIndex);
                     var animator_controller = Helper.CreateSimpleAnimatorController(clip,
-                        string.Format("{0}monster_{1}.controller", mAnimatorControllerPath, CurIndex));
+                        string.Format("{0}monster_{1}.controller", m_AnimatorControllerPath, CurIndex));
 
                     GeneratePrefab(animator_controller, CurIndex);
 

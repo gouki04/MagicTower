@@ -140,7 +140,7 @@ namespace MagicTower.Logic
                     }
                     catch
                     {
-                        Logger.LogError("{0}.BeginTrigger do not return bool!", dst_collide_tile.GetType().Name);
+                        Utils.Logger.LogError("{0}.BeginTrigger do not return bool!", dst_collide_tile.GetType().Name);
                         break;
                     }
                 }
@@ -204,7 +204,7 @@ namespace MagicTower.Logic
 
             if (SafeCoroutine.Coroutine.GlobalResult == null)
             {
-                Logger.LogFatal("Load Tile Map ({0}) Failed!", lv);
+                Utils.Logger.LogFatal("Load Tile Map ({0}) Failed!", lv);
                 yield return null;
             }
 

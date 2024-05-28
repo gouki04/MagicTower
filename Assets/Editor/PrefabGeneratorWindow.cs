@@ -14,23 +14,23 @@ namespace MagicTower.Editor
     {
         public abstract class Generator
         {
-            protected string mAnimationPath;
-            protected string mAnimatorControllerPath;
-            protected string mPrefabPath;
+            protected string m_AnimationPath;
+            protected string m_AnimatorControllerPath;
+            protected string m_PrefabPath;
 
             public void Init(string animation_path, string animator_controller_path, string prefab_path)
             {
-                mAnimationPath = animation_path;
-                mAnimatorControllerPath = animator_controller_path;
-                mPrefabPath = prefab_path;
+                m_AnimationPath = animation_path;
+                m_AnimatorControllerPath = animator_controller_path;
+                m_PrefabPath = prefab_path;
             }
 
             public abstract void Generate();
         }
 
-        private MonsterGenerator mMonsterGenerator;
-        private PlayerGenerator mPlayerGenerator;
-        private TerrainGenerator mTerrainGenerator;
+        private MonsterGenerator m_MonsterGenerator;
+        private PlayerGenerator m_PlayerGenerator;
+        private TerrainGenerator m_TerrainGenerator;
 
         public string ANIMATION_PATH = "Assets/Resources/Animation/";
         public string ANIMATOR_CONTROLLER_PATH = "Assets/Resources/Animation/";
@@ -46,61 +46,56 @@ namespace MagicTower.Editor
 
         public PrefabGeneratorWindow()
         {
-            mMonsterGenerator = new MonsterGenerator();
-            mMonsterGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
+            m_MonsterGenerator = new MonsterGenerator();
+            m_MonsterGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
 
-            mPlayerGenerator = new PlayerGenerator();
-            mPlayerGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
+            m_PlayerGenerator = new PlayerGenerator();
+            m_PlayerGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
 
-            mTerrainGenerator = new TerrainGenerator();
-            mTerrainGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
+            m_TerrainGenerator = new TerrainGenerator();
+            m_TerrainGenerator.Init(ANIMATION_PATH, ANIMATOR_CONTROLLER_PATH, PREFAB_PATH);
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             EditorGUILayout.BeginVertical();
             EditorGUILayout.LabelField("Monster");
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label("Begin Index");
-            mMonsterGenerator.BeginIndex = EditorGUILayout.IntField(mMonsterGenerator.BeginIndex);
+            m_MonsterGenerator.BeginIndex = EditorGUILayout.IntField(m_MonsterGenerator.BeginIndex);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label("End Index");
-            mMonsterGenerator.EndIndex = EditorGUILayout.IntField(mMonsterGenerator.EndIndex);
+            m_MonsterGenerator.EndIndex = EditorGUILayout.IntField(m_MonsterGenerator.EndIndex);
             EditorGUILayout.EndHorizontal();
 
-            if (!mMonsterGenerator.IsGenerating)
-            {
-                if (GUILayout.Button("Generate"))
-                {
-                    mMonsterGenerator.Generate();
+            if (!m_MonsterGenerator.IsGenerating) {
+                if (GUILayout.Button("Generate")) {
+                    m_MonsterGenerator.Generate();
                 }
             }
-            else
-            {
-                mMonsterGenerator.Update();
+            else {
+                m_MonsterGenerator.Update();
             }
 
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.LabelField("Player");
-            if (GUILayout.Button("Generate"))
-            {
-                mPlayerGenerator.Generate();
+            if (GUILayout.Button("Generate")) {
+                m_PlayerGenerator.Generate();
             }
+
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.BeginVertical();
             EditorGUILayout.LabelField("Terrain");
-            if (GUILayout.Button("Generate"))
-            {
-                mTerrainGenerator.Generate();
+            if (GUILayout.Button("Generate")) {
+                m_TerrainGenerator.Generate();
             }
+
             EditorGUILayout.EndVertical();
         }
-
-        
     }
 }

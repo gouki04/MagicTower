@@ -15,7 +15,7 @@ public class Main : MonoBehaviour
         //SpriteSheetManager.Instance.Load("monster");
         //SpriteSheetManager.Instance.Load("wall");
 
-		Logger.LogInfo(CSVManager.Instance["monster"][2]["name"]);
+        Utils.Logger.LogInfo(CSVManager.Instance["monster"][2]["name"]);
 
         EventQueue.Instance.AddEvent(EEventType.ENTER_GAME, new MagicTower.Display.DisplayFactory());
     }
